@@ -16,7 +16,7 @@ This paper proposes a comprehensive framework — including a 20-point Consensus
 - **Section 2 — Historical Precedent:** P2SH, SegWit, SegWit2x, and Taproot analyzed for activation parameters and outcomes
 - **Section 3 — The Framework:** Proposal submission requirements, tiered minimum review periods, code audit standards, activation threshold minimums, and sunset clause requirements
 - **Section 4 — Legal Analysis:** Negligence, tortious interference, fiduciary duties, mining pool operator liability, and regulatory implications of chain splits
-- **Section 5 — Proposed Standards:** The 20-point Consensus Change Readiness Checklist with a scoring system (BIP-110: 4/20 | Taproot: 19-20/20)
+- **Section 5 — Proposed Standards:** The 20-point Consensus Change Readiness Checklist with a scoring system (BIP-110: ~3/20 | Taproot: ~18/20)
 - **Section 6 — Objections and Responses**
 
 ## Downloads
