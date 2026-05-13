@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Consensus Change Standards — cover artwork
+  Portrait 8.5×11 (Letter) aspect, designed for full-bleed page 1 of the PDF.
+  Editable vector source: all visible content is plain SVG text/line/circle.
+
+  Re-render to Cover_ForWeb.png:
+      python -c "import cairosvg; cairosvg.svg2png(url='Cover.svg', write_to='Cover_ForWeb.png', output_width=2550)"
+
+  Fonts (installed on this system):
+      Merriweather Black / Light — title and subtitle
+      Roboto / Roboto Bold       — kicker, author, credentials, footer
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1700 2200" width="1700" height="2200">
+
+  <style>
+    .kicker      { font-family: 'Roboto', 'Inter', 'Arial', sans-serif;
+                   font-size: 30px; font-weight: 700; fill: #f7931a;
+                   letter-spacing: 7px; }
+    .vol-mark    { font-family: 'Roboto', 'Inter', 'Arial', sans-serif;
+                   font-size: 22px; font-weight: 700; fill: #8b949e;
+                   letter-spacing: 3.5px; }
+    .title       { font-family: 'Merriweather Black', 'Merriweather', 'PT Serif', 'Cambria', serif;
+                   font-size: 165px; font-weight: 900; fill: #f5f1e6;
+                   letter-spacing: -3px; }
+    .subtitle    { font-family: 'Merriweather Light', 'Merriweather', 'PT Serif', 'Cambria', serif;
+                   font-size: 64px; font-style: italic; font-weight: 300;
+                   fill: #b8c0c9; letter-spacing: -0.3px; }
+    .author      { font-family: 'Roboto', 'Inter', 'Arial', sans-serif;
+                   font-size: 62px; font-weight: 700; fill: #f5f1e6;
+                   letter-spacing: 0.3px; }
+    .cred        { font-family: 'Roboto', 'Inter', 'Arial', sans-serif;
+                   font-size: 30px; font-weight: 400; fill: #8b949e;
+                   letter-spacing: 0.4px; }
+    .imprint-lead{ font-family: 'Roboto', 'Inter', 'Arial', sans-serif;
+                   font-size: 24px; font-weight: 700; fill: #c9d1d9;
+                   letter-spacing: 4.5px; }
+    .imprint-sub { font-family: 'Merriweather Light', 'Merriweather', 'PT Serif', serif;
+                   font-size: 23px; font-style: italic; font-weight: 300;
+                   fill: #8b949e; }
+    .edition     { font-family: 'Roboto', 'Inter', 'Arial', sans-serif;
+                   font-size: 27px; font-weight: 600; fill: #c9d1d9;
+                   letter-spacing: 0.4px; }
+    .revision    { font-family: 'Merriweather Light', 'Merriweather', 'PT Serif', serif;
+                   font-size: 24px; font-style: italic; font-weight: 300;
+                   fill: #8b949e; }
+    .url         { font-family: 'Roboto', 'Inter', 'Arial', sans-serif;
+                   font-size: 26px; font-weight: 400; fill: #79c0ff;
+                   letter-spacing: 0.5px; }
+
+    .accent      { stroke: #f7931a; stroke-width: 8; stroke-linecap: square; }
+    .ring        { fill: none; stroke: #2b3340; stroke-width: 2; }
+    .rule        { stroke: #3d4654; stroke-width: 1.3; }
+    .dot-orange  { fill: #f7931a; }
+  </style>
+
+  <!-- Background — full bleed -->
+  <rect width="1700" height="2200" fill="#0d1117"/>
+
+  <!-- Decorative ring (consensus motif), upper-right -->
+  <circle class="ring" cx="1450" cy="560" r="540"/>
+
+  <!-- Top kicker (left) -->
+  <text class="kicker" x="170" y="175">BITCOIN GOVERNANCE FRAMEWORK</text>
+
+  <!-- Top volume mark (right) -->
+  <text class="vol-mark" x="1530" y="175" text-anchor="end">VOL. 01  ·  2026</text>
+
+  <!-- Title — 3 lines, tight leading -->
+  <text class="title" x="170" y="450">Consensus</text>
+  <text class="title" x="170" y="620">Change</text>
+  <text class="title" x="170" y="790">Standards</text>
+
+  <!-- Subtitle -->
+  <text class="subtitle" x="170" y="910">A Legal and Technical Framework</text>
+  <text class="subtitle" x="170" y="985">for Bitcoin Protocol Governance</text>
+
+  <!-- Bitcoin-orange accent rule + signature dot -->
+  <line   class="accent"     x1="170" y1="1055" x2="410" y2="1055"/>
+  <circle class="dot-orange" cx="445" cy="1055" r="10"/>
+
+  <!-- Author block — sits in the lower third for dramatic hierarchy -->
+  <text class="author" x="170" y="1730">Asaf Fulks</text>
+  <text class="cred"   x="170" y="1800">California State Bar No. 343622</text>
+  <text class="cred"   x="170" y="1845">Solo Bitcoin Miner  ·  Full Node Operator</text>
+
+  <!-- Bottom rule -->
+  <line class="rule" x1="170" y1="2020" x2="1530" y2="2020"/>
+
+  <!-- Bottom-left: imprint -->
+  <text class="imprint-lead" x="170" y="2080">THE FORUM PRESS</text>
+  <text class="imprint-sub"  x="170" y="2122">a Fulks, Inc. company</text>
+
+  <!-- Bottom-right: edition / revision / URL (right-aligned) -->
+  <text class="edition"  x="1530" y="2080" text-anchor="end">First Edition  ·  April 2026</text>
+  <text class="revision" x="1530" y="2122" text-anchor="end">Revised May 2026</text>
+  <text class="url"      x="1530" y="2167" text-anchor="end">asaffulkslaw.com</text>
+
+</svg>
