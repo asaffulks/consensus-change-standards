@@ -4,6 +4,8 @@
 
 *By Asaf Fulks, J.D. — California State Bar No. 343622*
 
+**Second Edition · May 2026**
+
 ---
 
 Bitcoin has no formal process for evaluating proposed changes to its consensus rules. The BIP system provides a mechanism for proposing changes, but establishes no minimum standards that a proposal must meet before the community considers activation. There are no required review periods, no mandatory code audit standards, no agreed-upon activation thresholds, and no framework for evaluating the legal and economic consequences of a failed activation.
@@ -21,8 +23,17 @@ This paper proposes a comprehensive framework — including a 20-point Consensus
 
 ## Downloads
 
-- [**Consensus Change Standards (PDF)**](consensus_change_standards_full.pdf)
-- [**Consensus Change Standards (DOCX)**](consensus_change_standards.docx)
+**Current — Second Edition (May 2026):**
+
+- [**Consensus Change Standards, Second Edition** (DOCX)](consensus_change_standards_v2.docx)
+
+The Second Edition integrates pre-publication review feedback from Mark "Murch" Erhardt (Chaincode Labs) and Jameson Lopp (Casa), incorporates BCAP (Crypto Fish, Lee & Alden, *Analyzing Bitcoin Consensus: Risks in Protocol Upgrades*, Nov. 2024) as the canonical prior work in the field, and adds new sections on Hard Fork Subtypes (§3.7), Measurability of the Criteria (§5.3), a Purpose-of-Legal-Analysis preface (§4.0), a dialectic on framework self-enforcement (§6.6), and a "How to Read This Paper" scope-disambiguating preface (§1.0).
+
+**Archive — First Edition (April 2026, Revised May 2026):**
+
+- [DOCX](consensus_change_standards_v1_archive.docx) · [PDF](consensus_change_standards_v1_archive.pdf)
+
+The First Edition is preserved as a citation anchor; subsequent editions update content but the v1 archive remains byte-identical for citation stability.
 
 ## About the Author
 

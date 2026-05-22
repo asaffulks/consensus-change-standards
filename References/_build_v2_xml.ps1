@@ -162,31 +162,44 @@ function Italicize-Phrase {
     # XML-encode the phrase so '&' / '<' / '>' match the encoded form in document.xml
     $encodedPhrase = $phrase.Replace('&', '&amp;').Replace('<', '&lt;').Replace('>', '&gt;')
     # Match: <w:r>[optional rPr]<w:t [attrs]>PRE phrase POST</w:t></w:r>
-    # Captures: rPrFull(1), rPrInner(2), tAttrs(3), preText(4), postText(5)
     $escapedPhrase = [regex]::Escape($encodedPhrase)
     $pattern = '<w:r>(<w:rPr>((?:[^<]|<(?!/w:rPr>))*?)</w:rPr>)?<w:t([^>]*)>([^<]*?)' + $escapedPhrase + '([^<]*?)</w:t></w:r>'
-    $hits = 0
-    $sb = New-Object System.Text.StringBuilder
-    $lastEnd = 0
-    foreach ($m in [regex]::Matches($script:xml, $pattern)) {
-        $rPrFull = $m.Groups[1].Value
-        $rPrInner = $m.Groups[2].Value
-        $tAttrs = $m.Groups[3].Value
-        $preText = $m.Groups[4].Value
-        $postText = $m.Groups[5].Value
-        # Italic run inherits original rPr inner + adds <w:i/><w:iCs/>
-        $italicRPr = '<w:rPr><w:i/><w:iCs/>' + $rPrInner + '</w:rPr>'
-        [void]$sb.Append($script:xml.Substring($lastEnd, $m.Index - $lastEnd))
-        [void]$sb.Append('<w:r>' + $rPrFull + '<w:t' + $tAttrs + '>' + $preText + '</w:t></w:r>')
-        [void]$sb.Append('<w:r>' + $italicRPr + '<w:t' + $tAttrs + '>' + $encodedPhrase + '</w:t></w:r>')
-        [void]$sb.Append('<w:r>' + $rPrFull + '<w:t' + $tAttrs + '>' + $postText + '</w:t></w:r>')
-        $lastEnd = $m.Index + $m.Length
-        $hits++
-    }
-    [void]$sb.Append($script:xml.Substring($lastEnd))
-    $script:xml = $sb.ToString()
-    if ($hits -gt 0) {
-        $script:log += "OK   italicize: $label ($hits)"
+    $totalHits = 0
+    $maxPasses = 50  # safety against infinite loops
+    do {
+        $passHits = 0
+        $sb = New-Object System.Text.StringBuilder
+        $lastEnd = 0
+        $anyChange = $false
+        foreach ($m in [regex]::Matches($script:xml, $pattern)) {
+            [void]$sb.Append($script:xml.Substring($lastEnd, $m.Index - $lastEnd))
+            $rPrInner = $m.Groups[2].Value
+            # Skip runs that are already italic (rPr contains <w:i/>) — prevents infinite re-italicization
+            if ($rPrInner -match '<w:i\s*/>') {
+                [void]$sb.Append($m.Value)
+            } else {
+                $rPrFull = $m.Groups[1].Value
+                $tAttrs = $m.Groups[3].Value
+                $preText = $m.Groups[4].Value
+                $postText = $m.Groups[5].Value
+                $italicRPr = '<w:rPr><w:i/><w:iCs/>' + $rPrInner + '</w:rPr>'
+                [void]$sb.Append('<w:r>' + $rPrFull + '<w:t' + $tAttrs + '>' + $preText + '</w:t></w:r>')
+                [void]$sb.Append('<w:r>' + $italicRPr + '<w:t' + $tAttrs + '>' + $encodedPhrase + '</w:t></w:r>')
+                [void]$sb.Append('<w:r>' + $rPrFull + '<w:t' + $tAttrs + '>' + $postText + '</w:t></w:r>')
+                $passHits++
+                $anyChange = $true
+            }
+            $lastEnd = $m.Index + $m.Length
+        }
+        if ($anyChange) {
+            [void]$sb.Append($script:xml.Substring($lastEnd))
+            $script:xml = $sb.ToString()
+            $totalHits += $passHits
+        }
+        $maxPasses--
+    } while ($passHits -gt 0 -and $maxPasses -gt 0)
+    if ($totalHits -gt 0) {
+        $script:log += "OK   italicize: $label ($totalHits)"
     } else {
         $script:log += "MISS italicize: $label"
     }
@@ -429,6 +442,8 @@ Italicize-Phrase "Tulip Trading Ltd v van der Laan" "Tulip Trading v van der Laa
 Italicize-Phrase "Analyzing Bitcoin Consensus: Risks in Protocol Upgrades" "BCAP paper title"
 Italicize-Phrase "Regulating Blockchain: Techno-Social and Legal Challenges" "Regulating Blockchain (book title)"
 Italicize-Phrase "When Do Bitcoin Node Operators Upgrade?" "Lopp blog post title"
+# Italicize "BCAP" abbreviation throughout (Bluebook: shortened form retains italics of full title)
+Italicize-Phrase "BCAP" "BCAP abbreviation"
 
 # Citation signal "See" before italic case names (Bluebook Rule 1.2)
 Italicize-See-Before-Italic-Run
