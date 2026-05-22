@@ -1,6 +1,6 @@
 $ErrorActionPreference = 'Stop'
 $repo = 'H:\My Asaf\LAW\ASAF FULKS LAW\BIP - Consensus Change Standards'
-$srcDocx = Join-Path $repo 'consensus_change_standards.docx'
+$srcDocx = Join-Path $repo 'Old\consensus_change_standards.docx'
 $dstDocx = Join-Path $repo 'consensus_change_standards_v2.docx'
 
 # ============================================================
@@ -60,20 +60,21 @@ function Xml-Escape {
 function Build-BodyPara {
     param([string]$text)
     $e = Xml-Escape $text
-    return '<w:p><w:pPr><w:jc w:val="both"/></w:pPr><w:r><w:rPr><w:color w:val="333333"/></w:rPr><w:t xml:space="preserve">' + $e + '</w:t></w:r></w:p>'
+    return '<w:p><w:pPr><w:spacing w:after="0" w:line="360" w:lineRule="auto"/><w:ind w:firstLine="432"/><w:jc w:val="both"/></w:pPr><w:r><w:rPr><w:color w:val="333333"/></w:rPr><w:t xml:space="preserve">' + $e + '</w:t></w:r></w:p>'
 }
 
 function Build-BodyParaBoldPrefix {
     param([string]$boldPrefix, [string]$bodyText)
     $b = Xml-Escape $boldPrefix
     $t = Xml-Escape $bodyText
-    return '<w:p><w:pPr><w:jc w:val="both"/></w:pPr><w:r><w:rPr><w:b/><w:bCs/><w:color w:val="333333"/></w:rPr><w:t xml:space="preserve">' + $b + '</w:t></w:r><w:r><w:rPr><w:color w:val="333333"/></w:rPr><w:t xml:space="preserve">' + $t + '</w:t></w:r></w:p>'
+    return '<w:p><w:pPr><w:spacing w:after="0" w:line="360" w:lineRule="auto"/><w:ind w:firstLine="432"/><w:jc w:val="both"/></w:pPr><w:r><w:rPr><w:b/><w:bCs/><w:color w:val="333333"/></w:rPr><w:t xml:space="preserve">' + $b + '</w:t></w:r><w:r><w:rPr><w:color w:val="333333"/></w:rPr><w:t xml:space="preserve">' + $t + '</w:t></w:r></w:p>'
 }
 
 function Build-Heading2 {
     param([string]$text)
     $e = Xml-Escape $text
-    return '<w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:t xml:space="preserve">' + $e + '</w:t></w:r></w:p>'
+    # keepNext = heading stays with following paragraph (no stranding at page bottom)
+    return '<w:p><w:pPr><w:pStyle w:val="Heading2"/><w:keepNext/></w:pPr><w:r><w:t xml:space="preserve">' + $e + '</w:t></w:r></w:p>'
 }
 
 function Insert-Before-Anchor {
@@ -91,7 +92,26 @@ function Insert-Before-Anchor {
         $script:log += "MISS insert: $label  (<w:p> opening tag not found)"
         return
     }
-    $script:xml = $script:xml.Substring(0, $pOpen) + $newParasXml + $script:xml.Substring($pOpen)
+    # Check whether the IMMEDIATELY preceding paragraph is a page-break paragraph.
+    # If so, the page break belongs to the major section / anchor — keep it adjacent
+    # to the anchor by inserting BEFORE the page-break paragraph (so our new content
+    # goes before the page break, and page-break + anchor remain together).
+    $insertPos = $pOpen
+    $prevPClose = $script:xml.LastIndexOf('</w:p>', $pOpen)
+    if ($prevPClose -ge 0) {
+        $prevPIdx1 = $script:xml.LastIndexOf('<w:p ', $prevPClose)
+        $prevPIdx2 = $script:xml.LastIndexOf('<w:p>', $prevPClose)
+        $prevPOpen = [Math]::Max($prevPIdx1, $prevPIdx2)
+        if ($prevPOpen -ge 0 -and $prevPOpen -lt $pOpen) {
+            $prevParaContent = $script:xml.Substring($prevPOpen, $pOpen - $prevPOpen)
+            if ($prevParaContent -match '<w:br\s+w:type="page"\s*/>') {
+                # Preceding paragraph is a page break — insert before it so it stays with anchor
+                $insertPos = $prevPOpen
+                $script:log += "NOTE insert: $label  (insert positioned before page-break paragraph to preserve major-section break)"
+            }
+        }
+    }
+    $script:xml = $script:xml.Substring(0, $insertPos) + $newParasXml + $script:xml.Substring($insertPos)
     $script:log += "OK   insert: $label"
 }
 
@@ -449,6 +469,48 @@ Italicize-Phrase "BCAP" "BCAP abbreviation"
 Italicize-See-Before-Italic-Run
 # Citation signal "See" before non-italic name (Lopp blog author in §1.4 — title is italic but name "Jameson Lopp" is plain)
 Italicize-See-Before-Name "Jameson Lopp"
+
+# ============================================================
+# Professional legal-document formatting:
+# - Single line spacing (240)
+# - First-line indent 0.3" (432 twips) on body paragraphs
+# - Tight paragraph after-spacing (0)
+# Headings keep their existing before/after spacing (no w:line attribute on heading pPr).
+# ============================================================
+# 1) Normalize all explicit line spacing to single (240)
+$lineCount = ([regex]::Matches($script:xml, 'w:line="\d+"')).Count
+$script:xml = [regex]::Replace($script:xml, 'w:line="\d+"', 'w:line="360"')
+# 2) Zero out paragraph-after spacing on body paragraphs (w:after values >= 120 indicate body-text gap that conflicts with indented style)
+$afterCount = ([regex]::Matches($script:xml, 'w:after="(?:1[2-9][0-9]|[2-9][0-9]{2,}|[1-9][0-9]{3,})"')).Count
+$script:xml = [regex]::Replace($script:xml, 'w:after="(?:1[2-9][0-9]|[2-9][0-9]{2,}|[1-9][0-9]{3,})"', 'w:after="0"')
+# 3) Add first-line indent to body paragraphs that end pPr with justification (don't touch hanging-indent reference paragraphs)
+$indentBefore = ([regex]::Matches($script:xml, '<w:jc w:val="both"/></w:pPr>')).Count
+$script:xml = [regex]::Replace($script:xml, '<w:jc w:val="both"/></w:pPr>', '<w:ind w:firstLine="432"/><w:jc w:val="both"/></w:pPr>')
+$script:log += ("OK   line-spacing normalized to single (240) in " + $lineCount + " spacing elements")
+$script:log += ("OK   paragraph after-spacing tightened to 0 in " + $afterCount + " paragraphs")
+$script:log += ("OK   first-line indent (432 twips = 0.3in) added to " + $indentBefore + " justified body paragraphs")
+
+# 4) Add <w:keepNext/> to ALL Heading2 paragraphs (v1 ones lacked it, causing orphan headings at page bottom)
+$h2BeforeCount = ([regex]::Matches($script:xml, '<w:pPr><w:pStyle w:val="Heading2"/></w:pPr>')).Count
+$script:xml = $script:xml.Replace('<w:pPr><w:pStyle w:val="Heading2"/></w:pPr>', '<w:pPr><w:pStyle w:val="Heading2"/><w:keepNext/></w:pPr>')
+$script:log += ("OK   keepNext added to " + $h2BeforeCount + " existing Heading2 paragraphs (prevents orphan headings at page bottom)")
+
+# 5) Title-page disclaimer paragraphs picked up body formatting (indent + 1.5 line spacing) from #1-#3
+# because they have <w:jc w:val="both"/>. Restore them to fine-print: no indent, 9pt font, single line, light gray.
+$disclaimerProbes = @(
+    'This document does not constitute legal advice',
+    'Bitcoin is an experimental technology. This document does not recommend'
+)
+$disclaimerFixCount = 0
+foreach ($probe in $disclaimerProbes) {
+    $oldPattern = '<w:pPr><w:spacing w:after="0" w:line="360" w:lineRule="auto"/><w:ind w:firstLine="432"/><w:jc w:val="both"/></w:pPr><w:r><w:rPr><w:color w:val="333333"/></w:rPr><w:t>' + $probe
+    $newPattern = '<w:pPr><w:spacing w:after="120" w:line="240" w:lineRule="auto"/><w:jc w:val="both"/></w:pPr><w:r><w:rPr><w:color w:val="555555"/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr><w:t>' + $probe
+    if ($script:xml.Contains($oldPattern)) {
+        $script:xml = $script:xml.Replace($oldPattern, $newPattern)
+        $disclaimerFixCount++
+    }
+}
+$script:log += ("OK   restored " + $disclaimerFixCount + " title-page disclaimer paragraphs to fine-print (9pt, no indent, single-line, gray)")
 
 # ============================================================
 # Write modified XML back to ZIP entry

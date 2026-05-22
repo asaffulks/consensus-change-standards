@@ -25,15 +25,12 @@ This paper proposes a comprehensive framework — including a 20-point Consensus
 
 **Current — Second Edition (May 2026):**
 
-- [**Consensus Change Standards, Second Edition** (DOCX)](consensus_change_standards_v2.docx)
+- [**Consensus Change Standards, Second Edition** (PDF)](consensus_change_standards_v2.pdf) — citation target
+- [DOCX (source)](consensus_change_standards_v2.docx) — for redline contributions and direct editing
 
-The Second Edition integrates pre-publication review feedback from Mark "Murch" Erhardt (Chaincode Labs) and Jameson Lopp (Casa), incorporates BCAP (Crypto Fish, Lee & Alden, *Analyzing Bitcoin Consensus: Risks in Protocol Upgrades*, Nov. 2024) as the canonical prior work in the field, and adds new sections on Hard Fork Subtypes (§3.7), Measurability of the Criteria (§5.3), a Purpose-of-Legal-Analysis preface (§4.0), a dialectic on framework self-enforcement (§6.6), and a "How to Read This Paper" scope-disambiguating preface (§1.0).
+The Second Edition integrates pre-publication review feedback from Mark "Murch" Erhardt (Chaincode Labs) and Jameson Lopp (Casa), incorporates BCAP (Crypto Fish, Lee & Alden, *Analyzing Bitcoin Consensus: Risks in Protocol Upgrades*, Nov. 2024) as the canonical prior work in the field, and adds new sections on Hard Fork Subtypes (§3.7), Measurability of the Criteria (§5.3), a Purpose-of-Legal-Analysis preface (§4.0), a dialectic on framework self-enforcement (§6.6), and a "How to Read This Paper" scope-disambiguating preface (§1.0). Case citations and book/internet-source titles follow Bluebook conventions throughout.
 
-**Archive — First Edition (April 2026, Revised May 2026):**
-
-- [DOCX](consensus_change_standards_v1_archive.docx) · [PDF](consensus_change_standards_v1_archive.pdf)
-
-The First Edition is preserved as a citation anchor; subsequent editions update content but the v1 archive remains byte-identical for citation stability.
+The First Edition (April 2026, Revised May 2026) is preserved in git history; check the commit log if a v1 citation needs to be resolved.
 
 ## About the Author
 
