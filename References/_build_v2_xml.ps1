@@ -495,22 +495,240 @@ $h2BeforeCount = ([regex]::Matches($script:xml, '<w:pPr><w:pStyle w:val="Heading
 $script:xml = $script:xml.Replace('<w:pPr><w:pStyle w:val="Heading2"/></w:pPr>', '<w:pPr><w:pStyle w:val="Heading2"/><w:keepNext/></w:pPr>')
 $script:log += ("OK   keepNext added to " + $h2BeforeCount + " existing Heading2 paragraphs (prevents orphan headings at page bottom)")
 
-# 5) Title-page disclaimer paragraphs picked up body formatting (indent + 1.5 line spacing) from #1-#3
-# because they have <w:jc w:val="both"/>. Restore them to fine-print: no indent, 9pt font, single line, light gray.
-$disclaimerProbes = @(
+# 5) Restore title-page paragraphs to V1 baseline.
+# Step 2 above (w:after >= 120 -> 0) was meant to tighten body paragraphs but
+# caught the deliberately-spaced title/copyright page values, zeroing them. V1
+# shipped cleanly with these values - restore them verbatim. Body-style paragraphs
+# (License body + 2 disclaimers) also got first-line indent + 1.5 line spacing
+# from Step 3 - restore those to V1's no-indent + line=312 (1.3 line spacing).
+# ParaIds inherited from v1 source; stable across rebuilds.
+$titleRestoreLog = 0
+$titleAfterFixes = @(
+    # paraId, V1 w:after value, label
+    @('52250FC3', '400', 'Title (20pt after)'),
+    @('72DA9CE7', '200', 'Edition (10pt after)'),
+    @('34094024', '300', 'asaffulkslaw.com (15pt after - block separator)'),
+    @('4F193CD7', '300', 'theforumpress.com (15pt after - separator before logo)'),
+    @('1EA6111C', '200', 'License heading (10pt after)'),
+    @('4F64B760', '200', 'Full license URL (10pt after)'),
+    @('3C84F23A', '200', 'Available at: heading (10pt after)')
+)
+foreach ($fix in $titleAfterFixes) {
+    $paraId = $fix[0]; $afterVal = $fix[1]; $label = $fix[2]
+    $oldStr = '<w:p w14:paraId="' + $paraId + '" w14:textId="77777777" w:rsidR="0075379D" w:rsidRDefault="00F31183"><w:pPr><w:spacing w:after="0"/></w:pPr>'
+    $newStr = '<w:p w14:paraId="' + $paraId + '" w14:textId="77777777" w:rsidR="0075379D" w:rsidRDefault="00F31183"><w:pPr><w:spacing w:after="' + $afterVal + '"/></w:pPr>'
+    if ($script:xml.Contains($oldStr)) {
+        $script:xml = $script:xml.Replace($oldStr, $newStr)
+        $script:log += ("OK   title-restore: " + $label)
+        $titleRestoreLog++
+    } else {
+        $script:log += ("MISS title-restore: " + $label)
+    }
+}
+
+# Restore License body + 2 disclaimer paragraphs to V1 baseline (12pt body color,
+# 1.3 line spacing, no first-line indent, justified, 10pt after-spacing).
+$titleBodyProbes = @(
+    'You are free to share, copy, redistribute',
     'This document does not constitute legal advice',
     'Bitcoin is an experimental technology. This document does not recommend'
 )
-$disclaimerFixCount = 0
-foreach ($probe in $disclaimerProbes) {
+$titleBodyFixCount = 0
+foreach ($probe in $titleBodyProbes) {
     $oldPattern = '<w:pPr><w:spacing w:after="0" w:line="360" w:lineRule="auto"/><w:ind w:firstLine="432"/><w:jc w:val="both"/></w:pPr><w:r><w:rPr><w:color w:val="333333"/></w:rPr><w:t>' + $probe
-    $newPattern = '<w:pPr><w:spacing w:after="120" w:line="240" w:lineRule="auto"/><w:jc w:val="both"/></w:pPr><w:r><w:rPr><w:color w:val="555555"/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr><w:t>' + $probe
+    $newPattern = '<w:pPr><w:spacing w:after="200" w:line="312" w:lineRule="auto"/><w:jc w:val="both"/></w:pPr><w:r><w:rPr><w:color w:val="333333"/></w:rPr><w:t>' + $probe
     if ($script:xml.Contains($oldPattern)) {
         $script:xml = $script:xml.Replace($oldPattern, $newPattern)
-        $disclaimerFixCount++
+        $titleBodyFixCount++
     }
 }
-$script:log += ("OK   restored " + $disclaimerFixCount + " title-page disclaimer paragraphs to fine-print (9pt, no indent, single-line, gray)")
+$script:log += ("OK   title-restore: " + $titleBodyFixCount + " body paragraphs (License + 2 disclaimers) restored to V1 (default body size, line=312, no indent, justified, after=200)")
+$script:log += ("OK   title-restore summary: " + $titleRestoreLog + " w:after restorations + " + $titleBodyFixCount + " body-paragraph restorations applied")
+
+# 6) Title paragraph: pin explicit sz=24 (12pt) on the title run so the title
+# size is stable regardless of any future body-default change. Title remains
+# differentiated from body by bold weight (V1 hierarchy pattern).
+$titleRunOld = '<w:r><w:rPr><w:b/><w:bCs/><w:color w:val="333333"/></w:rPr><w:t>Consensus Change Standards:'
+$titleRunNew = '<w:r><w:rPr><w:b/><w:bCs/><w:color w:val="333333"/><w:sz w:val="24"/><w:szCs w:val="24"/></w:rPr><w:t>Consensus Change Standards:'
+if ($script:xml.Contains($titleRunOld)) {
+    $script:xml = $script:xml.Replace($titleRunOld, $titleRunNew)
+    $script:log += "OK   title-size: explicit sz=24 (12pt) pinned on title run (V1 hierarchy: title=body-size + bold)"
+} else {
+    $script:log += "MISS title-size"
+}
+
+# ============================================================
+# Step 7: Title-page content polish + Table of Contents
+# 7a) Merge copyright notice into License heading
+# 7b) Append BIP-110-positioning sentence to legal disclaimer; remove
+#     standalone "Bitcoin is an experimental technology" paragraph
+# 7c) Insert "Cite as:" suggested-citation paragraph before the disclaimer
+# 7d) Insert TABLE OF CONTENTS (auto-update field) on its own page
+#     between Abstract and SECTION 1
+# Step 7 runs AFTER the body-formatting sweep so new insertions retain their
+# intended w:after / w:line / no-indent settings (sweep won't re-run on them).
+# ============================================================
+
+$copyrightSym = [char]0x00A9  # ©
+
+# ---- 7a) Copyright + License heading ----
+$oldLicHead = '<w:r><w:rPr><w:b/><w:bCs/><w:color w:val="333333"/><w:sz w:val="22"/><w:szCs w:val="22"/></w:rPr><w:t xml:space="preserve">License: </w:t></w:r><w:r><w:rPr><w:color w:val="333333"/><w:sz w:val="22"/><w:szCs w:val="22"/></w:rPr><w:t>Creative Commons Attribution 4.0 International (CC BY 4.0)</w:t></w:r>'
+$newLicHead = '<w:r><w:rPr><w:b/><w:bCs/><w:color w:val="333333"/><w:sz w:val="22"/><w:szCs w:val="22"/></w:rPr><w:t xml:space="preserve">Copyright ' + $copyrightSym + ' 2026 Asaf Fulks. </w:t></w:r><w:r><w:rPr><w:color w:val="333333"/><w:sz w:val="22"/><w:szCs w:val="22"/></w:rPr><w:t>Licensed under Creative Commons Attribution 4.0 International (CC BY 4.0).</w:t></w:r>'
+Replace-XmlText $oldLicHead $newLicHead ("7a: License heading -> Copyright " + $copyrightSym + " 2026 Asaf Fulks + CC BY 4.0")
+
+# ---- 7b) Disclaimer merge ----
+$oldLegalEnd = "do not represent the views of any employer, client, or affiliated organization."
+$newLegalEnd = "do not represent the views of any employer, client, or affiliated organization. This document does not recommend for or against any particular consensus change proposal, including BIP-110."
+Replace-XmlText $oldLegalEnd $newLegalEnd "7b: Appended BIP-110 positioning to legal disclaimer"
+
+$oldExpTechPara = '<w:p w14:paraId="5B8E1735" w14:textId="77777777" w:rsidR="0075379D" w:rsidRDefault="00F31183"><w:pPr><w:spacing w:after="200" w:line="312" w:lineRule="auto"/><w:jc w:val="both"/></w:pPr><w:r><w:rPr><w:color w:val="333333"/></w:rPr><w:t>Bitcoin is an experimental technology. This document does not recommend for or against any particular consensus change proposal, including BIP-110.</w:t></w:r></w:p>'
+Replace-XmlText $oldExpTechPara '' "7b: Removed standalone 'Bitcoin is an experimental technology' paragraph"
+
+# ---- 7c) Cite as: citation paragraph (Bluebook-style book/treatise form) ----
+$citeAsXml =
+    '<w:p>' +
+    '<w:pPr><w:spacing w:after="200"/></w:pPr>' +
+    '<w:r><w:rPr><w:b/><w:bCs/><w:color w:val="333333"/><w:sz w:val="22"/><w:szCs w:val="22"/></w:rPr><w:t xml:space="preserve">Cite as: </w:t></w:r>' +
+    '<w:r><w:rPr><w:color w:val="333333"/><w:sz w:val="22"/><w:szCs w:val="22"/></w:rPr><w:t xml:space="preserve">Asaf Fulks, </w:t></w:r>' +
+    '<w:r><w:rPr><w:i/><w:iCs/><w:color w:val="333333"/><w:sz w:val="22"/><w:szCs w:val="22"/></w:rPr><w:t>Consensus Change Standards: A Legal and Technical Framework for Bitcoin Protocol Governance</w:t></w:r>' +
+    '<w:r><w:rPr><w:color w:val="333333"/><w:sz w:val="22"/><w:szCs w:val="22"/></w:rPr><w:t xml:space="preserve"> (2d ed. 2026), </w:t></w:r>' +
+    '<w:r><w:rPr><w:color w:val="2E75B6"/><w:sz w:val="22"/><w:szCs w:val="22"/></w:rPr><w:t>asaffulkslaw.com</w:t></w:r>' +
+    '<w:r><w:rPr><w:color w:val="333333"/><w:sz w:val="22"/><w:szCs w:val="22"/></w:rPr><w:t>.</w:t></w:r>' +
+    '</w:p>'
+Insert-Before-Anchor "This document does not constitute legal advice" $citeAsXml "7c: Cite as: citation paragraph (Bluebook 2d ed.)"
+
+# ---- 7d) TABLE OF CONTENTS (page break + heading + TOC field) ----
+# TOC field is marked dirty (w:dirty="true") so Word prompts to update on open,
+# OR the user can right-click + Update Field, OR press F9 after selecting field.
+# Levels 1-2 = SECTION X (Heading1) + subsections (Heading2). Hyperlinked entries.
+$tocXml =
+    '<w:p><w:r><w:br w:type="page"/></w:r></w:p>' +
+    '<w:p><w:pPr><w:pStyle w:val="Heading1"/></w:pPr><w:r><w:t>TABLE OF CONTENTS</w:t></w:r></w:p>' +
+    '<w:p><w:pPr><w:spacing w:after="0" w:line="360" w:lineRule="auto"/></w:pPr>' +
+    '<w:r><w:fldChar w:fldCharType="begin" w:dirty="true"/></w:r>' +
+    '<w:r><w:instrText xml:space="preserve"> TOC \o "1-2" \h \z \u </w:instrText></w:r>' +
+    '<w:r><w:fldChar w:fldCharType="separate"/></w:r>' +
+    '<w:r><w:t xml:space="preserve">Right-click and choose Update Field (or press F9) to populate the table of contents.</w:t></w:r>' +
+    '<w:r><w:fldChar w:fldCharType="end"/></w:r>' +
+    '</w:p>'
+Insert-Before-Anchor "SECTION 1: THE PROBLEM" $tocXml "7d: TABLE OF CONTENTS (auto-update field, H1+H2 hyperlinked)"
+
+# ============================================================
+# Step 8: document.xml font sweep
+# Blanket-replace any inline Arial rFonts attribute values with the chosen body
+# font. V1 source uses Arial inline on table-header runs (white text on colored
+# cells) for sans-serif contrast against Georgia body. After our switch to a
+# unified serif (Palatino Linotype), inline Arial overrides must come along
+# or table headers will visually clash with the rest of the document.
+# Doing this at the attribute-value level catches every override (not just
+# table headers) without needing to enumerate paragraphs.
+# ============================================================
+$arialBefore = ([regex]::Matches($script:xml, 'Arial')).Count
+$script:xml = $script:xml.Replace('w:ascii="Arial"', 'w:ascii="Palatino Linotype"')
+$script:xml = $script:xml.Replace('w:eastAsia="Arial"', 'w:eastAsia="Palatino Linotype"')
+$script:xml = $script:xml.Replace('w:hAnsi="Arial"', 'w:hAnsi="Palatino Linotype"')
+$script:xml = $script:xml.Replace('w:cs="Arial"', 'w:cs="Palatino Linotype"')
+$arialAfter = ([regex]::Matches($script:xml, 'Arial')).Count
+$arialSwapped = $arialBefore - $arialAfter
+$script:log += ("OK   document.xml font sweep: " + $arialSwapped + " inline Arial rFonts -> Palatino Linotype (table headers etc.); " + $arialAfter + " Arial occurrences remain (text content or unrelated)")
+
+# ============================================================
+# Step 9: Colophon cleanup + Glossary insertion
+# 9a) Remove three redundant colophon metadata paragraphs at end of SECTION 7
+#     ("Asaf Fulks Law | asaffulkslaw.com", "California State Bar No. 343622",
+#     "Published by The Forum Press, a Fulks, Inc. company | Second Edition * May 2026").
+#     These duplicate title-page content and the publisher/edition line was
+#     orphaning on its own page (~p.43). Keep the orange-rule "Asaf Fulks" mark
+#     as a tasteful end-of-work signature.
+# 9b) Insert GLOSSARY OF TECHNICAL TERMS (Heading1) + 17 entries on its own page
+#     between conclusion and REFERENCES. Lawyer-facing definitions of Bitcoin
+#     technical vocabulary (BIP, soft fork, MASF/UASF, Speedy Trial w/ LOT, etc.).
+# ============================================================
+
+# ---- 9a) Colophon cleanup ----
+$colophonRemovals = @(
+    @('<w:p w14:paraId="0A1A5821" w14:textId="77777777" w:rsidR="0075379D" w:rsidRDefault="00F31183"><w:pPr><w:spacing w:after="40"/><w:jc w:val="center"/></w:pPr><w:r><w:rPr><w:color w:val="555555"/><w:sz w:val="20"/><w:szCs w:val="20"/></w:rPr><w:t>Asaf Fulks Law | asaffulkslaw.com</w:t></w:r></w:p>', "Asaf Fulks Law line"),
+    @('<w:p w14:paraId="2FB3912D" w14:textId="77777777" w:rsidR="0075379D" w:rsidRDefault="00F31183"><w:pPr><w:spacing w:after="40"/><w:jc w:val="center"/></w:pPr><w:r><w:rPr><w:color w:val="555555"/><w:sz w:val="20"/><w:szCs w:val="20"/></w:rPr><w:t>California State Bar No. 343622</w:t></w:r></w:p>', "California State Bar No. line"),
+    @(('<w:p w14:paraId="16D5451D" w14:textId="77777777" w:rsidR="0075379D" w:rsidRDefault="00F31183"><w:pPr><w:spacing w:after="0"/><w:jc w:val="center"/></w:pPr><w:r><w:rPr><w:color w:val="555555"/><w:sz w:val="20"/><w:szCs w:val="20"/></w:rPr><w:t>Published by The Forum Press, a Fulks, Inc. company | Second Edition ' + $bull + ' May 2026</w:t></w:r></w:p>'), "Published by | Second Edition orphan line")
+)
+foreach ($cr in $colophonRemovals) {
+    Replace-XmlText $cr[0] '' ("9a: Removed colophon - " + $cr[1])
+}
+
+# ---- 9b) Glossary helpers ----
+function Build-GloRun {
+    param([string]$text, [bool]$bold = $false, [bool]$italic = $false)
+    $e = Xml-Escape $text
+    $rPr = '<w:rPr>'
+    if ($bold)   { $rPr += '<w:b/><w:bCs/>' }
+    if ($italic) { $rPr += '<w:i/><w:iCs/>' }
+    $rPr += '<w:color w:val="333333"/></w:rPr>'
+    return '<w:r>' + $rPr + '<w:t xml:space="preserve">' + $e + '</w:t></w:r>'
+}
+function Build-GloEntry {
+    param([string]$term, [string]$body)
+    return ('<w:p><w:pPr><w:spacing w:after="120" w:line="276" w:lineRule="auto"/></w:pPr>' +
+        (Build-GloRun ($term + ' ') $true $false) +
+        (Build-GloRun $body $false $false) +
+        '</w:p>')
+}
+$gpStart = '<w:p><w:pPr><w:spacing w:after="120" w:line="276" w:lineRule="auto"/></w:pPr>'
+$gpEnd   = '</w:p>'
+
+# ---- 9b) Glossary content (17 entries; LOT folded into Speedy Trial) ----
+$glossaryXml =
+    '<w:p><w:r><w:br w:type="page"/></w:r></w:p>' +
+    '<w:p><w:pPr><w:pStyle w:val="Heading1"/></w:pPr><w:r><w:t>GLOSSARY OF TECHNICAL TERMS</w:t></w:r></w:p>' +
+
+    (Build-GloEntry "Activation threshold." ("The percentage of mining hashrate that must signal readiness for a soft-fork change before the change locks in and begins enforcement. Historically 95% (BIP-9, Taproot); BIP-110 proposed 55%. See " + $ssign + "3.4.")) +
+
+    # BCAP — italic title
+    ($gpStart +
+        (Build-GloRun "BCAP. " $true $false) +
+        (Build-GloRun "Shortened form for Ren Crypto Fish, Steve Lee & Lyn Alden, " $false $false) +
+        (Build-GloRun "Analyzing Bitcoin Consensus: Risks in Protocol Upgrades" $false $true) +
+        (Build-GloRun (" (Nov. 2024). The principal prior analytical work this paper builds on. See " + $ssign + "1.4.") $false $false) +
+        $gpEnd) +
+
+    (Build-GloEntry "BIP (Bitcoin Improvement Proposal)." "A formal proposal document for a change to the Bitcoin protocol or surrounding standards. Filing a BIP does not activate the change; activation is a separate ecosystem process this framework evaluates.") +
+
+    (Build-GloEntry "Chain split." "A divergence in the network where some nodes accept a block under one set of consensus rules and other nodes accept a different block under different rules, producing two parallel chains.") +
+
+    (Build-GloEntry "Consensus rules." "The network-wide rules that determine whether a block is valid. Changes to consensus rules require either a soft fork or a hard fork.") +
+
+    (Build-GloEntry "Economic Nodes." ("Full nodes operated by entities with material Bitcoin throughput " + $emdash + " exchanges, custodians, payment processors, large merchants, ETF operators. Their enforcement of consensus rules is what gives miner signaling its weight.")) +
+
+    (Build-GloEntry "Hard fork." ("A consensus-rule change that loosens or alters validity rules such that the new rules accept blocks the old rules would reject. Pre-upgrade nodes cannot follow the new chain. See " + $ssign + "3.7.")) +
+
+    (Build-GloEntry "Hashrate." ("The aggregate computational power miners are dedicating to Bitcoin" + $apos + "s proof-of-work. Used as the unit of measure for activation signaling.")) +
+
+    (Build-GloEntry "MASF (Miner-Activated Soft Fork)." "A soft fork that activates when miner signaling crosses the activation threshold. The default activation pathway in Bitcoin.") +
+
+    (Build-GloEntry "OP_SUCCESS." ("Opcodes reserved during the Taproot soft fork as placeholders for future additions. Substituting an OP_SUCCESS slot with a new opcode enables adding new spending paths via soft fork. See " + $ssign + "3.5.")) +
+
+    (Build-GloEntry "Reference implementation." "The canonical software implementing a proposed consensus change, against which other client implementations are compared for correctness.") +
+
+    (Build-GloEntry "Reorganization (reorg)." ("When miners switch from one valid chain to a competing chain of greater accumulated work, undoing the transactions in the abandoned blocks. The mechanism by which a sub-overwhelming-enforcement soft fork can be unwound. See " + $ssign + "3.4.")) +
+
+    (Build-GloEntry "Replay protection." ("A technical mechanism (typically a transaction-format change) that prevents a transaction valid on one chain after a split from being broadcastable on the other. Necessary in hard forks where a meaningful minority continues to run the prior rules. See " + $ssign + "3.5.C, " + $ssign + "3.7.")) +
+
+    (Build-GloEntry "Signaling." "Miners indicating readiness for a proposed soft fork by setting a designated bit in block headers during a defined signaling window.") +
+
+    (Build-GloEntry "Soft fork." "A consensus-rule change that tightens validity rules such that the new rules continue to accept blocks the old rules would have accepted (the new rules are a strict subset of the old). Pre-upgrade nodes will continue to follow the upgraded chain.") +
+
+    # Speedy Trial — consolidates LOT (italic LOT=false / LOT=true)
+    ($gpStart +
+        (Build-GloRun "Speedy Trial. " $true $false) +
+        (Build-GloRun ("An activation deployment pattern with a fixed signaling window, a high activation threshold (commonly 90%), and a clean timeout if the signaling threshold is not met. The clean-timeout behavior is the deployment" + $apos + "s ") $false $false) +
+        (Build-GloRun "LOT=false" $false $true) +
+        (Build-GloRun " setting; the alternative " $false $false) +
+        (Build-GloRun "LOT=true" $false $true) +
+        (Build-GloRun (" forces activation at the deadline regardless of signaling. See " + $ssign + "3.4 on the LOT debate. Used for Taproot in 2021.") $false $false) +
+        $gpEnd) +
+
+    (Build-GloEntry "UASF (User-Activated Soft Fork)." ("A soft fork activated by economic nodes enforcing new rules without depending on miner signaling threshold being met. BIP-148 is the canonical example. UASF works only when prior community support is overwhelming; UASF without that support yields the BIP-110 outcome. See " + $ssign + "3.4."))
+
+Insert-Before-Anchor "REFERENCES" $glossaryXml "9b: GLOSSARY OF TECHNICAL TERMS (17 entries on its own page before References)"
 
 # ============================================================
 # Write modified XML back to ZIP entry
@@ -524,6 +742,57 @@ $writer = New-Object System.IO.StreamWriter($writeStream, $utf8NoBom)
 $writer.Write($script:xml)
 $writer.Close()
 $writeStream.Close()
+
+# ============================================================
+# Modify word/styles.xml: docDefaults font + body size
+# Cambria (Microsoft modern serif) replaces Georgia. 11pt body (sz=22) replaces
+# 12pt (sz=24). Explicit Heading1/Heading2 font+size in styles.xml remain Arial
+# and unaffected; the explicit sz=22 already on title-page Author/Bar/Admitted/
+# publisher/URL lines remains valid and matches the new default.
+# ============================================================
+Write-Output "Modifying word/styles.xml (font: Georgia/Arial/Garamond -> Palatino Linotype, body: 12pt -> 11pt)"
+$stylesEntry = $zip.Entries | Where-Object { $_.FullName -eq 'word/styles.xml' }
+$readStream2 = $stylesEntry.Open()
+$reader2 = New-Object System.IO.StreamReader($readStream2, [System.Text.Encoding]::UTF8)
+$stylesXml = $reader2.ReadToEnd()
+$reader2.Close()
+$readStream2.Close()
+
+# docDefaults: Georgia 12pt -> Palatino Linotype 11pt
+# Palatino's large x-height makes 11pt read at the visual density of Garamond 12pt
+# while delivering stronger screen/PDF rendering. "Palatino Linotype" is Microsoft's
+# bundled Zapf cut (correct font name on Windows; bare "Palatino" doesn't resolve).
+$oldDocDef = '<w:rFonts w:ascii="Georgia" w:eastAsia="Georgia" w:hAnsi="Georgia" w:cs="Georgia"/><w:sz w:val="24"/><w:szCs w:val="24"/>'
+$newDocDef = '<w:rFonts w:ascii="Palatino Linotype" w:eastAsia="Palatino Linotype" w:hAnsi="Palatino Linotype" w:cs="Palatino Linotype"/><w:sz w:val="22"/><w:szCs w:val="22"/>'
+if ($stylesXml.Contains($oldDocDef)) {
+    $stylesXml = $stylesXml.Replace($oldDocDef, $newDocDef)
+    $script:log += "OK   styles: docDefaults Georgia 12pt -> Palatino Linotype 11pt"
+} else {
+    $script:log += "MISS styles: docDefaults Georgia 12pt pattern"
+}
+
+# Blanket sweep: any remaining Arial OR Garamond (from prior edits) -> Palatino Linotype.
+# Catches Heading1, Heading2, and any other styles with explicit Arial that we didn't
+# enumerate (Heading4-9, TOC styles, captions, etc.). Also catches any leftover Garamond
+# from past iterations of the script. Attribute-value level only (not text content).
+$stylesFontBefore = ([regex]::Matches($stylesXml, '(Arial|Garamond)')).Count
+foreach ($oldFont in @('Arial', 'Garamond')) {
+    $stylesXml = $stylesXml.Replace('w:ascii="' + $oldFont + '"', 'w:ascii="Palatino Linotype"')
+    $stylesXml = $stylesXml.Replace('w:eastAsia="' + $oldFont + '"', 'w:eastAsia="Palatino Linotype"')
+    $stylesXml = $stylesXml.Replace('w:hAnsi="' + $oldFont + '"', 'w:hAnsi="Palatino Linotype"')
+    $stylesXml = $stylesXml.Replace('w:cs="' + $oldFont + '"', 'w:cs="Palatino Linotype"')
+}
+$stylesFontAfter = ([regex]::Matches($stylesXml, '(Arial|Garamond)')).Count
+$script:log += ("OK   styles font sweep: " + ($stylesFontBefore - $stylesFontAfter) + " Arial/Garamond -> Palatino Linotype attribute swaps (Heading1, Heading2, all heading + style references)")
+
+$stylesEntry.Delete()
+$newStylesEntry = $zip.CreateEntry('word/styles.xml', 0)
+$writeStream2 = $newStylesEntry.Open()
+$writer2 = New-Object System.IO.StreamWriter($writeStream2, $utf8NoBom)
+$writer2.Write($stylesXml)
+$writer2.Close()
+$writeStream2.Close()
+
 $zip.Dispose()
 
 Write-Output ""
