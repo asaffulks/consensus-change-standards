@@ -21,13 +21,45 @@ Reaffirmed as a hard rule on 2026-05-22.
 
 - `emails/` and `nostr_drafts/` are local-only — never stage, commit, or push them.
 
-## Current edition status (as of 2026-05-22)
+## Current edition status (as of 2026-05-23)
 
-- **First Edition (April 2026, Revised May 2026)** — published. Archived as `consensus_change_standards_v1_archive.docx/pdf` for citation stability. **Do not modify the v1 archive files.**
-- **Second Edition (May 2026)** — in production. Output files: `consensus_change_standards_v2.docx` / `consensus_change_standards_v2.pdf`. Incorporates Murch + Lopp pre-publication review feedback plus self-identified clarity fixes plus BCAP Prior Work integration. Currently the working/canonical version going forward; replaces the `consensus_change_standards.docx` filename on user approval.
-- `consensus_change_standards.docx` / `consensus_change_standards_full.pdf` — current published files; remain at v1 content until v2 supersedes them.
+- **First Edition (April 2026, Revised May 2026)** — published. Archived as `consensus_change_standards_v1_archive.docx/pdf` for citation stability in `Old/`. **Do not modify the v1 archive files.**
+- **Second Edition v2.1 (May 2026)** — current canonical PDF: `consensus_change_standards_v2.1.pdf` at repo root. Built from LaTeX (`LaTeX/consensus_change_standards.tex`). This is the deliverable PDF going forward.
+- `consensus_change_standards_v2.docx` — content source kept in main dir for text reference (can re-extract via ZIP/XML if needed). The earlier docx-built `consensus_change_standards_v2.pdf` has been retired to `Old/`.
+- Cover: `Cover.svg` (editable source) → `Cover_ForWeb.png` (rendered via `python -c "import cairosvg; cairosvg.svg2png(url='Cover.svg', write_to='Cover_ForWeb.png', output_width=2550)"`). Cover currently says "Second Edition · May 2026."
 
-## Batch revision workflow
+## LaTeX build workflow (canonical, as of 2026-05-23)
+
+The Second Edition is built from LaTeX, modeled after the Studio book template (`H:\My Asaf\OC Recording School\TheStudio-Book\2026\LaTex\InTheStudio(12).tex`). Source lives in `LaTeX/consensus_change_standards.tex`; build artifacts in `LaTeX/build/` (gitignored).
+
+**Build commands:**
+```bash
+cd LaTeX
+pdflatex -interaction=nonstopmode -output-directory=build consensus_change_standards.tex  # first pass
+pdflatex -interaction=nonstopmode -output-directory=build consensus_change_standards.tex  # second pass (resolves TOC)
+cp build/consensus_change_standards.pdf ../consensus_change_standards_v2.1.pdf            # promote to repo root
+```
+
+**Preamble fingerprint (mirrors Studio book):**
+- `\documentclass[11pt, twoside, openright]{book}`
+- Geometry: 8.5×11, inner=1.375in (gutter), outer=1.0in, top=0.90in, bottom=1.0in
+- Font: Palatino via `mathpazo`, T1 fontenc, line spread 1.15, microtype
+- `fancyhdr`: left-even = book title, right-odd = chapter, footer = centered page number
+- `titlesec` for chapter (chaptergray #505050) and section (sectioncolor #282828) formatting
+- `eso-pic` for full-bleed cover via `\AddToShipoutPicture*{\put(0,0){\includegraphics[width=\paperwidth,height=\paperheight]{../Cover_ForWeb.png}}}`
+- `\setcounter{section}{-1}` after chapters 1 and 4 so their first sections render as 1.0 and 4.0 (matching v2 docx numbering)
+- Custom `\reqitem{A.}{Heading}` macro for the lettered A./B./C. inline-bold subitems in §3.1, §3.3, §3.5, etc.
+- Custom `\sect{3.4}` macro → `§3.4` shorthand
+
+**Front-matter order:** cover (page i) → blank (ii) → typographic title page (iii) → copyright (iv) → acks (v) → TOC → abstract → mainmatter.
+
+**Body structure:** SECTION 1–7 → `\chapter`; numbered subsections (1.1, 1.2, etc.) → `\section`. Back matter (`\backmatter`): Glossary → References → Disclaimer (each as unnumbered `\chapter{}` — do NOT add `\addcontentsline` calls; `\backmatter` chapters auto-add to TOC, doubling otherwise).
+
+**URLs in references:** use `\url{}` from hyperref (NOT `\texttt{}`) — `\url` knows how to break long URLs at path separators; `\texttt` produces overfull hboxes.
+
+## Batch revision workflow (docx, legacy)
+
+The docx batch-revision workflow is now LEGACY — content edits going forward happen directly in `LaTeX/consensus_change_standards.tex`. The docx pattern is preserved here for reference in case a future revision cycle returns to docx as source.
 
 For substantial multi-edit revisions to the paper, use the two-file pattern documented in `References/v2_changes.md` (master change document) + `References/_build_v2_xml.ps1` (XML-direct PowerShell script — NOT Word COM, which proved unreliable on this machine during the v2 cycle). See `[[batch-paper-revision-workflow]]` memory for the convention. Step 0 source-text verification (extract .docx → ZIP/XML → plain text → grep for anchors) belongs upstream of the master-changes drafting; produces `References/_ccs_text_extract.txt` as a transient working artifact (leading-underscore prefix signals working-file status; delete at cycle close).
 
