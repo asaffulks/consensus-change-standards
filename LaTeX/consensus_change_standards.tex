@@ -936,11 +936,77 @@ The remaining fuzzy elements in the scorecard's earlier criteria are anchored as
 
 These heuristics are illustrative because the framework's binary scoring is meant to be defensible against challenge, not bright-line. A reviewer who scores a criterion ``met'' using a different evidentiary basis than the heuristic above can defend that scoring by publishing the basis. A reviewer who scores a criterion ``not met'' can do the same. What the framework asks is not algorithmic agreement; it is that scoring choices be legible and challengeable. That is what makes the resulting evaluation defensible in any forum\,---\,technical, commercial, or legal\,---\,where the proposal's readiness must be assessed.
 
+\section{Worked Examples: Taproot and BIP-110}
+
+The twenty criteria yield concrete classifications when applied to specific proposals. This section walks through their application to the two examples introduced in \sect{5.2}: Taproot, which activated in November 2021 after years of review, and BIP-110, which stalled in 2026 within weeks of activation-client release. The walkthrough shows how each criterion resolves on the public record and why the resulting scores (Taproot 18/20, BIP-110 3/20) differ by an order of magnitude.
+
+The scoring below applies the heuristic anchors of \sect{5.3} and follows the framework's commitment that scoring choices be ``legible and challengeable.'' A reader who reaches different conclusions on the fuzzier criteria is invited to publish the alternative scoring with the evidentiary basis. The walkthrough's purpose is to demonstrate the framework's operation, not to fix the score against further argument.
+
+\medskip
+
+{\small
+\renewcommand{\arraystretch}{1.15}%
+\begin{longtable}{@{}p{0.25in} p{1.5in} p{2.0in} p{2.0in}@{}}
+\toprule
+\textbf{\#} & \textbf{Criterion} & \textbf{Taproot} & \textbf{BIP-110} \\
+\midrule
+\endhead
+
+\multicolumn{4}{@{}l}{\textit{A. Proposal Quality}} \\
+\addlinespace[2pt]
+1 & Empirically supported problem statement & $\checkmark$ Schnorr efficiency, scriptpath privacy, and key aggregation are measurable improvements & $\times$ ``Spam uses'' framed without quantitative measurement \\
+2 & Complete technical specification & $\checkmark$ BIPs 340/341/342 permit independent implementation & $\checkmark$ RDTS specification permits implementation \\
+3 & Backward compatibility analysis & $\checkmark$ Strict soft fork; OP\_SUCCESS slot reservation preserves future flexibility & $\times$ No enumeration of affected transaction types or use cases \\
+4 & Fully specified activation mechanism & $\checkmark$ Speedy Trial: 90\% threshold, ${\sim}3$-month signaling window, defined timeout & $\checkmark$ 55\% UASF threshold, defined window, sunset block height \\
+5 & Rollback / sunset (if temporary) & $\checkmark$ Permanent change; soft-fork status preserves future-reversal possibility per \sect{3.1}.E & $\checkmark$ Self-executing sunset at defined block height \\
+\addlinespace[4pt]
+
+\multicolumn{4}{@{}l}{\textit{B. Code Quality}} \\
+\addlinespace[2pt]
+6 & $\geq 3$ expert reviewers, distinct organizations & $\checkmark$ Multi-year review across Bitcoin Core, academic cryptography, and other consensus-compatible implementations & $\times$ Customary review burden not met; reviewer affiliations not documented (\sect{1.3}) \\
+7 & Comprehensive unit/integration/regression tests & $\checkmark$ Full test coverage merged into Bitcoin Core's test suite & $\times$ Client released with known bugs per \sect{1.3} \\
+8 & Testnet $\geq 3$ months; deactivation tested if sunset & $\checkmark$ Multi-year signet and testnet deployment & $\times$ Six-week proposal-to-client timeline; sunset deactivation not demonstrably tested \\
+9 & Fuzzing and adversarial testing & $\checkmark$ Bitcoin Core fuzzing infrastructure exercised on Taproot consensus code & $\times$ Fuzzing not documented \\
+10 & Named reviewer comprehension attestation & $\checkmark$ Multiple named reviewers attested comprehension across years of public review & $\times$ No comparable attestation documented \\
+\addlinespace[4pt]
+
+\multicolumn{4}{@{}l}{\textit{C. Activation Safety}} \\
+\addlinespace[2pt]
+11 & MASF threshold $\geq 90\%$ & $\checkmark$ Speedy Trial threshold of 90\% (1{,}815 of 2{,}016 blocks) & $\times$ 55\% UASF threshold; sub-60\% is reckless under \sect{3.4} \\
+12 & UASF: full review + broad economic-node support & $\checkmark$ Vacuously satisfied (Taproot used MASF) & $\times$ Six-week review; $\leq 0.15\%$ peak signaling \\
+13 & Chain-split risk assessment & $\checkmark$ Published risk discussion as part of activation deployment & $\times$ No formal chain-split risk assessment published \\
+14 & Replay protection or documented rationale & $\checkmark$ Soft-fork status documented as the rationale for absence & $\times$ 55\% threshold makes chain split foreseeable; no rationale documented \\
+15 & Activation date $\geq 6$ months from final client & $\checkmark$ Activation client released early 2021; activation November 2021 & $\times$ Activation signaling began immediately upon client release \\
+\addlinespace[4pt]
+
+\multicolumn{4}{@{}l}{\textit{D. Community Process}} \\
+\addlinespace[2pt]
+16 & Minimum review period for risk category & $\checkmark$ Approximately four years of review; far exceeds 12-month moderate-risk floor & $\times$ Six weeks vs.~24-month floor for high-risk consensus change \\
+17 & Public discussion, diverse stakeholders & $\checkmark$ Sustained bitcoin-dev, conference, podcast, and working-group discussion & $\times$ Public discussion concentrated and brief \\
+18 & Major exchanges and infrastructure consulted & $\checkmark$ Major exchanges engaged and indicated readiness & $\times$ Exchanges not formally consulted; no public endorsements documented \\
+19 & Chain-split contingency plan published & $\times$ Contingency-plan format proposed by this framework postdates Taproot's activation & $\times$ No contingency plan published \\
+20 & Proposal evaluated against this framework & $\times$ Framework postdates Taproot's activation & $\times$ Never evaluated by proponents \\
+\bottomrule
+\end{longtable}
+}% end \small
+
+\medskip
+
+\noindent\textbf{Score: Taproot 18/20 (Green). BIP-110 3/20 (Red).}
+
+\medskip
+
+Taproot's two ``Not Met'' results (C19, C20) reflect criteria that postdate Taproot's 2021 activation rather than substantive defects in Taproot's process. Every criterion that could have been evaluated in real time was met or exceeded, frequently by an order of magnitude relative to the framework's floors: review period (years against a twelve-month minimum), reviewer breadth (a multi-organization community against a three-reviewer minimum), and testnet exposure (multi-year deployment against a three-month minimum). The 18/20 score expresses what an activation that takes its time and respects its constraints looks like in the framework's vocabulary.
+
+BIP-110's three ``Met'' results (C2 technical specification, C4 activation mechanism, C5 self-executing sunset) reflect the bare existence of a proposal document, a defined activation procedure, and a sunset block height. None of the criteria capturing code quality, review depth, activation safety, or community engagement are met. The 3/20 score places the proposal in the Red band of \sect{5.2}, triggering the response there enumerated: public documentation of the deficiencies, coordination among economic nodes to refuse to recognize the activated chain as ``Bitcoin'' for contracts and deposits, running non-signaling node software, and publication of contingency planning if activation nevertheless proceeds.
+
+The eighteen-criterion gap between the two scores is what an order-of-magnitude difference in framework readiness looks like in practice. The same framework, applied to the same kinds of evidence, distinguishes a proposal that received the rigor consensus-critical software requires from a proposal that did not. A future BIP-110 variant that addressed even half the failed criteria would score differently\,---\,and the change would be visible in the record. The framework is a mechanism for making such differences legible to every stakeholder in the network.
+
 \needspace{3in}
 \begin{plainenglish}
 \peheader{Chapter 5 in brief}
 
-Two evaluation tools. \textbf{\sect{5.0}} is a seven-flag quick test\,---\,low threshold, rushed timeline, default-bundled client, undisclosed reviewer ties, untested sunset, conflicted promotion, missing contingency plan\,---\,for spotting reckless proposals on inspection. \textbf{\sect{5.1}} is the formal twenty-criterion checklist across four categories: Proposal Quality (1--5), Code Quality (6--10), Activation Safety (11--15), Community Process (16--20). Score each met / not met. \textbf{20/20 Green}: ready. \textbf{15--19/20 Yellow}: gaps. \textbf{10--14/20 Orange}: significant deficiencies. \textbf{Below 10/20 Red}: actively resist activation. Several criteria are deliberately fuzzy\,---\,``broad economic-node support'' resists mechanical measurement and benefits from being defended in argument, not computed by formula (\sect{5.3}). Worked examples: BIP-110 scores 3/20 (Red); Taproot scores 18/20.
+Two evaluation tools. \textbf{\sect{5.0}} is a seven-flag quick test\,---\,low threshold, rushed timeline, default-bundled client, undisclosed reviewer ties, untested sunset, conflicted promotion, missing contingency plan\,---\,for spotting reckless proposals on inspection. \textbf{\sect{5.1}} is the formal twenty-criterion checklist across four categories: Proposal Quality (1--5), Code Quality (6--10), Activation Safety (11--15), Community Process (16--20). Score each met / not met. \textbf{20/20 Green}: ready. \textbf{15--19/20 Yellow}: gaps. \textbf{10--14/20 Orange}: significant deficiencies. \textbf{Below 10/20 Red}: actively resist activation. Several criteria are deliberately fuzzy\,---\,``broad economic-node support'' resists mechanical measurement and benefits from being defended in argument, not computed by formula (\sect{5.3}). \sect{5.4} walks the scorecard criterion-by-criterion through Taproot (18/20, Green) and BIP-110 (3/20, Red) as worked examples.
 \end{plainenglish}
 
 % =========================================================================
