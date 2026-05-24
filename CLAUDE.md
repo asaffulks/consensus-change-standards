@@ -24,7 +24,13 @@ Reaffirmed as a hard rule on 2026-05-22.
 ## Current edition status (as of 2026-05-24)
 
 - **First Edition (April 2026, Revised May 2026)** — published. Archived as `consensus_change_standards_v1_archive.docx/pdf` for citation stability in `Old/`. **Do not modify the v1 archive files.**
-- **Second Edition v2.4 (May 2026)** — current canonical PDF: `consensus_change_standards_v2.4.pdf` at repo root. Built from LaTeX (`LaTeX/consensus_change_standards.tex`). This is the deliverable PDF going forward. v2.4 adds, beyond v2.2:
+- **Second Edition v2.5 (May 2026)** — current canonical PDF: `consensus_change_standards_v2.5.pdf` at repo root. Built from LaTeX (`LaTeX/consensus_change_standards.tex`). This is the deliverable PDF going forward. **v2.5 adds**, beyond v2.4:
+  - **NEW §1.2 The Inscription Era and the Wave of Restrictive Proposals** — provides Ordinals/inscription-debate backdrop that motivated BIP-110. Casey Rodarmor's Ordinals protocol (December 2022), the OP_FALSE OP_IF envelope mechanism, Taproot's witness-data fee discount, and the 2023-onward debate. Frames the framework as procedurally neutral on the substantive inscription disagreement.
+  - **Chapter 1 renumbering** — BIP-110 case study now §1.3, The Stakes §1.4, Relation to Prior Work §1.5. Five cross-references updated (§5.0 flags 2 and 3, §5.2 BIP-110 paragraph, two glossary entries) plus two §1.4→§1.5 references (§3.7 Lopp upgrade analysis, BCAP glossary entry).
+  - **NEW §4.6 Comparative Note: Common-Law Jurisdictions and EU Software Liability** — maps California analysis onto UK (Caparo Industries v Dickman 1990; Hedley Byrne v Heller 1964 — structural parallels to Biakanja and Restatement § 552), Commonwealth (Sullivan v Moody, HCA 2001; Cooper v Hobart, SCC 2001; Anns referenced generically), EU (2024 Product Liability Directive extending strict liability to software, with contested open-source carve-out), and civil-law (Swiss Code of Obligations Art. 41) jurisdictions. **All cases cited by name + court + year + holding only** — no specific volume/page citations claimed. **EU PLD described by year and content only** — no specific directive number claimed. Doctrinal-level treatment appropriate for a comparative note; reader independently verifies any specific application.
+  - **Chapter 1 and Chapter 4 in brief recap boxes** updated to reference the new sections.
+  - **63 pages** (was 59 in v2.4; +2 for §1.2, +2 for §4.6).
+- **v2.4 (May 2026)** added, beyond v2.2:
   - **§5.0 Red Flags** — new quick-test section with seven flags for spotting risky proposals; gateways to §5.1 full evaluation. Anchored to §3.4, §1.2/§2.2, §3.3.A, §3.6, §4.2, §3.5.D.
   - **§5.1 scorecard worksheet** — fillable 20-criterion table on its own page; checkbox format for Met/Not, Total ___/20, Classification bands reference.
   - **§5.3 heuristic anchors expanded** — anchors for all 8 fuzzy criteria (1, 2, 3, 6, 7, 12, 17, 18 + sustained opposition), preserving "illustrative not algorithmic" framing.
@@ -39,7 +45,7 @@ Reaffirmed as a hard rule on 2026-05-22.
   - **Chapter 5 in brief recap** — mentions §5.0; §5.2→§5.3 cross-reference corrected (fuzziness lives in §5.3, not §5.2).
   - **BCAP URL** `bcap\_v1.0.pdf` → `bcap_v1.0.pdf` (hyperref handles raw `_` correctly).
   - Bitcoin Core v30.2 release notes dropped from bibliography (no body citation).
-- v2.1, v2.2, v2.3 PDFs retired to `Old/` (do not modify). v2.3 was an intermediate working build, never shipped.
+- v2.1, v2.2, v2.3, v2.4 PDFs retired to `Old/` (do not modify). v2.3 was an intermediate working build, never shipped.
 - `consensus_change_standards_v2.docx` — content source kept in main dir for text reference (can re-extract via ZIP/XML if needed). The earlier docx-built `consensus_change_standards_v2.pdf` has been retired to `Old/`.
 - Cover: `Cover.svg` (editable source) → `Cover_ForWeb.png` (rendered via `python -c "import cairosvg; cairosvg.svg2png(url='Cover.svg', write_to='Cover_ForWeb.png', output_width=2550)"`). Cover currently says "Second Edition · May 2026."
 
