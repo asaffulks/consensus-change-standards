@@ -21,10 +21,11 @@ Reaffirmed as a hard rule on 2026-05-22.
 
 - `emails/` and `nostr_drafts/` are local-only — never stage, commit, or push them.
 
-## Current edition status (as of 2026-05-23)
+## Current edition status (as of 2026-05-24)
 
 - **First Edition (April 2026, Revised May 2026)** — published. Archived as `consensus_change_standards_v1_archive.docx/pdf` for citation stability in `Old/`. **Do not modify the v1 archive files.**
-- **Second Edition v2.1 (May 2026)** — current canonical PDF: `consensus_change_standards_v2.1.pdf` at repo root. Built from LaTeX (`LaTeX/consensus_change_standards.tex`). This is the deliverable PDF going forward.
+- **Second Edition v2.2 (May 2026)** — current canonical PDF: `consensus_change_standards_v2.2.pdf` at repo root. Built from LaTeX (`LaTeX/consensus_change_standards.tex`). This is the deliverable PDF going forward. v2.2 adds: (a) Knots default-inversion update to §1.2(D) reflecting `v29.3.knots20260508` bundling BIP-110/RDTS into the default release stream; (b) BIP-361 citation as a "BIP filing ≠ ecosystem facts" example; (c) bibliography expansion (BIP-65, 68, 112, 113, 361, RDTS activation client release, current Knots release); (d) §5.2 BIP-110 score paragraph deepened (score stays 3/20, criterion-12 failure intensified structurally); (e) eight "In Brief" recap boxes — chapter-end for all seven chapters plus one mid-chapter for §3.4.
+- v2.1 PDF retired to `Old/` (do not modify).
 - `consensus_change_standards_v2.docx` — content source kept in main dir for text reference (can re-extract via ZIP/XML if needed). The earlier docx-built `consensus_change_standards_v2.pdf` has been retired to `Old/`.
 - Cover: `Cover.svg` (editable source) → `Cover_ForWeb.png` (rendered via `python -c "import cairosvg; cairosvg.svg2png(url='Cover.svg', write_to='Cover_ForWeb.png', output_width=2550)"`). Cover currently says "Second Edition · May 2026."
 
@@ -56,6 +57,13 @@ cp build/consensus_change_standards.pdf ../consensus_change_standards_v2.1.pdf  
 **Body structure:** SECTION 1–7 → `\chapter`; numbered subsections (1.1, 1.2, etc.) → `\section`. Back matter (`\backmatter`): Glossary → References → Disclaimer (each as unnumbered `\chapter{}` — do NOT add `\addcontentsline` calls; `\backmatter` chapters auto-add to TOC, doubling otherwise).
 
 **URLs in references:** use `\url{}` from hyperref (NOT `\texttt{}`) — `\url` knows how to break long URLs at path separators; `\texttt` produces overfull hboxes.
+
+**"In Brief" recap boxes (added v2.2, 2026-05-24):** every chapter ends with a light-gray `tcolorbox` recap titled "Chapter X in brief." §3.4 also has a mid-chapter box for the Bernoulli math. Conventions:
+- Macro: `\begin{plainenglish}` / `\end{plainenglish}` environment; `\peheader{Chapter X in brief}` for the header line. (Environment name kept for stability; user-visible label is "in brief" — NOT "in plain English," which reads as condescending and was rejected.)
+- Style: `gray!5` fill, `gray!45` frame, 0.4pt rule, 2.5pt arc, `\small` body font, `before upper={\setlength{\parskip}{6pt plus 2pt minus 1pt}\setlength{\parindent}{0pt}}` to preserve paragraph spacing inside the box (parskip does not inherit cleanly into `tcolorbox` otherwise).
+- **Unbreakable**: no `breakable` flag on the tcolorbox. Combined with `\needspace{X}` immediately before each `\begin{plainenglish}`, the layout engine page-breaks *before* the box if there isn't room, keeping the box whole. Tune `X` to box content size (short boxes 1.8–2.2in; longer 3.2–4in).
+- **Uniformity over selectivity.** Every chapter has a box, even short ones (Ch.2, 5, 6, 7). Selective placement reads as inconsistent/draft-quality even when functionally defensible. See `[[in-brief-box-pattern]]` memory.
+- Voice: declarative, concrete, Lopp/Alden register — not corporate-deck, not casual. ~80–180 words per box. Multi-element chapters (Q&A in Ch.6) should preserve their structure in the recap (e.g., paired objection / response) — collapsing to a single voice loses the chapter's shape.
 
 ## Batch revision workflow (docx, legacy)
 
