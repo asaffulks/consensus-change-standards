@@ -252,10 +252,7 @@ Available at: \url{asaffulkslaw.com}
 \textbf{Cite as:} Asaf Fulks, \textit{Consensus Change Standards: A Legal and Technical Framework for Bitcoin Protocol Governance} (2d ed.~2026), \url{asaffulkslaw.com}.
 
 \vspace{0.8cm}
-\textit{Notice and Disclaimer.} This document does not constitute legal advice. The legal analysis contained herein is a general discussion of legal principles and does not create an attorney-client relationship between the author and any reader. The views expressed are the author's own and do not represent the views of any employer, client, or affiliated organization. This document does not recommend for or against any particular consensus change proposal, including BIP-110.
-
-\vspace{0.4cm}
-Bitcoin is an experimental technology. Running a Bitcoin node, mining Bitcoin, and participating in consensus changes all carry financial and technical risks.
+\textit{Notice and Disclaimer.} This document is provided for informational and educational purposes only. It does not constitute legal advice and is not a solicitation for legal services or attorney advertising. The legal analysis herein draws primarily on California state law and federal authority; readers in other jurisdictions should not assume it applies to their circumstances. Nothing in this document creates an attorney-client relationship between the author and any reader. No warranty is made as to the accuracy, completeness, or current applicability of the content; readers should not rely on it as a substitute for individualized professional advice and should consult qualified legal counsel licensed in their jurisdiction regarding any specific question. The views expressed are the author's own and do not represent the views of any employer, client, or affiliated organization. This document does not recommend for or against any particular consensus change proposal, including BIP-110.
 \end{flushleft}
 }% end \small
 \clearpage
@@ -272,7 +269,7 @@ Bitcoin is an experimental technology. Running a Bitcoin node, mining Bitcoin, a
 \end{center}
 \vspace{1.5em}
 
-Thanks to the operators, miners, and users who keep this network running. To the dedicated volunteers who refuse to cut corners and build Bitcoin\,---\,line by line, meetup by meetup, and argument by argument. And to Murch and Jameson Lopp, for taking time with an early draft.
+Thanks to the operators, miners, and users who keep this network running. To the dedicated volunteers who refuse to cut corners and build Bitcoin\,---\,line by line, meetup by meetup, and argument by argument. To Murch and Jameson Lopp, for taking time with an early draft. And to Ren Crypto Fish, Steve Lee, and Lyn Alden, whose \textit{Analyzing Bitcoin Consensus} mapped the descriptive terrain this paper's normative standards depend on.
 
 \bigskip
 
@@ -295,7 +292,7 @@ Thanks to the operators, miners, and users who keep this network running. To the
 
 Bitcoin has no formal process for evaluating proposed changes to its consensus rules. The Bitcoin Improvement Proposal (BIP) system provides a mechanism for proposing changes, but establishes no minimum standards that a proposal must meet before the community considers activation. There are no required review periods, no mandatory code audit standards, no agreed-upon activation thresholds, no chain split risk assessment methodology, and no framework for evaluating the legal and economic consequences of a failed activation.
 
-This absence of standards has produced predictable results. The block size wars of 2015--2017 consumed years of developer time, fractured the community, and produced a contentious hard fork. The SegWit activation depended on the credible threat of a novel and untested User Activated Soft Fork (UASF)\,---\,BIP-148\,---\,to break a deadlock that had persisted for eight months after miner signaling stalled. More recently, BIP-110\,---\,a proposed temporary soft fork to restrict arbitrary data in Bitcoin transactions\,---\,was released with a buggy activation client, a dangerously low 55\% activation threshold, and no formal review period. Its activation client was made available alongside stable Knots releases on node management platforms, with no risk disclosure or visual differentiation to indicate that selecting it would alter the node's consensus behavior.
+This absence of standards has produced predictable results. The block size wars of 2015--2017 consumed years of developer time, fractured the community, and produced a contentious hard fork. The SegWit activation depended on the credible threat of a novel User Activated Soft Fork (UASF)\,---\,BIP-148\,---\,to break the deadlock that had persisted after BIP-9 signaling failed to reach its 95\% threshold over the preceding eight months. More recently, BIP-110\,---\,a proposed temporary soft fork to restrict arbitrary data in Bitcoin transactions\,---\,was released with a buggy activation client, a 55\% activation threshold dramatically below historical precedent, and a six-week timeline from initial proposal to activation client that compressed by an order of magnitude the review periods of every successful prior soft fork. The activation client was first distributed alongside stable Knots releases on node management platforms with no risk disclosure or visual differentiation, then bundled into the default release stream itself\,---\,structuring the routine upgrade ladder to terminate in a confirmation dialog presenting consensus alteration as the path forward.
 
 This paper proposes a comprehensive framework for evaluating Bitcoin consensus change proposals. It draws on the history of Bitcoin's prior consensus changes, established principles of software engineering governance, and legal analysis of the liabilities created by reckless activation. The framework is designed to be practical, concrete, and immediately applicable. It is not a BIP. It does not propose changes to Bitcoin's code. It proposes standards for the process by which such changes should be evaluated, debated, and either adopted or rejected.
 
@@ -337,17 +334,17 @@ BIP-110\,---\,the Reduced Data Temporary Softfork\,---\,illustrates every failur
 
 The proposal's technical merits are debatable. Reasonable people disagree about whether inscriptions, ordinals, and large OP\_RETURN payloads represent legitimate uses of Bitcoin's base layer or parasitic exploitation of shared infrastructure. This paper takes no position on that question. The problems with BIP-110 are procedural, not substantive:
 
-\reqitem{}{Activation threshold.} BIP-110 specified a 55\% miner signaling threshold for a User Activated Soft Fork. This is dramatically lower than historical precedent. SegWit's BIP-9 deployment required 95\% miner signaling; when that stalled, BIP-91 created a parallel mechanism at 80\%, and the BIP-148 UASF threatened to reject non-signaling blocks entirely. Taproot activated at 90\% via Speedy Trial. A 55\% signaling threshold provides no assurance that the share of hashrate enforcing the new rules at activation will exceed 55\%; the remainder may continue producing blocks valid under the legacy rules but invalid under the new ones. Signaling at lock-in is not equivalent to enforcement at activation, and the divergence between the two is precisely the mechanism by which low-threshold soft forks produce persistent minority chains. This is not a theoretical risk\,---\,it is a recipe for a chain split.
+\reqitem{A.}{Activation threshold.} BIP-110 specified a 55\% miner signaling threshold for a User Activated Soft Fork. This is dramatically lower than historical precedent. SegWit's BIP-9 deployment required 95\% miner signaling; when that stalled, BIP-91 created a parallel mechanism at 80\%, and the BIP-148 UASF threatened to reject non-signaling blocks entirely. Taproot activated at 90\% via Speedy Trial. A 55\% signaling threshold provides no assurance that the share of hashrate enforcing the new rules at activation will exceed 55\%; the remainder may continue producing blocks valid under the legacy rules but invalid under the new ones. Signaling at lock-in is not equivalent to enforcement at activation, and the divergence between the two is precisely the mechanism by which low-threshold soft forks produce persistent minority chains. This is not a theoretical risk\,---\,it is a recipe for a chain split.
 
-\reqitem{}{Code quality.} The activation client, released in late 2025 as a fork of Bitcoin Knots, was found to contain significant bugs. Multiple Bitcoin developers reported that the client could not reliably fork the network, and that users running the code might accidentally fork themselves off both chains. Public commentary from reviewers raised concerns about the code's structure and quality; whatever tools or methods were used to produce it, the activation client did not receive the level of independent review that consensus-critical software demands. An activation client for a consensus change affecting a trillion-dollar network was released without the review burden customary for consensus-critical software.
+\reqitem{B.}{Code quality.} The activation client, released in late 2025 as a fork of Bitcoin Knots, was found to contain significant bugs. Multiple Bitcoin developers reported that the client could not reliably fork the network, and that users running the code might accidentally fork themselves off both chains. Public commentary from reviewers raised concerns about the code's structure and quality; whatever tools or methods were used to produce it, the activation client did not receive the level of independent review that consensus-critical software demands. An activation client for a consensus change affecting a trillion-dollar network was released without the review burden customary for consensus-critical software.
 
-\reqitem{}{Review period.} From initial proposal to release of the activation client, BIP-110 moved through the pipeline in approximately six weeks\,---\,from the initial bitcoin-dev mailing list post on 26 October 2025 to release of the first activation client (v0.1rc1) on 10 December 2025. By comparison, SegWit was proposed in December 2015 and did not activate until August 2017\,---\,a twenty-month process. Taproot was first proposed in January 2018 and activated in November 2021\,---\,nearly four years. Six weeks is not a review period. It is a rush to deployment.
+\reqitem{C.}{Review period.} From initial proposal to release of the activation client, BIP-110 moved through the pipeline in approximately six weeks\,---\,from the initial bitcoin-dev mailing list post on 26 October 2025 to release of the first activation client (v0.1rc1) on 10 December 2025. By comparison, SegWit was proposed in December 2015 and did not activate until August 2017\,---\,a twenty-month process. Taproot was first proposed in January 2018 and activated in November 2021\,---\,nearly four years. Six weeks is not a review period. It is a rush to deployment.
 
-\reqitem{}{Activation client distribution.} On at least one node management platform, the BIP-110 activation client was initially listed as a selectable version option in the same dropdown menu as stable Knots releases, with no warning label, risk disclosure, or visual differentiation. Selection was deliberate\,---\,a node operator had to affirmatively choose the BIP-110 version\,---\,but the presentation treated consensus-altering software identically to routine maintenance releases. A node operator who understood version management but not the implications of BIP-110 specifically could have activated consensus-changing code believing it was a standard update. The absence of any risk disclosure at the point of selection was the governance failure, not the availability of the option itself.
+\reqitem{D.}{Activation client distribution.} On at least one node management platform, the BIP-110 activation client was initially listed as a selectable version option in the same dropdown menu as stable Knots releases, with no warning label, risk disclosure, or visual differentiation. Selection was deliberate\,---\,a node operator had to affirmatively choose the BIP-110 version\,---\,but the presentation treated consensus-altering software identically to routine maintenance releases. A node operator who understood version management but not the implications of BIP-110 specifically could have activated consensus-changing code believing it was a standard update. The absence of any risk disclosure at the point of selection was the governance failure, not the availability of the option itself.
 
 A subsequent escalation merged the activation code into the project's default release stream. As of \texttt{v29.3.knots20260508} (released 9 May 2026), the stable Bitcoin Knots release includes the BIP-110 (RDTS) activation rules and prompts the operator to confirm activation at runtime, via either a configuration directive (\texttt{consensusrules=rdts}) or a GUI dialog. The non-RDTS variant remains available\,---\,as the one-day-older \texttt{v29.3.knots20260507} build\,---\,labeled as the discouraged option. The confirmation is real; the operator must affirmatively accept the consensus change. The governance failure is now structural rather than presentational: the routine upgrade ladder, which an operator follows simply to receive ordinary bug fixes and feature improvements, terminates in a confirmation dialog that presents consensus alteration as the path forward. The release notes characterize the change as fixing ``critical vulnerabilities in long-standing network design''\,---\,a framing that itself biases the confirmation step. Declining the change means foregoing the maintenance benefits of the newer release; accepting means defaulting into a consensus alteration by the path of least resistance.
 
-\reqitem{}{Sunset mechanism.} BIP-110 includes an automatic expiry at a defined block height, after which the new rules cease to be enforced. This is a meaningful improvement over proposals that lack any deactivation mechanism. However, there is no public evidence that the sunset mechanism was tested on testnet to confirm that the transition back to pre-activation rules would occur without consensus failures\,---\,a concern amplified by the significant bugs found in the activation client itself. A sunset clause that has not been demonstrably tested is a promise, not a guarantee. Furthermore, the one-year duration was chosen without empirical justification for why one year is the appropriate period, and the proposal contained no defined process for evaluation at the end of the enforcement period.
+\reqitem{E.}{Sunset mechanism.} BIP-110 includes an automatic expiry at a defined block height, after which the new rules cease to be enforced. This is a meaningful improvement over proposals that lack any deactivation mechanism. However, there is no public evidence that the sunset mechanism was tested on testnet to confirm that the transition back to pre-activation rules would occur without consensus failures\,---\,a concern amplified by the significant bugs found in the activation client itself. A sunset clause that has not been demonstrably tested is a promise, not a guarantee. Furthermore, the one-year duration was chosen without empirical justification for why one year is the appropriate period, and the proposal contained no defined process for evaluation at the end of the enforcement period.
 
 \medskip
 
@@ -524,7 +521,7 @@ The activation threshold for a consensus change should reflect both the risk of 
 
 Threshold selection is downstream of mechanism selection. The activation mechanisms employed in Bitcoin's history form a small but instructive design space. Each represents a distinct trade-off between activation speed, fail-safe behavior, and the locus of signaling authority.
 
-\reqitem{}{BIP-9 (Version Bits with Timeout and Delay).} The original modern activation mechanism, used for CSV and SegWit. Miners signal readiness via version-bit flags; activation occurs when the configured threshold of blocks within a 2{,}016-block window signal readiness. BIP-9 includes a timeout: if the threshold is not met within a defined window, the deployment expires. BIP-9's principal weakness is that it grants miners effective veto power\,---\,a small mining pool coalition can block activation by refusing to signal, even where node operators, exchanges, and users overwhelmingly support the change. SegWit's eight-month stall demonstrated this failure mode in practice.
+\reqitem{}{BIP-9 (Version Bits with Timeout and Delay).} The original modern activation mechanism, used for CLTV (BIP-65), CSV (BIPs 68, 112, 113), and SegWit (BIP-141). Miners signal readiness via version-bit flags; activation occurs when the configured threshold of blocks within a 2{,}016-block window signal readiness. BIP-9 includes a timeout: if the threshold is not met within a defined window, the deployment expires. BIP-9's principal weakness is that it grants miners effective veto power\,---\,a small mining pool coalition can block activation by refusing to signal, even where node operators, exchanges, and users overwhelmingly support the change. SegWit's eight-month stall demonstrated this failure mode in practice.
 
 \reqitem{}{BIP-91 (Reduced Threshold MASF).} A direct response to SegWit's stalled BIP-9 deployment. BIP-91 lowered the lock-in threshold to 80\% and made signaling itself compulsory: BIP-91-enforcing miners would reject blocks that did not signal for SegWit. This created the coordination pressure that achieved SegWit's lock-in in July 2017. BIP-91 demonstrated that compulsory signaling\,---\,not just threshold reduction\,---\,can break a deadlock, at the cost of accepting some chain-split risk during the coordination period.
 
@@ -717,7 +714,7 @@ Two elements warrant emphasis. Tortious interference with contract requires inte
 
 \section{Fiduciary Duties}
 
-Some legal scholars have argued that Bitcoin developers owe fiduciary duties to Bitcoin holders, analogous to the duties owed by corporate directors to shareholders. The most developed version of this argument is Angela Walch, ``In Code(rs) We Trust: Software Developers as Fiduciaries in Public Blockchains,'' in \textit{Regulating Blockchain: Techno-Social and Legal Challenges} (Hacker, Lianos, Dimitropoulos \& Eich eds., Oxford University Press 2019), which contends that core protocol developers exercise discretionary authority over property interests in a manner that triggers fiduciary obligations under traditional principles. This argument has been most fully developed in the Tulip Trading litigation in the United Kingdom. In \textit{Tulip Trading Ltd v van der Laan} [2023] EWCA Civ 83, the Court of Appeal of England and Wales did not adjudicate whether Bitcoin Core developers owe a fiduciary duty to holders of lost Bitcoin. It held only that the claim was sufficiently arguable to survive a strike-out application and should proceed to trial. The case thus stands not for the proposition that developers owe such duties, but for the proposition that the question is justiciable on appropriate facts.
+Some legal scholars have argued that Bitcoin developers owe fiduciary duties to Bitcoin holders, analogous to the duties owed by corporate directors to shareholders. The most developed version of this argument is Angela Walch, ``In Code(rs) We Trust: Software Developers as Fiduciaries in Public Blockchains,'' in \textit{Regulating Blockchain: Techno-Social and Legal Challenges} (Hacker, Lianos, Dimitropoulos \& Eich eds., Oxford University Press 2019), which contends that core protocol developers exercise discretionary authority over property interests in a manner that triggers fiduciary obligations under traditional principles. This argument has been most fully developed in the Tulip Trading litigation in the United Kingdom. In \textit{Tulip Trading Ltd v van der Laan} [2023] EWCA Civ 83, the Court of Appeal of England and Wales did not adjudicate whether Bitcoin Core developers owe a fiduciary duty to holders of lost Bitcoin. It held only that the claim was sufficiently arguable to survive a strike-out application and should proceed to trial. The case thus stands not for the proposition that developers owe such duties, but for the proposition that the question is justiciable on appropriate facts. The Court of Appeal separately affirmed the strike-out of a parallel common-law negligence claim, holding no arguable duty of care arose on the facts before it\,---\,which concerned developers' alleged failure to issue a patch enabling recovery of stolen Bitcoin. That fact pattern is structurally distinct from the chain-split scenario this paper addresses, where alleged harm would flow from the active deployment of defective consensus-altering code, not from a failure to act. The English negligence holding is therefore narrower than its surface might suggest and does not foreclose the California analysis in \sect{4.1}, which rests on routes around the economic-loss rule\,---\,particularly \textit{Biakanja} and Restatement \S~552\,---\,that turn on facts of intent, reliance, and representation that \textit{Tulip Trading} did not engage.
 
 This paper does not take a position on whether developers owe fiduciary duties in general. However, the analysis is relevant to consensus change governance for the following reason: if a developer promotes a consensus change, distributes an activation client, and the change causes financial harm, the question of whether the developer's conduct constituted a breach of duty will be evaluated against the standard of care exercised in the process.
 
@@ -758,8 +755,25 @@ This is not a threat directed at developers. A developer who follows the Chapter
 \chapter{Proposed Standards}
 \label{ch:standards}
 \markboth{Chapter 5 \textbar{} Proposed Standards}{Chapter 5 \textbar{} Proposed Standards}
+\setcounter{section}{-1}  % v2.3 starts at 5.0 (Red Flags quick test)
 
-The following checklist synthesizes the framework described in Sections~3 and~4 into a concrete set of standards. A consensus change proposal that meets all of these standards deserves serious community consideration. A proposal that fails to meet them should be treated with appropriate skepticism and, if it proceeds to activation without meeting them, should be actively resisted.
+This chapter provides two evaluation tools that operate at different speeds. \sect{5.0} is a fast screening test: seven red flags that surface immediately on inspection of a proposal and indicate that the full evaluation is warranted. \sect{5.1} is the full evaluation: twenty binary criteria synthesizing the framework in Sections~3 and~4, with the scoring rules in \sect{5.2}. A proposal that meets all of the standards deserves serious community consideration. A proposal that fails to meet them should be treated with appropriate skepticism and, if it proceeds to activation without meeting them, should be actively resisted.
+
+\section{Red Flags: Is This Proposal Risky?}
+
+The following red flags surface from public information about a proposal\,---\,its activation parameters, its release timeline, its review record, and the conduct of its proponents. They are observable without running code or modeling outcomes. A proposal that trips two or more warrants the full \sect{5.1} evaluation before any operator runs the activation client. The flags are gateways to the criteria below, not numerical scores in their own right.
+
+\begin{enumerate}
+  \item \textbf{Activation threshold below 80\%.} Sub-80\% thresholds are presumptively dangerous; sub-60\% is reckless. The risk gap between 55\% and 95\% is five to seven orders of magnitude in chain-split exposure, not a smooth percentage difference. See \sect{3.4}.
+  \item \textbf{Six weeks or less from initial proposal to activation client.} The framework's minimum review periods are twelve, twenty-four, or thirty-six months by risk category. Review periods substantially shorter than the floor have failed historically\,---\,see \sect{1.2} (BIP-110) and \sect{2.2} (block size wars).
+  \item \textbf{Activation client bundled into the default release stream of a node implementation.} Economic nodes get defaulted into the change through routine upgrades rather than opting in affirmatively. The governance failure is structural even where the runtime prompt is real. See \sect{1.2}, item D.
+  \item \textbf{Reviewers all share an employer, funder, or recent prior collaboration} that isn't publicly disclosed. The standard is diverse perspectives with relationships made legible, not pristine isolation. See \sect{3.3}, item A.
+  \item \textbf{``Temporary'' proposal with no self-executing sunset}, or a sunset whose deactivation has not been tested on testnet. ``Temporary'' without a sunset is permanence with extra steps; an untested sunset is a promise, not a guarantee. See \sect{3.6}.
+  \item \textbf{Proponents have documented economic exposure to the outcome}, where promotion can fairly be characterized as instrumental rather than principled. See \sect{4.2}.
+  \item \textbf{No published chain-split contingency plan.} If activation produces a persistent minority chain, who communicates the split to users, exchanges, and counterparties\,---\,and how? See \sect{3.5}, item D.
+\end{enumerate}
+
+A proposal that trips one flag may still merit serious consideration; tripping two or more triggers the full evaluation in \sect{5.1}; tripping four or more is reckless on its face. The list is intentionally short. A proposal can be problematic for reasons not enumerated here, and a flag that is technically not tripped is not a clean bill of health. The framework's full criteria are what determine readiness; the red flags determine only whether the framework needs to be run.
 
 \section{The Consensus Change Readiness Checklist}
 
@@ -776,7 +790,7 @@ The following checklist synthesizes the framework described in Sections~3 and~4 
 \begin{enumerate}\setcounter{enumi}{5}
   \item Has the reference implementation been reviewed by at least three developers with demonstrated Bitcoin protocol expertise, drawn from distinct organizational affiliations, with any prior collaboration with the proposal's authors publicly disclosed?
   \item Does the reference implementation include comprehensive unit, integration, and regression tests?
-  \item Has the activation client been deployed on testnet for at least three months?
+  \item Has the activation client been deployed on testnet for at least three months, with successful deactivation tested if a sunset clause is included?
   \item Has the code been subjected to fuzzing and adversarial testing?
   \item Has every change to consensus-critical code been attested as understood by at least one named human reviewer who can defend its correctness?
 \end{enumerate}
@@ -792,12 +806,66 @@ The following checklist synthesizes the framework described in Sections~3 and~4 
 
 \subsection*{D. Community Process}
 \begin{enumerate}\setcounter{enumi}{15}
-  \item Has the proposal completed the minimum review period for its risk category (twelve months for moderate-risk, twenty-four months for high-risk)?
+  \item Has the proposal completed the minimum review period for its risk category (twelve months for moderate-risk, twenty-four months for high-risk, thirty-six months for hard fork)?
   \item Has the proposal been discussed in public forums with participation from a diverse cross-section of the community (developers, miners, node operators, businesses, users)?
   \item Have major exchanges and infrastructure providers been consulted regarding the proposal's impact on their operations?
   \item Has the proposal's author published a chain split contingency plan?
   \item Has the proposal been evaluated against this framework, with the results published?
 \end{enumerate}
+
+\clearpage
+\subsection*{Scorecard worksheet}
+
+\noindent\textit{Mark each criterion ``Met'' or ``Not''; tally at the bottom; classification bands in \sect{5.2}.}
+
+\medskip
+
+{\small
+\noindent\renewcommand{\arraystretch}{1.05}%
+\begin{tabular}{@{}r p{4.3in} c c@{}}
+\toprule
+\textbf{\#} & \textbf{Criterion} & \textbf{Met} & \textbf{Not} \\
+\midrule
+\multicolumn{4}{@{}l}{\textit{A. Proposal Quality}} \\
+1 & Clear, empirically supported problem statement. & $\square$ & $\square$ \\
+2 & Complete technical specification; independently implementable. & $\square$ & $\square$ \\
+3 & Backward-compatibility analysis covering all affected tx types, scripts, and use cases. & $\square$ & $\square$ \\
+4 & Fully specified activation mechanism (threshold, timeline, failure mode). & $\square$ & $\square$ \\
+5 & Rollback procedure; self-executing sunset if labeled ``temporary.'' & $\square$ & $\square$ \\
+\addlinespace[4pt]
+\multicolumn{4}{@{}l}{\textit{B. Code Quality}} \\
+6 & $\geq 3$ expert reviewers from distinct organizations; prior collaboration disclosed. & $\square$ & $\square$ \\
+7 & Comprehensive unit, integration, and regression tests. & $\square$ & $\square$ \\
+8 & Testnet deployment $\geq 3$ months; deactivation tested if sunset included. & $\square$ & $\square$ \\
+9 & Fuzzing and adversarial testing performed. & $\square$ & $\square$ \\
+10 & Named human reviewer attests comprehension of consensus-critical code. & $\square$ & $\square$ \\
+\addlinespace[4pt]
+\multicolumn{4}{@{}l}{\textit{C. Activation Safety}} \\
+11 & MASF activation threshold $\geq 90\%$. & $\square$ & $\square$ \\
+12 & UASF (if used) has completed full review and broad economic-node support. & $\square$ & $\square$ \\
+13 & Chain-split risk assessment completed and published. & $\square$ & $\square$ \\
+14 & Replay protection, or documented rationale where soft fork cannot split absent defection. & $\square$ & $\square$ \\
+15 & Activation date $\geq 6$ months from final activation client publication. & $\square$ & $\square$ \\
+\addlinespace[4pt]
+\multicolumn{4}{@{}l}{\textit{D. Community Process}} \\
+16 & Minimum review period for risk category (12 / 24 / 36 months). & $\square$ & $\square$ \\
+17 & Public discussion across diverse stakeholders. & $\square$ & $\square$ \\
+18 & Major exchanges and infrastructure providers consulted. & $\square$ & $\square$ \\
+19 & Chain-split contingency plan published by proposal author. & $\square$ & $\square$ \\
+20 & Proposal evaluated against this framework; results published. & $\square$ & $\square$ \\
+\bottomrule
+\end{tabular}
+}% end \small
+
+\medskip
+
+\noindent\textbf{Total: \rule{3em}{0.4pt}\,/\,20}
+
+\smallskip
+
+\noindent\textbf{Classification (\sect{5.2}):}\, 20\,=\,Green;\quad 15--19\,=\,Yellow;\quad 10--14\,=\,Orange;\quad \textless\,10\,=\,Red.
+
+\clearpage
 
 \section{Scoring}
 
@@ -820,19 +888,31 @@ This is intentional. The framework's authority is its defensibility, not its pre
 
 For the fuzziest criteria, the following heuristics are illustrative anchors\,---\,not algorithmic rules. A proposal that satisfies the spirit of the criterion may not satisfy the literal heuristic and vice versa; the heuristic is a starting point for evaluators, not a substitute for evaluation.
 
-``Broad support among economic nodes'' (criterion 18) is reasonably evidenced by explicit public statements supporting the proposal from at least three of the top five exchanges by Bitcoin trading volume, plus comparable statements from at least two custodians serving institutional clients. Statements specifically endorsing the consensus change\,---\,not merely acknowledging it\,---\,count; silence does not count as support.
+``Broad support among economic nodes'' (criterion 18) is reasonably evidenced by explicit public statements supporting the proposal from at least three of the top five exchanges by Bitcoin trading volume, plus comparable statements from at least two custodians serving institutional clients. Statements specifically endorsing the consensus change\,---\,not merely acknowledging it\,---\,count; silence does not count as support. The same evidentiary standard applies to criterion 12, which incorporates ``broad support among economic nodes'' as a precondition for UASF deployments.
 
 ``Sustained opposition'' (a factor in \sect{3.4} threshold selection) is reasonably evidenced by at least two prior public objections from independent stakeholders that have not been substantively addressed in subsequent proposal updates. ``Independent'' for this purpose follows the diverse-affiliation standard of \sect{3.3}.A: objectors should not all share the same employer or material funding source.
 
 ``Adequate community discussion'' (criterion 17) is reasonably evidenced by archived discussion in at least two distinct venues over the full minimum review period for the proposal's risk category\,---\,typically the bitcoin-dev mailing list plus at least one of: a public forum thread, a recorded video discussion, or a working group with published minutes.
 
+The remaining fuzzy elements in the scorecard's earlier criteria are anchored as follows.
+
+``Clear, empirically supported problem statement'' (criterion 1) is reasonably evidenced by a one-sentence problem statement supported by at least one citation to quantitative data, measured user behavior, or on-chain observation. Aspirational framing (``Bitcoin should remain X'') is not a problem statement.
+
+``Complete technical specification, independently implementable'' (criterion 2) is reasonably evidenced where an independent developer could implement against the specification without consulting the author or reading the reference implementation. A reference implementation is a result of applying the specification, not a substitute for it.
+
+``All affected transaction types, scripts, and use cases'' (criterion 3) is reasonably evidenced by an explicit enumeration of every transaction type, opcode, and script pattern that becomes invalid or restricted under the change, together with a quantitative estimate of the affected on-chain population (UTXO count, value at risk, or comparable measure).
+
+``Three expert reviewers from distinct organizational affiliations'' (criterion 6) draws on two fuzzy elements. ``Expert'' is reasonably evidenced by at least one merged contribution to a consensus-compatible Bitcoin implementation, or by published technical analysis of Bitcoin consensus mechanics. ``Distinct organizational affiliation'' follows the standard of \sect{3.3}.A: current or recent (past 24 months) employer or material funding source, differing across reviewers and from the proposal's authors.
+
+``Comprehensive unit, integration, and regression tests'' (criterion 7) is reasonably evidenced by test coverage of every new validation rule, every interaction with existing rules, and every identified edge case. Test results must be publicly reproducible by parties other than the implementation's authors.
+
 These heuristics are illustrative because the framework's binary scoring is meant to be defensible against challenge, not bright-line. A reviewer who scores a criterion ``met'' using a different evidentiary basis than the heuristic above can defend that scoring by publishing the basis. A reviewer who scores a criterion ``not met'' can do the same. What the framework asks is not algorithmic agreement; it is that scoring choices be legible and challengeable. That is what makes the resulting evaluation defensible in any forum\,---\,technical, commercial, or legal\,---\,where the proposal's readiness must be assessed.
 
-\needspace{2.2in}
+\needspace{3in}
 \begin{plainenglish}
 \peheader{Chapter 5 in brief}
 
-Twenty binary criteria across four categories: Proposal Quality (1--5), Code Quality (6--10), Activation Safety (11--15), Community Process (16--20). Score each met / not met. \textbf{20/20 Green}: ready. \textbf{15--19/20 Yellow}: gaps. \textbf{10--14/20 Orange}: significant deficiencies. \textbf{Below 10/20 Red}: actively resist activation. Several criteria are deliberately fuzzy\,---\,``broad economic-node support'' resists mechanical measurement and benefits from being defended in argument, not computed by formula (\sect{5.2}). Worked examples: BIP-110 scores 3/20 (Red); Taproot scores 18/20.
+Two evaluation tools. \textbf{\sect{5.0}} is a seven-flag quick test\,---\,low threshold, rushed timeline, default-bundled client, undisclosed reviewer ties, untested sunset, conflicted promotion, missing contingency plan\,---\,for spotting reckless proposals on inspection. \textbf{\sect{5.1}} is the formal twenty-criterion checklist across four categories: Proposal Quality (1--5), Code Quality (6--10), Activation Safety (11--15), Community Process (16--20). Score each met / not met. \textbf{20/20 Green}: ready. \textbf{15--19/20 Yellow}: gaps. \textbf{10--14/20 Orange}: significant deficiencies. \textbf{Below 10/20 Red}: actively resist activation. Several criteria are deliberately fuzzy\,---\,``broad economic-node support'' resists mechanical measurement and benefits from being defended in argument, not computed by formula (\sect{5.3}). Worked examples: BIP-110 scores 3/20 (Red); Taproot scores 18/20.
 \end{plainenglish}
 
 % =========================================================================
@@ -932,11 +1012,15 @@ The framework is a vocabulary, not an authority. Bitcoin has no enforcer; this p
 \markboth{Glossary of Technical Terms}{Glossary of Technical Terms}
 
 \begin{description}[leftmargin=0pt, labelindent=0pt, style=nextline, itemsep=8pt]
-  \item[Activation threshold.] The percentage of mining hashrate that must signal readiness for a soft-fork change before the change locks in and begins enforcement. Historically 95\% (BIP-9, Taproot); BIP-110 proposed 55\%. See \sect{3.4}.
+  \item[Activation threshold.] The percentage of mining hashrate that must signal readiness for a soft-fork change before the change locks in and begins enforcement. Historically 95\% (SegWit via BIP-9) and 90\% (Taproot via Speedy Trial); BIP-110 proposed 55\%. See \sect{3.4}.
 
   \item[\textit{BCAP}.] Shortened form for Ren Crypto Fish, Steve Lee \& Lyn Alden, \textit{Analyzing Bitcoin Consensus: Risks in Protocol Upgrades} (Nov.~2024). The principal prior analytical work this paper builds on. See \sect{1.4}.
 
   \item[BIP (Bitcoin Improvement Proposal).] A formal proposal document for a change to the Bitcoin protocol or surrounding standards. Filing a BIP does not activate the change; activation is a separate ecosystem process this framework evaluates.
+
+  \item[Bitcoin Core.] The reference implementation of the Bitcoin protocol, maintained by the Bitcoin Core project. The codebase against which other implementations are typically measured for consensus compatibility.
+
+  \item[Bitcoin Knots.] A node implementation derived from Bitcoin Core with additional policy options. The BIP-110 activation client is a fork of Bitcoin Knots; the v29.3.knots20260508 release bundled BIP-110 (RDTS) activation rules into the default release stream. See \sect{1.2}.
 
   \item[Chain split.] A divergence in the network where some nodes accept a block under one set of consensus rules and other nodes accept a different block under different rules, producing two parallel chains.
 
@@ -949,6 +1033,8 @@ The framework is a vocabulary, not an authority. Bitcoin has no enforcer; this p
   \item[Hashrate.] The aggregate computational power miners are dedicating to Bitcoin's proof-of-work. Used as the unit of measure for activation signaling.
 
   \item[MASF (Miner-Activated Soft Fork).] A soft fork that activates when miner signaling crosses the activation threshold. The default activation pathway in Bitcoin.
+
+  \item[OP\_RETURN.] A Bitcoin script opcode that marks a transaction output as provably unspendable, used to embed arbitrary data in a transaction. BIP-110 sought to restrict the size of OP\_RETURN payloads alongside other forms of data embedding. See \sect{1.2}.
 
   \item[OP\_SUCCESS.] Opcodes reserved during the Taproot soft fork as placeholders for future additions. Substituting an OP\_SUCCESS slot with a new opcode enables adding new spending paths via soft fork. See \sect{3.5}.
 
@@ -964,7 +1050,11 @@ The framework is a vocabulary, not an authority. Bitcoin has no enforcer; this p
 
   \item[Speedy Trial.] An activation deployment pattern with a fixed signaling window, a high activation threshold (commonly 90\%), and a clean timeout if the signaling threshold is not met. The clean-timeout behavior is the deployment's LOT=false setting; the alternative LOT=true forces activation at the deadline regardless of signaling. See \sect{3.4} on the LOT debate. Used for Taproot in 2021.
 
+  \item[Sunset clause.] A provision causing a consensus rule change to automatically expire at a defined block height or median time past, returning the network to pre-activation rules without further intervention. A valid sunset is self-executing (no further software action required) and tested on testnet to confirm deactivation works correctly. See \sect{3.6}.
+
   \item[UASF (User-Activated Soft Fork).] A soft fork activated by economic nodes enforcing new rules without depending on miner signaling threshold being met. BIP-148 is the canonical example. UASF works only when prior community support is overwhelming; UASF without that support yields the BIP-110 outcome. See \sect{3.4}.
+
+  \item[UTXO (Unspent Transaction Output).] The fundamental unit of Bitcoin ownership: a transaction output that has been received but not yet spent. The complete set of UTXOs at a given block height\,---\,the ``UTXO set''\,---\,defines all spendable Bitcoin at that moment.
 \end{description}
 
 % =========================================================================
@@ -1014,13 +1104,12 @@ The framework is a vocabulary, not an authority. Bitcoin has no enforcer; this p
 
 \section*{Industry and Academic Analysis}
 \begin{itemize}[leftmargin=1.5em, itemsep=4pt]
-  \item Crypto Fish, Ren, Steve Lee, and Lyn Alden. \textit{Analyzing Bitcoin Consensus: Risks in Protocol Upgrades}. November 2024. \url{github.com/bitcoin-cap/bcap}; also available at \url{bitcoinnews.ch/wp-content/uploads/2024/11/bcap\_v1.0.pdf}.
+  \item Crypto Fish, Ren, Steve Lee, and Lyn Alden. \textit{Analyzing Bitcoin Consensus: Risks in Protocol Upgrades}. November 2024. \url{github.com/bitcoin-cap/bcap}; also available at \url{bitcoinnews.ch/wp-content/uploads/2024/11/bcap_v1.0.pdf}.
   \item Lopp, Jameson. \textit{When Do Bitcoin Node Operators Upgrade?} \url{blog.lopp.net/when-do-bitcoin-node-operators-upgrade/}
 \end{itemize}
 
 \section*{Software Releases}
 \begin{itemize}[leftmargin=1.5em, itemsep=4pt]
-  \item Bitcoin Core v30.2 Release Notes. Bitcoin Core Project, 10 January 2026. \url{bitcoincore.org/en/releases/30.2/}
   \item Bitcoin Knots v29.3.knots20260508 (RDTS-enabled default release). Bitcoin Knots Project, 9 May 2026. \url{bitcoinknots.org/files/29.x/}
   \item Bitcoin Knots v29.3.knots20260507 (final pre-RDTS release; non-RDTS variant). Bitcoin Knots Project, 8 May 2026. \url{bitcoinknots.org/files/29.x/}
   \item RDTS Activation Client v0.1rc1 (BIP-110 activation client, Bitcoin Knots fork). 10 December 2025. \url{github.com/bitcoinknots/bitcoin/releases}
@@ -1030,19 +1119,5 @@ The framework is a vocabulary, not an authority. Bitcoin has no enforcer; this p
 \begin{itemize}[leftmargin=1.5em, itemsep=4pt]
   \item Creative Commons Attribution 4.0 International (CC~BY~4.0). \url{creativecommons.org/licenses/by/4.0/}
 \end{itemize}
-
-% =========================================================================
-% DISCLAIMER
-% =========================================================================
-\chapter{Disclaimer}
-\markboth{Disclaimer}{Disclaimer}
-
-This document is provided for informational and educational purposes only. It does not constitute legal advice. The legal analysis contained in Section~4 is a general discussion of legal principles and does not create an attorney-client relationship between the author and any reader. Readers should consult with qualified legal counsel regarding the application of these principles to their specific circumstances.
-
-The author is a practicing attorney licensed in the State of California (State Bar No.~343622) and admitted to the United States District Court for the Central District of California. The views expressed in this document are the author's own and do not represent the views of any employer, client, or affiliated organization. This document does not recommend for or against any particular consensus change proposal, including BIP-110. This document is published by The Forum Press, a Fulks, Inc.~company.
-
-This document is licensed under the Creative Commons Attribution 4.0 International License (CC~BY~4.0). You may reproduce, modify, distribute, and build upon this work for any purpose, including commercial use, provided that appropriate credit is given to the author.
-
-Bitcoin is an experimental technology. Running a Bitcoin node, mining Bitcoin, and participating in consensus changes all carry financial and technical risks. This document does not recommend any particular course of action and specifically does not recommend for or against any particular consensus change proposal, including BIP-110.
 
 \end{document}

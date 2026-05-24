@@ -24,8 +24,22 @@ Reaffirmed as a hard rule on 2026-05-22.
 ## Current edition status (as of 2026-05-24)
 
 - **First Edition (April 2026, Revised May 2026)** — published. Archived as `consensus_change_standards_v1_archive.docx/pdf` for citation stability in `Old/`. **Do not modify the v1 archive files.**
-- **Second Edition v2.2 (May 2026)** — current canonical PDF: `consensus_change_standards_v2.2.pdf` at repo root. Built from LaTeX (`LaTeX/consensus_change_standards.tex`). This is the deliverable PDF going forward. v2.2 adds: (a) Knots default-inversion update to §1.2(D) reflecting `v29.3.knots20260508` bundling BIP-110/RDTS into the default release stream; (b) BIP-361 citation as a "BIP filing ≠ ecosystem facts" example; (c) bibliography expansion (BIP-65, 68, 112, 113, 361, RDTS activation client release, current Knots release); (d) §5.2 BIP-110 score paragraph deepened (score stays 3/20, criterion-12 failure intensified structurally); (e) eight "In Brief" recap boxes — chapter-end for all seven chapters plus one mid-chapter for §3.4.
-- v2.1 PDF retired to `Old/` (do not modify).
+- **Second Edition v2.4 (May 2026)** — current canonical PDF: `consensus_change_standards_v2.4.pdf` at repo root. Built from LaTeX (`LaTeX/consensus_change_standards.tex`). This is the deliverable PDF going forward. v2.4 adds, beyond v2.2:
+  - **§5.0 Red Flags** — new quick-test section with seven flags for spotting risky proposals; gateways to §5.1 full evaluation. Anchored to §3.4, §1.2/§2.2, §3.3.A, §3.6, §4.2, §3.5.D.
+  - **§5.1 scorecard worksheet** — fillable 20-criterion table on its own page; checkbox format for Met/Not, Total ___/20, Classification bands reference.
+  - **§5.3 heuristic anchors expanded** — anchors for all 8 fuzzy criteria (1, 2, 3, 6, 7, 12, 17, 18 + sustained opposition), preserving "illustrative not algorithmic" framing.
+  - **§4.3 Tulip Trading precision** — bifurcated EWCA holding now acknowledged (fiduciary reinstated, negligence struck out); fact pattern distinguished from chain-split scenario; California §4.1 analysis preserved.
+  - **§1.2 items A.–E. lettered** — cross-reference to "item D" in §5.2 now resolves.
+  - **§3.4 BIP-9 entry** cites CLTV (BIP-65), CSV (BIPs 68, 112, 113), SegWit (BIP-141) — homes orphaned bibliography entries.
+  - **Front-matter Notice/Disclaimer strengthened** — adds solicitation/advertising disclaimer, jurisdictional limitation (California state law + federal authority), warranty/reliance disclaimer, "consult counsel licensed in your jurisdiction." Removed back-matter Disclaimer chapter (redundant with strengthened front-matter version).
+  - **Abstract refined** — drops "untested" overstatement re BIP-148; quantifies BIP-110 review compression ("an order of magnitude" shorter than prior soft forks); adds default-inversion sentence reflecting §1.2.D escalation.
+  - **Glossary corrections + expansion** — fixed Activation-threshold entry (95% SegWit via BIP-9; 90% Taproot via Speedy Trial, was incorrectly "95% BIP-9, Taproot"); added Bitcoin Core, Bitcoin Knots, OP_RETURN, Sunset clause, UTXO entries (22 total).
+  - **Acknowledgments expanded** — Crypto Fish, Lee, Alden added in separate sentence acknowledging intellectual debt distinct from review thanks (Murch, Lopp).
+  - **Scorecard ↔ prose alignment** — C3 includes "use cases"; C6 says "expert reviewers"; C8 prose now requires deactivation testing if sunset; C16 prose includes 36-month hard fork.
+  - **Chapter 5 in brief recap** — mentions §5.0; §5.2→§5.3 cross-reference corrected (fuzziness lives in §5.3, not §5.2).
+  - **BCAP URL** `bcap\_v1.0.pdf` → `bcap_v1.0.pdf` (hyperref handles raw `_` correctly).
+  - Bitcoin Core v30.2 release notes dropped from bibliography (no body citation).
+- v2.1, v2.2, v2.3 PDFs retired to `Old/` (do not modify). v2.3 was an intermediate working build, never shipped.
 - `consensus_change_standards_v2.docx` — content source kept in main dir for text reference (can re-extract via ZIP/XML if needed). The earlier docx-built `consensus_change_standards_v2.pdf` has been retired to `Old/`.
 - Cover: `Cover.svg` (editable source) → `Cover_ForWeb.png` (rendered via `python -c "import cairosvg; cairosvg.svg2png(url='Cover.svg', write_to='Cover_ForWeb.png', output_width=2550)"`). Cover currently says "Second Edition · May 2026."
 
