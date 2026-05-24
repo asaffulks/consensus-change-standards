@@ -946,6 +946,7 @@ The scoring below applies the heuristic anchors of \sect{5.3} and follows the fr
 
 {\small
 \renewcommand{\arraystretch}{1.15}%
+\setlength{\tabcolsep}{4pt}%
 \begin{longtable}{@{}p{0.25in} p{1.5in} p{2.0in} p{2.0in}@{}}
 \toprule
 \textbf{\#} & \textbf{Criterion} & \textbf{Taproot} & \textbf{BIP-110} \\
@@ -964,7 +965,7 @@ The scoring below applies the heuristic anchors of \sect{5.3} and follows the fr
 \multicolumn{4}{@{}l}{\textit{B. Code Quality}} \\
 \addlinespace[2pt]
 6 & $\geq 3$ expert reviewers, distinct organizations & $\checkmark$ Multi-year review across Bitcoin Core, academic cryptography, and other consensus-compatible implementations & $\times$ Customary review burden not met; reviewer affiliations not documented (\sect{1.3}) \\
-7 & Comprehensive unit/integration/regression tests & $\checkmark$ Full test coverage merged into Bitcoin Core's test suite & $\times$ Client released with known bugs per \sect{1.3} \\
+7 & Comprehensive unit, integration, regression tests & $\checkmark$ Full test coverage merged into Bitcoin Core's test suite & $\times$ Client released with known bugs per \sect{1.3} \\
 8 & Testnet $\geq 3$ months; deactivation tested if sunset & $\checkmark$ Multi-year signet and testnet deployment & $\times$ Six-week proposal-to-client timeline; sunset deactivation not demonstrably tested \\
 9 & Fuzzing and adversarial testing & $\checkmark$ Bitcoin Core fuzzing infrastructure exercised on Taproot consensus code & $\times$ Fuzzing not documented \\
 10 & Named reviewer comprehension attestation & $\checkmark$ Multiple named reviewers attested comprehension across years of public review & $\times$ No comparable attestation documented \\
