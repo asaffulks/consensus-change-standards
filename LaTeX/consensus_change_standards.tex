@@ -678,15 +678,14 @@ These standards presuppose a genuine emergency, and distinguishing a real one fr
 
 \medskip
 
-The framework does not anticipate emergency hard forks being common. Bitcoin's deployed protocol is exceptionally well-reviewed, and the post-2009 record contains no inflation-bug-level emergencies that required this path. BIP-50 itself was resolved by a coordinated downgrade, not a hard fork. The recognition of subtype 4b is the framework's acknowledgment that some governance needs are inverted under emergency conditions\,---\,not that emergency conditions suspend governance. The standards above exist to make the emergency case legible and challengeable, in the same way that the scheduled-HF standards make the planned case legible and challengeable.
+The framework does not anticipate emergency hard forks being common: Bitcoin's deployed protocol is exceptionally well-reviewed, and the post-2009 record contains no inflation-bug-level emergency that required this path\,---\,BIP-50 was resolved by a coordinated downgrade, not a fork. Recognizing subtype 4b acknowledges that some governance needs invert under emergency conditions, not that emergency conditions suspend governance; the standards above keep the emergency case as legible and challengeable as the scheduled one.
 
-\needspace{4in}
 \begin{plainenglish}
 \peheader{Chapter 3 in brief}
 
 The seven standards a proposal should meet, in plain language:
 
-\begin{enumerate}
+\begin{enumerate}[itemsep=3pt, topsep=4pt, parsep=1pt]
   \item \textbf{Complete proposal.} Problem statement (with data), technical spec, backward-compat analysis, activation mechanism, rollback, reference code with tests.
   \item \textbf{Minimum review period.} Twelve months (adds rules) / twenty-four (invalidates transactions) / thirty-six (hard fork). Sized to organic node-upgrade cycles.
   \item \textbf{Independent review.} Three developers from distinct organizations, prior collaboration disclosed. Diverse perspectives, not pristine isolation.
@@ -702,7 +701,13 @@ The standards are not enforceable by code\,---\,Bitcoin has no enforcer. They ar
 % =========================================================================
 % SECTION 4 — LEGAL ANALYSIS
 % =========================================================================
+% Let Ch4 open on the immediately following page (not forced to a recto) so the
+% Chapter 3 "in brief" box sits with sect 3.7 instead of being orphaned. Local to
+% this one chapter; cleardoublepage is restored immediately after.
+\let\ccsrestorecdp\cleardoublepage
+\let\cleardoublepage\clearpage
 \chapter{Legal Analysis}
+\let\cleardoublepage\ccsrestorecdp
 \label{ch:legal}
 \markboth{Chapter 4 \textbar{} Legal Analysis}{Chapter 4 \textbar{} Legal Analysis}
 \setcounter{section}{-1}  % v2 starts at 4.0 (Purpose of the Legal Analysis)
