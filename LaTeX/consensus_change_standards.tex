@@ -718,7 +718,7 @@ The legal implications of Bitcoin consensus changes are largely unexplored. This
 
 This section analyzes the legal-risk landscape that already exists, whether developers acknowledge it or not. It is not an invitation to litigation. It is a map of the terrain\,---\,drawn so that participants, including developers, can navigate it with informed caution rather than unknowing exposure.
 
-A developer who follows the standards proposed in Section~3 has a strong defense against every theory analyzed below. The legal analysis is best read in that light: as a description of what good-faith developers can demonstrate they have met, not as a catalog of theories under which they might be pursued. Section~3 is the safety standard; Section~4 is the case for why following the standard is itself the most effective protection against the liability theories that already exist in tort and contract law.
+A developer who follows the standards proposed in Section~3 has a strong defense against every theory analyzed below. The legal analysis is best read in that light: as a description of what good-faith developers can demonstrate they have met, not as a catalog of theories under which they might be pursued. Section~3 is the safety standard; Section~4 is the case for why following the standard is itself the most effective protection against the liability theories that already exist in tort and contract law. The relationship runs in both directions. The scorecard of Section~5 turns those standards into a dated, public record; where a change is activated against a documented finding that it was unready, that record supplies the notice and foreseeability the theories below depend on. Compliance is the defense; the score is the exposure.
 
 This section serves the network as a whole by making the legal landscape legible to every stakeholder\,---\,operators, exchanges, custodians, and developers\,---\,who must navigate it without specialized training. Litigation against developers acting in good faith would harm the protocol and the community; the framework's purpose is to make such litigation less likely by establishing a documented standard of care that good-faith developers can demonstrably satisfy.
 
@@ -932,6 +932,8 @@ For reference, BIP-110 would score approximately 3/20 under this framework: cred
 
 A word on the limits of the Red-band response. The economic-node coordination it describes is an option available to stakeholders, not a prediction about what they will do. History counsels modesty here. In prior contested forks\,---\,the Bitcoin Cash split, the near-miss of SegWit2x\,---\,exchanges and custodians did not coordinate on governance principle so much as follow liquidity: they listed what had a market, hedged by supporting more than one chain, and let trading resolve which carried the name. Economic nodes answer to their customers and their own legal exposure, not to a rubric, and the framework does not assume otherwise. It does not claim to manufacture a refusal the market is unwilling to make. Its claim is narrower, and it is the true one: for the operators already inclined to refuse a proposal they judge unready, a published scorecard lowers the cost of acting on that judgment and supplies a record that makes the refusal defensible after the fact (Section~4). What the framework changes is the cost and the legibility of refusal, not the underlying willingness to refuse\,---\,and that is not a small thing. Economic-node coordination of this kind is not hypothetical: it ran once, in 2017, when the credible threat that nodes would enforce SegWit without miner cooperation (BIP-148) overrode a miner majority and produced the activation. The framework does not invent that lever. It lowers the cost of reaching for it, by giving the next refusal a published standard to point at rather than a first-principles argument to mount under fire.
 
+And the economic-node response is not the framework's sharpest deterrent. The score is. A completed scorecard is a dated, public record that a proposal was measured against a known standard and found unready\,---\,and notice and foreseeability are precisely what several of the theories in Section~4 turn on. A change activated against a documented Red score is no longer an honest mistake: it proceeded after a published finding that it was reckless, available to everyone it would later harm. The routes around the economic-loss rule in \sect{4.1} (\textit{Biakanja}, Restatement \S~552) turn on foreseeability and reliance; the tortious-interference theory in \sect{4.2} turns on knowledge that disruption is substantially certain. A published Red score feeds each of them. The framework's teeth, then, are not enforcement\,---\,Bitcoin has no enforcer\,---\,but deterrence: the documented score raises the legal and reputational cost of shipping a change the record already flagged. That is a narrower claim than ``the framework stops bad proposals,'' and a sturdier one\,---\,and unlike the economic-node response, it needs no one's coordination. It needs only the score to exist, in public, before the harm.
+
 \section{On the Measurability of the Criteria}
 
 Several criteria in \sect{5.1}\,---\,particularly those concerning broad community support, sustained opposition, and adequate review\,---\,are not amenable to mechanical measurement. There is no canonical metric for ``broad support among economic nodes'' or ``sustained public objection'' or ``discussion in a diverse cross-section of the community.'' Reasonable evaluators can score the same proposal differently.
@@ -960,13 +962,12 @@ The remaining fuzzy elements in the scorecard's earlier criteria are anchored as
 
 These heuristics are illustrative because the framework's binary scoring is meant to be defensible against challenge, not bright-line. A reviewer who scores a criterion ``met'' using a different evidentiary basis than the heuristic above can defend that scoring by publishing the basis. A reviewer who scores a criterion ``not met'' can do the same. What the framework asks is not algorithmic agreement; it is that scoring choices be legible and challengeable. That is what makes the resulting evaluation defensible in any forum\,---\,technical, commercial, or legal\,---\,where the proposal's readiness must be assessed.
 
+\clearpage
 \section{Worked Examples: Taproot, BIP-110, and SegWit2x}
 
 The twenty criteria yield concrete classifications when applied to specific proposals. This section walks the criteria through three proposals: Taproot, which activated in November 2021 after years of review; BIP-110, whose late-2025 activation-client release attracted voluntary block-signaling of well under one percent; and SegWit2x, the 2017 block-size hard fork a coalition of miners and exchanges pushed and then withdrew. The first two are scored criterion by criterion in the table below; the third is examined in prose, because it is the case that tests whether the framework measures process or merely the author's preference. The resulting scores (Taproot 18/20, BIP-110 3/20, SegWit2x roughly 6/20) reflect categorically different framework readiness.
 
 The scoring below applies the heuristic anchors of \sect{5.3} and follows the framework's commitment that scoring choices be ``legible and challengeable.'' A reader who reaches different conclusions on the fuzzier criteria is invited to publish the alternative scoring with the evidentiary basis. The walkthrough's purpose is to demonstrate the framework's operation, not to fix the score against further argument.
-
-\clearpage
 
 {\small
 \renewcommand{\arraystretch}{1.15}%
@@ -1069,7 +1070,7 @@ Everyone. And no one. This framework is a tool, not an authority. Any member of 
 
 \section{``The legal analysis is speculative.''}
 
-All legal analysis of novel situations is, to some degree, speculative. No court has ruled on the liability of a Bitcoin developer for a chain split caused by a reckless activation. But the absence of precedent does not mean the absence of risk. The legal principles applied in Section~4\,---\,negligence, tortious interference, fiduciary duty\,---\,are well established. Their application to Bitcoin governance is novel but not unprecedented. Courts routinely apply existing legal frameworks to new technologies. The question is not whether these principles apply, but how. This paper offers an analysis, not a prediction.
+All legal analysis of novel situations is, to some degree, speculative. No court has ruled on the liability of a Bitcoin developer for a chain split caused by a reckless activation. But the absence of precedent does not mean the absence of risk. The legal principles applied in Section~4\,---\,negligence, tortious interference, fiduciary duty\,---\,are well established. Their application to Bitcoin governance is novel but not unprecedented. Courts routinely apply existing legal frameworks to new technologies. The question is not whether these principles apply, but how. This paper offers an analysis, not a prediction. And the analysis does not wait on a court to matter: a dated, public score measuring a proposal against a known standard creates notice and foreseeability\,---\,the elements these theories turn on\,---\,before any harm occurs, which is what makes the risk concrete rather than abstract. The exposure is real the moment the facts are; a precedent would only name what was already there.
 
 \section{``If the standards are not enforceable, what does the framework add?''}
 
@@ -1122,13 +1123,6 @@ The current system\,---\,in which proposals are evaluated ad hoc, activation mec
 This framework does not solve the fundamental challenge of decentralized governance. No framework can. What it provides is a common vocabulary, a shared set of criteria, and a concrete checklist against which proposals can be evaluated. It shifts the burden of proof onto proponents of change\,---\,where it belongs\,---\,and provides the community with a structured way to say: this proposal is not ready.
 
 The framework is licensed under Creative Commons Attribution 4.0 International. It may be freely shared, adapted, and built upon by anyone, for any purpose, with attribution. It is available on GitHub for community review and amendment. If it is useful, it will be used. If it can be improved, it should be improved. That is how Bitcoin works. That is how Bitcoin's governance should work too.
-
-\needspace{1.8in}
-\begin{plainenglish}
-\peheader{Chapter 7 in brief}
-
-The framework is a vocabulary, not an authority. Bitcoin has no enforcer; this paper does not claim to be one. The standards are offered as a shared benchmark: if the community finds them useful, they will be used. If they can be improved, they should be. Available under Creative Commons Attribution 4.0\,---\,share, adapt, build on it. That is how Bitcoin works. That is how Bitcoin's governance should work too.
-\end{plainenglish}
 
 \vspace{2em}
 
