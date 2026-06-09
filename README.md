@@ -4,7 +4,7 @@
 
 *By Asaf Fulks, J.D. — California State Bar No. 343622*
 
-**Second Edition · May 2026**
+**Third Edition · June 2026**
 
 ---
 
@@ -23,14 +23,14 @@ This paper proposes a comprehensive framework — including a 20-point Consensus
 
 ## Downloads
 
-**Current — Second Edition (May 2026):**
+**Current — Third Edition (June 2026):**
 
-- [**Consensus Change Standards, Second Edition** (PDF)](consensus_change_standards_v2.pdf) — citation target
-- [DOCX (source)](consensus_change_standards_v2.docx) — for redline contributions and direct editing
+- [**Consensus Change Standards, Third Edition** (PDF)](consensus_change_standards_v3.pdf) — citation target
+- [LaTeX source](LaTeX/consensus_change_standards.tex) — for redline contributions and direct editing
 
-The Second Edition integrates pre-publication review feedback from Mark "Murch" Erhardt (Chaincode Labs) and Jameson Lopp (Casa), incorporates BCAP (Crypto Fish, Lee & Alden, *Analyzing Bitcoin Consensus: Risks in Protocol Upgrades*, Nov. 2024) as the canonical prior work in the field, and adds new sections on Hard Fork Subtypes (§3.7), Measurability of the Criteria (§5.3), a Purpose-of-Legal-Analysis preface (§4.0), a dialectic on framework self-enforcement (§6.6), and a "How to Read This Paper" scope-disambiguating preface (§1.0). Case citations and book/internet-source titles follow Bluebook conventions throughout.
+The Third Edition integrates pre-publication review feedback from Mark "Murch" Erhardt (Chaincode Labs) and Jameson Lopp (Casa), and incorporates BCAP (Crypto Fish, Lee & Alden, *Analyzing Bitcoin Consensus: Risks in Protocol Upgrades*, Nov. 2024) as the canonical prior work in the field. It adds a third worked example to the scorecard (SegWit2x), ties a documented Red score to the legal-exposure analysis as a deterrence mechanism (§4.0, §5.2, §6.5), corrects the *Tulip Trading* holding (§4.3, §4.6), and reframes the BIP-110 reception around its pending LOT=true activation. Case citations and book/internet-source titles follow Bluebook conventions throughout.
 
-The First Edition (April 2026, Revised May 2026) is preserved in git history; check the commit log if a v1 citation needs to be resolved.
+Earlier editions (First, April 2026; Second, May 2026) are preserved in git history and archived in `Old/`; check the commit log if a prior-edition citation needs to be resolved.
 
 ## About the Author
 
