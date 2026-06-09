@@ -93,7 +93,7 @@
   <text class="imprint-sub"  x="170" y="2170">a Fulks, Inc. company</text>
 
   <!-- Bottom-right: edition / URL (right-aligned) -->
-  <text class="edition"  x="1530" y="2100" text-anchor="end">Third Edition  ·  June 2026</text>
+  <text class="edition"  x="1530" y="2100" text-anchor="end">Third Edition (v3.1)  ·  June 2026</text>
   <text class="url"      x="1530" y="2167" text-anchor="end">asaffulkslaw.com</text>
 
 </svg>

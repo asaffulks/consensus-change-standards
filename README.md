@@ -4,7 +4,7 @@
 
 *By Asaf Fulks, J.D. — California State Bar No. 343622*
 
-**Third Edition · June 2026**
+**Third Edition (v3.1) · June 2026**
 
 ---
 
@@ -18,17 +18,22 @@ This paper proposes a comprehensive framework — including a 20-point Consensus
 - **Section 2 — Historical Precedent:** P2SH, SegWit, SegWit2x, and Taproot analyzed for activation parameters and outcomes
 - **Section 3 — The Framework:** Proposal submission requirements, tiered minimum review periods, code audit standards, activation threshold minimums, and sunset clause requirements
 - **Section 4 — Legal Analysis:** Negligence, tortious interference, fiduciary duties, mining pool operator liability, and regulatory implications of chain splits
-- **Section 5 — Proposed Standards:** The 20-point Consensus Change Readiness Checklist with a scoring system (BIP-110: ~3/20 | Taproot: ~18/20)
+- **Section 5 — Proposed Standards:** The 20-criterion Consensus Change Readiness Checklist with a scoring system (BIP-110: 3/20, Red | Taproot: 17/17 applicable, Green | SegWit2x: ≈6/17, Red)
 - **Section 6 — Objections and Responses**
+- **Appendix A — Documentary Record** for the BIP-110 case study; **Appendix B — Adoption Kit** with model policy language for exchanges, pools, and node-software platforms
 
 ## Downloads
 
-**Current — Third Edition (June 2026):**
+**Current — Third Edition, v3.1 (June 2026):**
 
-- [**Consensus Change Standards, Third Edition** (PDF)](consensus_change_standards_v3.pdf) — citation target
+- [**Consensus Change Standards, Third Edition v3.1** (PDF)](consensus_change_standards_v3.1.pdf) — citation target
 - [LaTeX source](LaTeX/consensus_change_standards.tex) — for redline contributions and direct editing
+- [Standalone scorecard](scorecard.md) ([fillable PDF](scorecard.pdf)) — the §5.1 readiness checklist, ready to apply
+- [Changelog](CHANGELOG.md) — per-revision change record
 
 The Third Edition integrates pre-publication review feedback from Mark "Murch" Erhardt (Chaincode Labs) and Jameson Lopp (Casa), and incorporates BCAP (Crypto Fish, Lee & Alden, *Analyzing Bitcoin Consensus: Risks in Protocol Upgrades*, Nov. 2024) as the canonical prior work in the field. It adds a third worked example to the scorecard (SegWit2x), ties a documented Red score to the legal-exposure analysis as a deterrence mechanism (§4.0, §5.2, §6.5), corrects the *Tulip Trading* holding (§4.3, §4.6), and reframes the BIP-110 reception around its pending LOT=true activation. Case citations and book/internet-source titles follow Bluebook conventions throughout.
+
+The v3.1 revision corrects the SegWit lock-in chronology (§2.3), updates the BIP process discussion to BIP-3 (§1.1), brings the California economic-loss-rule analysis current through *Sheen* (2022) and *Rattagan* (2024), restates Rev. Rul. 2019-24 accurately, notes *Tulip Trading*'s 2024 discontinuance, redrafts scorecard criteria 11/15/16/20, restates the classification bands as percentages of applicable criteria with a narrow not-applicable rule, adds two figures (the threshold-risk cliff and the 2012–2026 governance timeline), and adds Appendices A and B. See [CHANGELOG.md](CHANGELOG.md) for the full record.
 
 Earlier editions (First, April 2026; Second, May 2026) are preserved in git history and archived in `Old/`; check the commit log if a prior-edition citation needs to be resolved.
 
