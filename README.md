@@ -37,6 +37,12 @@ The v3.1 revision corrects the SegWit lock-in chronology (§2.3), updates the BI
 
 Earlier editions (First, April 2026; Second, May 2026) are preserved in git history and archived in `Old/`; check the commit log if a prior-edition citation needs to be resolved.
 
+## Citing This Work
+
+> Asaf Fulks, *Consensus Change Standards: A Legal and Technical Framework for Bitcoin Protocol Governance* (3d ed. v3.1 2026), asaffulkslaw.com.
+
+Machine-readable citation metadata lives in [`CITATION.cff`](CITATION.cff) (GitHub's "Cite this repository" button reads it). Scorings published against this framework should cite the edition and version evaluated against (see Appendix B.4 of the paper), so that results remain comparable as the framework is revised.
+
 ## About the Author
 
 Asaf Fulks is a practicing litigator (California State Bar No. 343622), solo Bitcoin miner, full node operator, and computer scientist (B.A. Computer Science, J.D. magna cum laude). He is admitted to the United States District Court for the Central District of California.

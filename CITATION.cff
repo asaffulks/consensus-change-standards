@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: "If you use this framework or cite the paper, please use the citation below."
+title: "Consensus Change Standards: A Legal and Technical Framework for Bitcoin Protocol Governance"
+authors:
+  - family-names: Fulks
+    given-names: Asaf
+version: "3.1"
+date-released: 2026-06-09
+url: "https://asaffulkslaw.com"
+repository-code: "https://github.com/asaffulks/consensus-change-standards"
+license: CC-BY-4.0
+keywords:
+  - Bitcoin
+  - consensus change
+  - protocol governance
+  - soft fork
+  - chain split
+  - activation threshold
+  - BIP-110
+  - developer liability
+preferred-citation:
+  type: book
+  title: "Consensus Change Standards: A Legal and Technical Framework for Bitcoin Protocol Governance"
+  authors:
+    - family-names: Fulks
+      given-names: Asaf
+  edition: "Third Edition (v3.1)"
+  year: 2026
+  month: 6
+  publisher:
+    name: "The Forum Press"
+  url: "https://asaffulkslaw.com"
+  notes: "Cite as: Asaf Fulks, Consensus Change Standards: A Legal and Technical Framework for Bitcoin Protocol Governance (3d ed. v3.1 2026), asaffulkslaw.com."

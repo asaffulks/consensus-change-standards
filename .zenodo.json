@@ -1,0 +1,31 @@
+{
+  "title": "Consensus Change Standards: A Legal and Technical Framework for Bitcoin Protocol Governance",
+  "description": "Third Edition (v3.1), June 2026. Proposes minimum standards for evaluating Bitcoin consensus-change proposals: submission requirements, tiered minimum review periods, code-audit standards, activation-threshold floors backed by a quantified chain-split risk model, a 20-criterion readiness scorecard with three worked examples (Taproot, BIP-110, SegWit2x), a legal-liability analysis (negligence, tortious interference, fiduciary duty, pool-operator contract exposure, regulatory consequences), a documentary record for the BIP-110 case study, and model adoption policy language for exchanges, mining pools, and node-software platforms.",
+  "creators": [
+    {
+      "name": "Fulks, Asaf"
+    }
+  ],
+  "upload_type": "publication",
+  "publication_type": "book",
+  "imprint_publisher": "The Forum Press",
+  "license": "CC-BY-4.0",
+  "version": "3.1",
+  "keywords": [
+    "Bitcoin",
+    "consensus change",
+    "protocol governance",
+    "soft fork",
+    "chain split",
+    "activation threshold",
+    "BIP-110",
+    "developer liability"
+  ],
+  "related_identifiers": [
+    {
+      "relation": "isAlternateIdentifier",
+      "identifier": "https://asaffulkslaw.com",
+      "scheme": "url"
+    }
+  ]
+}
