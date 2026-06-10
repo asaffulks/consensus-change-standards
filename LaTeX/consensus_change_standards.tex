@@ -1260,13 +1260,13 @@ The framework becomes useful the day an operator can adopt it without drafting f
 
   \item[Signaling.] Miners indicating readiness for a proposed soft fork by setting a designated bit in block headers during a defined signaling window.
 
-  \item[Soft fork.] A consensus-rule change that tightens validity rules such that the new rules continue to accept blocks the old rules would have accepted (the new rules are a strict subset of the old). Pre-upgrade nodes will continue to follow the upgraded chain.
+  \item[Soft fork.] A consensus-rule change that tightens validity rules such that every block valid under the new rules remains valid under the old (the new rules are a strict subset of the old). Pre-upgrade nodes will continue to follow the upgraded chain.
 
   \item[Speedy Trial.] An activation deployment pattern with a fixed signaling window, a high activation threshold (commonly 90\%), and a clean timeout if the signaling threshold is not met. Its clean timeout on failure is the conservative analogue of BIP-8's LOT=false; the alternative, LOT=true, forces activation at the deadline regardless of signaling. See \sect{3.4} on the LOT debate. Used for Taproot in 2021.
 
   \item[Sunset clause.] A provision causing a consensus rule change to automatically expire at a defined block height or median time past, returning the network to pre-activation rules without further intervention. A valid sunset is self-executing (no further software action required) and tested on testnet to confirm deactivation works correctly. See \sect{3.6}.
 
-  \item[UASF (User-Activated Soft Fork).] A soft fork activated by economic nodes enforcing new rules without depending on miner signaling threshold being met. BIP-148 is the canonical example. UASF works only when prior community support is overwhelming; UASF without that support yields the BIP-110 outcome. See \sect{3.4}.
+  \item[UASF (User-Activated Soft Fork).] A soft fork activated by economic nodes enforcing new rules without depending on a miner-signaling threshold being met. BIP-148 is the canonical example. UASF works only when prior community support is overwhelming; UASF without that support yields the BIP-110 outcome. See \sect{3.4}.
 
   \item[UTXO (Unspent Transaction Output).] The fundamental unit of Bitcoin ownership: a transaction output that has been received but not yet spent. The complete set of UTXOs at a given block height\,---\,the ``UTXO set''\,---\,defines all spendable Bitcoin at that moment.
 \end{description}
