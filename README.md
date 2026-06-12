@@ -6,6 +6,8 @@
 
 **Third Edition (v3.1) · June 2026**
 
+[![DOI](https://zenodo.org/badge/1201730460.svg)](https://doi.org/10.5281/zenodo.20651832)
+
 ---
 
 Bitcoin has no formal process for evaluating proposed changes to its consensus rules. The BIP system provides a mechanism for proposing changes, but establishes no minimum standards that a proposal must meet before the community considers activation. There are no required review periods, no mandatory code audit standards, no agreed-upon activation thresholds, and no framework for evaluating the legal and economic consequences of a failed activation.
@@ -40,6 +42,8 @@ Earlier editions (First, April 2026; Second, May 2026) are preserved in git hist
 ## Citing This Work
 
 > Asaf Fulks, *Consensus Change Standards: A Legal and Technical Framework for Bitcoin Protocol Governance* (3d ed. v3.1 2026), asaffulkslaw.com.
+
+Every tagged release is archived on Zenodo. Concept DOI (always resolves to the latest version): [10.5281/zenodo.20651832](https://doi.org/10.5281/zenodo.20651832). This edition's version DOI: [10.5281/zenodo.20651833](https://doi.org/10.5281/zenodo.20651833).
 
 Machine-readable citation metadata lives in [`CITATION.cff`](CITATION.cff) (GitHub's "Cite this repository" button reads it). Scorings published against this framework should cite the edition and version evaluated against (see Appendix B.4 of the paper), so that results remain comparable as the framework is revised.
 
