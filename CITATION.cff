@@ -13,6 +13,9 @@ identifiers:
   - type: doi
     value: "10.5281/zenodo.20651832"
     description: "Concept DOI (Zenodo) — resolves to the latest archived release"
+  - type: doi
+    value: "10.5281/zenodo.20685221"
+    description: "Version DOI (Zenodo) — Fourth Edition"
 license: CC-BY-4.0
 keywords:
   - Bitcoin
