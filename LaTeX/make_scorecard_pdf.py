@@ -1,6 +1,6 @@
 # make_scorecard_pdf.py -> ../scorecard.pdf
 # Standalone fillable (AcroForm) scorecard for the Consensus Change Readiness
-# Checklist, 3d ed. v3.1 (2026), section 5.1. Real checkbox/text widgets.
+# Checklist, 4th ed. (2026), section 5.1. Real checkbox/text widgets.
 import fitz
 
 PAGE_W, PAGE_H = 612, 792  # US Letter
@@ -45,7 +45,7 @@ y = MT
 page.insert_text((ML, y), "Consensus Change Readiness Checklist", fontname=SERIF_B, fontsize=15)
 y += 16
 page.insert_text((ML, y),
-                 "Fulks, Consensus Change Standards (3d ed. v3.1 2026), Sec. 5.1  |  CC BY 4.0",
+                 "Fulks, Consensus Change Standards (4th ed. 2026), Sec. 5.1  |  CC BY 4.0",
                  fontname=SERIF_I, fontsize=8.5, color=(0.25, 0.25, 0.25))
 y += 18
 
@@ -122,7 +122,7 @@ page.insert_text((ML, y + 9),
                  "Publish the scoring with its evidentiary basis (Sec. 5.3); cite the edition evaluated against (App. B.4).",
                  fontname=SERIF_I, fontsize=8.5, color=(0.25, 0.25, 0.25))
 
-doc.set_metadata({"title": "Consensus Change Readiness Checklist (3d ed. v3.1)",
+doc.set_metadata({"title": "Consensus Change Readiness Checklist (4th ed.)",
                   "author": "Asaf Fulks"})
 doc.save("../scorecard.pdf")
 print("scorecard.pdf written, fields:", len(list(page.widgets())))

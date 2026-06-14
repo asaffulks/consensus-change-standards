@@ -4,8 +4,8 @@ title: "Consensus Change Standards: A Legal and Technical Framework for Bitcoin 
 authors:
   - family-names: Fulks
     given-names: Asaf
-version: "3.1"
-date-released: 2026-06-09
+version: "4.0"
+date-released: 2026-06-13
 url: "https://asaffulkslaw.com"
 repository-code: "https://github.com/asaffulks/consensus-change-standards"
 doi: 10.5281/zenodo.20651832
@@ -13,9 +13,6 @@ identifiers:
   - type: doi
     value: "10.5281/zenodo.20651832"
     description: "Concept DOI (Zenodo) — resolves to the latest archived release"
-  - type: doi
-    value: "10.5281/zenodo.20651833"
-    description: "Version DOI (Zenodo) — Third Edition (v3.1)"
 license: CC-BY-4.0
 keywords:
   - Bitcoin
@@ -32,10 +29,10 @@ preferred-citation:
   authors:
     - family-names: Fulks
       given-names: Asaf
-  edition: "Third Edition (v3.1)"
+  edition: "Fourth Edition"
   year: 2026
   month: 6
   publisher:
     name: "The Forum Press"
   url: "https://asaffulkslaw.com"
-  notes: "Cite as: Asaf Fulks, Consensus Change Standards: A Legal and Technical Framework for Bitcoin Protocol Governance (3d ed. v3.1 2026), asaffulkslaw.com."
+  notes: "Cite as: Asaf Fulks, Consensus Change Standards: A Legal and Technical Framework for Bitcoin Protocol Governance (4th ed. 2026), asaffulkslaw.com."
