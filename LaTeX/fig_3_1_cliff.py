@@ -31,10 +31,20 @@ pts = [
 for x, y, lab in pts:
     ax.plot(x, y, "o", color="black", ms=4.5)
 
-ax.annotate(pts[0][2], xy=(pts[0][0], pts[0][1]), xytext=(0.565, 0.55), fontsize=8)
-ax.annotate(pts[1][2], xy=(pts[1][0], pts[1][1]), xytext=(0.69, 2.2e-3), fontsize=8)
-ax.annotate(pts[2][2], xy=(pts[2][0], pts[2][1]), xytext=(0.835, 1.5e-5), fontsize=8)
-ax.annotate(pts[3][2], xy=(pts[3][0], pts[3][1]), xytext=(0.875, 1.1e-8), fontsize=8)
+# Each label sits in clear space OFF the curve, with a thin leader line to its
+# marker so the correspondence is unambiguous and no text is crossed by the curve.
+# P2SH sits in the open sky above the curve; the rest sit below the curve,
+# right-aligned so each label ends just left of (and points up-right to) its dot.
+lead = dict(arrowstyle="-", color="#666666", lw=0.6, shrinkA=2, shrinkB=4)
+
+ax.annotate(pts[0][2], xy=(pts[0][0], pts[0][1]), xytext=(0.575, 0.60),
+            fontsize=8, ha="left", va="center", arrowprops=lead)
+ax.annotate(pts[1][2], xy=(pts[1][0], pts[1][1]), xytext=(0.78, 4.5e-5),
+            fontsize=8, ha="right", va="center", arrowprops=lead)
+ax.annotate(pts[2][2], xy=(pts[2][0], pts[2][1]), xytext=(0.88, 3.5e-7),
+            fontsize=8, ha="right", va="center", arrowprops=lead)
+ax.annotate(pts[3][2], xy=(pts[3][0], pts[3][1]), xytext=(0.935, 5.5e-9),
+            fontsize=8, ha="right", va="center", arrowprops=lead)
 
 for xc, lab in [(0.55, "reckless"), (0.70, "presumptively\ndangerous"), (0.945, "safe")]:
     ax.text(xc, 2.0, lab, ha="center", fontsize=7.5, color="#444444")
