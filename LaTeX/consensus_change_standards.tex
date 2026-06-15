@@ -711,22 +711,29 @@ These standards assume a genuine emergency, and telling a real one from a manufa
 
 The framework does not anticipate emergency hard forks being common: Bitcoin's deployed protocol is exceptionally well-reviewed, and the post-2009 record contains no inflation-bug-level emergency that required this path. The March 2013 incident (BIP-50) was resolved in the emergency by a coordinated downgrade; the underlying incompatibility was retired months later on a scheduled flag day\,---\,a transition widely characterized as Bitcoin's one de facto hard fork, and an uncontentious one. Recognizing subtype 4b acknowledges that some governance needs invert under emergency conditions, not that emergency conditions suspend governance; the standards above keep the emergency case as legible and challengeable as the scheduled one.
 
+\needspace{5in}
 \begin{plainenglish}
 \peheader{Chapter 3 in brief}
 
-The seven standards a proposal should meet, in plain language:
+Chapter 3 sets seven gates a change should clear before anyone considers activating it. The bar rises with how much the change could break\,---\,so the first move is to gauge the risk, and the review period scales from there.
 
 \begin{enumerate}[itemsep=3pt, topsep=4pt, parsep=1pt]
-  \item \textbf{Complete proposal.} Problem statement (with data), technical spec, backward-compat analysis, activation mechanism, rollback, reference code with tests.
-  \item \textbf{Minimum review period.} Twelve months (adds rules) / twenty-four (invalidates transactions); hard forks per \sect{3.7}\,---\,five years scheduled, threat-calibrated for emergencies. Sized to organic node-upgrade cycles.
-  \item \textbf{Independent review.} Three developers from distinct organizations, prior collaboration disclosed. Diverse perspectives, not pristine isolation.
-  \item \textbf{Activation threshold.} 90\% miner signaling minimum. Below 80\% is dangerous; below 60\% is reckless (see \sect{3.4} box).
-  \item \textbf{Chain-split risk assessment.} Hashrate distribution, economic-node support, replay-protection rationale, and a written contingency plan.
-  \item \textbf{Self-executing sunset.} A ``temporary'' proposal must auto-deactivate at a defined block height. Anything else is permanence with extra steps.
-  \item \textbf{Hard-fork standards.} Scheduled: five-year horizon. Emergency (vulnerability-driven): documented threat, compressed expert review, near-unanimous infrastructure coordination, replay protection where a minority holds out.
+  \item \textbf{A complete proposal} (\sect{3.1}). A problem statement backed by data, a full technical specification, a backward-compatibility analysis, the activation mechanism, a rollback path, and reference code with tests.
+  \item \textbf{Review time scaled to risk} (\sect{3.2}):
+  \begin{itemize}[topsep=2pt, itemsep=1pt, parsep=0pt, leftmargin=1.4em]
+    \item a soft fork that only \textit{adds} rules (e.g.,~Taproot)\,---\,twelve months minimum;
+    \item a soft fork that \textit{invalidates} existing transactions (e.g.,~BIP-110)\,---\,twenty-four months;
+    \item a hard fork\,---\,five years if scheduled, or a threat-calibrated fast track for a genuine emergency (\sect{3.7}).
+  \end{itemize}
+  The floors are sized to how long the network actually takes to upgrade, not picked for effect.
+  \item \textbf{Independent review} (\sect{3.3}). At least three developers from different organizations, with any prior collaboration disclosed\,---\,diverse perspectives, not pristine isolation.
+  \item \textbf{A safe activation threshold} (\sect{3.4}). Ninety percent miner signaling at the floor; below eighty is dangerous, below sixty reckless.
+  \item \textbf{A chain-split risk assessment} (\sect{3.5}). Who holds the hashrate, whether economic nodes are on board, the rationale for any absent replay protection, and a written contingency plan.
+  \item \textbf{A self-executing sunset} (\sect{3.6}). Anything called ``temporary'' must expire on its own at a set block height\,---\,otherwise it is permanence with extra steps.
+  \item \textbf{A higher bar for hard forks} (\sect{3.7}). Scheduled ones get years of runway; an emergency must document the threat, compress review under named experts, and line up nearly every major operator before it ships.
 \end{enumerate}
 
-The standards are not enforceable by code\,---\,Bitcoin has no enforcer. They are a benchmark. A proposal that meets them deserves serious engagement; one that doesn't should be treated skeptically, no matter who is championing it.
+None of this is enforced by code\,---\,Bitcoin has no enforcer. It is a benchmark: a proposal that clears the gates deserves serious engagement; one that does not should draw skepticism, whoever is championing it.
 \end{plainenglish}
 
 % =========================================================================
@@ -1098,11 +1105,20 @@ Consider, then, a change from the camp opposite BIP-110's: a hypothetical \texti
 
 This is the cleaner demonstration. BIP-110 restricts block-space demand and scores Red; SegWit2x and this hypothetical would expand it and score Red too\,---\,but the hypothetical, being itself a soft fork, removes the hard-fork structure that over-determined the SegWit2x result and removes the camp alignment that made it the easy case. What remains is a change the author's own economic interest favors, opposed by the side BIP-110 sits on, and flagged Red on pure process. A framework that reds the change its author would profit from, on the same criteria it reds the change he would lose by, is measuring readiness and nothing else. That is a claim about internal consistency\,---\,the same facts score the same way whoever profits\,---\,not yet a proof of external neutrality, which only an adversarial counter-scoring by other hands can supply; the dissent archive (\sect{5.3}) is where that further test is run.
 
-\needspace{3in}
+\needspace{5in}
 \begin{plainenglish}
 \peheader{Chapter 5 in brief}
 
-Two evaluation tools. \textbf{\sect{5.0}} is a seven-flag quick test\,---\,low threshold, rushed timeline, default-bundled client, undisclosed reviewer ties, untested sunset, conflicted promotion, missing contingency plan\,---\,for spotting reckless proposals on inspection. \textbf{\sect{5.1}} is the formal twenty-criterion checklist across four categories: Proposal Quality (1--5), Code Quality (6--10), Activation Safety (11--15), Community Process (16--20). Score each applicable criterion met / not met (two narrow not-applicable classes drop from the denominator\,---\,\sect{5.2}). \textbf{100\% Green}: ready. \textbf{75--99\% Yellow}: gaps. \textbf{50--74\% Orange}: significant deficiencies. \textbf{Below 50\% Red}: not ready; the independent economic-node response is available (\sect{5.2}). Several criteria are deliberately fuzzy\,---\,``broad economic-node support'' resists mechanical measurement and benefits from being defended in argument, not computed by formula (\sect{5.3}). \sect{5.4} walks the scorecard through Taproot (17/17 applicable, Green), BIP-110 (3/20, Red), SegWit2x (${\approx}5/17$ applicable, Red\,---\,the block-size hard fork miners themselves pushed), and, as the cleanest internal-consistency test, a hypothetical rushed pro-data \textit{soft fork} that scores Red on pure process despite serving the author's own fee interest.
+Chapter 5 turns the framework into two tools.
+
+\begin{itemize}[topsep=3pt, itemsep=3pt, parsep=1pt, leftmargin=1.4em]
+  \item \textbf{A quick test} (\sect{5.0}). Seven red flags you can spot on sight\,---\,a threshold below 80\%, a roughly six-week timeline, a client bundled into a default release stream, undisclosed reviewer ties, an untested sunset, conflicted promotion, and no contingency plan. Trip two or more and the proposal needs the full evaluation.
+  \item \textbf{A readiness checklist} (\sect{5.1}). Twenty yes-or-no criteria in four groups\,---\,Proposal Quality (1--5), Code Quality (6--10), Activation Safety (11--15), and Community Process (16--20). Score each applicable criterion met or not met; two narrow classes drop from the count (\sect{5.2}). A few criteria are deliberately fuzzy\,---\,``broad economic-node support'' is argued from the evidence, not computed from a formula (\sect{5.3}).
+\end{itemize}
+
+Read the share of criteria met as a band: \textbf{Green} (100\%) ready for activation signaling; \textbf{Yellow} (75--99\%) gaps to close first; \textbf{Orange} (50--74\%) serious deficiencies; \textbf{Red} (below 50\%) not ready, with the independent economic-node response on the table (\sect{5.2}).
+
+\sect{5.4} works the scorecard through four proposals: \textbf{Taproot 17/17\,---\,Green}, \textbf{BIP-110 3/20\,---\,Red}, \textbf{SegWit2x ${\approx}5/17$\,---\,Red} (the block-size hard fork miners themselves pushed), and a hypothetical rushed pro-data \textit{soft fork} that also scores \textbf{Red} despite serving the author's own fee interest\,---\,the cleanest proof the framework measures process, not preference.
 \end{plainenglish}
 
 % =========================================================================
