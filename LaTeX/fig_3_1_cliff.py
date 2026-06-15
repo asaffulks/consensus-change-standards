@@ -52,7 +52,7 @@ for xc, lab in [(0.55, "reckless"), (0.70, "presumptively\ndangerous"), (0.945, 
 ax.set_xlim(0.50, 1.0)
 ax.set_ylim(1e-9, 4)
 ax.set_xlabel("Enforcing hashrate share at activation (E)")
-ax.set_ylabel("P(non-enforcing chain leads by six\nblocks during activation)")
+ax.set_ylabel("Probability of a six-block reorg\nduring activation")
 ax.grid(axis="y", which="major", color="#cccccc", lw=0.4)
 for s in ["top", "right"]:
     ax.spines[s].set_visible(False)
