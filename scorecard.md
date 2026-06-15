@@ -85,4 +85,4 @@ algorithmic. Cite the edition and version evaluated against (Appendix B.4).
 ---
 
 Licensed CC BY 4.0. Reference scorings (§5.4): Taproot 17/17 applicable
-(Green); BIP-110 3/20 (Red); SegWit2x ≈ 6/17 applicable (Red).
+(Green); BIP-110 3/20 (Red); SegWit2x ≈ 5/17 applicable (Red).
