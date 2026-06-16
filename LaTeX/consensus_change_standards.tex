@@ -344,7 +344,7 @@ Readers concerned with the question of authority itself\,---\,who decides? what 
 
 Different sections serve different audiences. Protocol developers will find \sect{3} and \sect{5} most directly applicable. Businesses, exchanges, and custodians will find \sect{3.5} and \sect{4} most operationally relevant. Node operators and users will find \sect{6} most useful for evaluating what the framework asks of them and what it does not.
 
-If you read only two things, read \sect{3.4}\,---\,where the chain-split risk turns out to be a computable cliff, not a slope (Figure~\ref{fig:cliff})\,---\,and the worked examples at the head of \sect{5.4} (Figure~\ref{fig:scorecard}), which score Taproot, BIP-110, and a change the author's own mining would profit from against the same criteria.
+If you read only two things, read \sect{3.4}\,---\,where the chain-split risk turns out to be a computable cliff, not a slope (Figure~\ref{fig:cliff})\,---\,and the worked examples at the head of \sect{5.4} (Figure~\ref{fig:scorecard}), which score Taproot, BIP-110, and a change the author's own mining would profit from against the same criteria. Technical terms are defined in the Glossary at the back (p.~\pageref{glossary}); a reader who hits an unfamiliar one can look it up there.
 
 \section{The Absence of Standards}
 
@@ -808,6 +808,12 @@ This section serves the network as a whole by making the legal landscape readabl
 \section{Negligence}
 
 Tort liability for negligence requires a duty of care, a breach of that duty, causation, and damages. The first question is whether the developers of a consensus change activation client owe a duty of care to node operators and users who run their software.
+
+\needspace{2.5in}
+\begin{plainenglish}
+\peheader{Worked example: how the law below reaches a real person}
+Picture a node operator\,---\,say, a small exchange's infrastructure lead\,---\,who upgrades Bitcoin Knots through the routine version menu (\sect{1.3}), takes the activation client's stated ``broad community support'' at face value, and begins enforcing the new rules. Enforcement turns out to run far below the share the rules needed: her node follows what becomes the minority chain, a six-block reorganization unwinds a deposit her exchange had already credited as final, and a customer's funds vanish with it. Nothing here is exotic\,---\,it is the \sect{3.4} cliff happening to a real person. The rest of this section walks the law that decides whether she has a claim against the people who shipped and promoted that client\,---\,the duty question, the economic-loss rule, and the negligent-misrepresentation route around it (Restatement \S~552)\,---\,and the same law's answer: a developer who met the Section~3 standards has the documented defense (\sect{4.0}).
+\end{plainenglish}
 
 Under traditional tort principles, a person who creates a dangerous instrumentality and places it into the stream of commerce owes a duty of care to foreseeable users. An activation client for a Bitcoin consensus change is software that, if defective, can cause direct financial harm to its users. The analogy to products liability is imperfect\,---\,most activation clients are distributed as free, open-source software\,---\,but open-source licenses do not categorically eliminate tort liability, particularly where the developer actively encourages adoption and knows that defects could cause financial loss.
 
@@ -1340,7 +1346,7 @@ The framework becomes useful the day an operator can adopt it without drafting f
 % =========================================================================
 % GLOSSARY
 % =========================================================================
-\chapter{Glossary of Technical Terms}
+\chapter{Glossary of Technical Terms}\label{glossary}
 \markboth{Glossary of Technical Terms}{Glossary of Technical Terms}
 
 \begin{description}[leftmargin=0pt, labelindent=0pt, style=nextline, itemsep=8pt]
