@@ -263,8 +263,8 @@ Available at: \url{asaffulkslaw.com}
 % ACKNOWLEDGMENTS
 % =========================================================================
 \thispagestyle{empty}
+\phantomsection
 \addcontentsline{toc}{chapter}{Acknowledgments}
-\pdfbookmark[0]{Acknowledgments}{ack}
 \vspace*{0.4in}
 \begin{center}
 {\large\itshape Acknowledgments}
@@ -1327,6 +1327,7 @@ The framework becomes useful the day an operator can adopt it without drafting f
 
   \item[UASF (User-Activated Soft Fork).] A soft fork activated by economic nodes enforcing new rules without depending on a miner-signaling threshold being met. BIP-148 is the canonical example. A LOT=true deployment is a hybrid form\,---\,it sets a miner-signaling threshold but forces activation at timeout regardless, so it operates as a UASF when miners do not comply; BIP-110 is of this kind. UASF works only when prior community support is overwhelming; UASF without that support yields the BIP-110 outcome. See \sect{3.4}.
 
+  \enlargethispage{2\baselineskip}
   \item[UTXO (Unspent Transaction Output).] The fundamental unit of Bitcoin ownership: a transaction output that has been received but not yet spent. The complete set of UTXOs at a given block height\,---\,the ``UTXO set''\,---\,defines all spendable Bitcoin at that moment.
 \end{description}
 
