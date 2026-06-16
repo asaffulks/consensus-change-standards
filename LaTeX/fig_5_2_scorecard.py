@@ -1,4 +1,4 @@
-# fig_5_1_scorecard.py  ->  fig-5-1-scorecard.pdf / .png
+# fig_5_1_scorecard.py  ->  fig-5-2-scorecard.pdf / .png
 # Figure 5.1: the worked-example verdict at a glance.
 # Three proposals plotted on a "% of applicable criteria met" axis whose four
 # zones reuse Sec 5.2's band cut-points (Red <50, Orange 50-74, Yellow 75-99,
@@ -100,6 +100,6 @@ for s in axg.spines.values():
     s.set_visible(False)
 
 fig.tight_layout()
-fig.savefig("fig-5-1-scorecard.pdf", bbox_inches="tight")
-fig.savefig("fig-5-1-scorecard.png", dpi=200, bbox_inches="tight")
+fig.savefig("fig-5-2-scorecard.pdf", bbox_inches="tight")
+fig.savefig("fig-5-2-scorecard.png", dpi=200, bbox_inches="tight")
 print("fig 5.1 scorecard done")
