@@ -38,7 +38,7 @@ No other not-applicable scoring is permitted.
 |---|-----------|:---:|:---:|:---:|
 | 6 | ≥ 3 expert reviewers from distinct organizations; prior collaboration disclosed. | ☐ | ☐ | — |
 | 7 | Comprehensive unit, integration, and regression tests. | ☐ | ☐ | — |
-| 8 | Testnet deployment ≥ 3 months; deactivation tested if sunset included. | ☐ | ☐ | — |
+| 8 | Test-network deployment (signet or testnet) ≥ 3 months; deactivation tested if sunset included. | ☐ | ☐ | — |
 | 9 | Fuzzing and adversarial testing performed. | ☐ | ☐ | — |
 | 10 | Named human reviewer attests comprehension of consensus-critical code. | ☐ | ☐ | — |
 
