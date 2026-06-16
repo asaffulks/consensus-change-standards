@@ -69,6 +69,7 @@
 % Colors (mirrors Studio book)
 \definecolor{chaptergray}{RGB}{80, 80, 80}
 \definecolor{sectioncolor}{RGB}{40, 40, 40}
+\definecolor{bitcoinorange}{HTML}{F7931A}
 
 % Chapter title formatting
 \titleformat{\chapter}[display]
@@ -293,6 +294,12 @@ Per the disclosure standard this paper proposes (\sect{3.3}): Murch is a BIP edi
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
 \markboth{Abstract}{Abstract}
+
+\begin{tcolorbox}[colback=bitcoinorange!6, colframe=bitcoinorange!60, boxrule=0.7pt,
+  arc=2.5pt, left=10pt, right=10pt, top=8pt, bottom=8pt, before skip=2pt, after skip=12pt]
+{\centering
+At 55\% hashrate enforcement, the chance of a six-block reorganization during activation is roughly \textbf{thirty percent}. By 90\% or above it is \textbf{effectively zero}\,---\,five to seven orders of magnitude lower. The catastrophic failure mode of a consensus change is \textbf{computable}, and much of the governance argument is a fight over that one number.\par}
+\end{tcolorbox}
 
 Bitcoin has no formal process for evaluating proposed changes to its consensus rules. The Bitcoin Improvement Proposal (BIP) system provides a way to propose changes, but sets no minimum standards a proposal must meet before the community considers activation. There are no required review periods, no mandatory code audit standards, no agreed-upon activation thresholds, no chain split risk assessment methodology, and no framework for evaluating the legal and economic consequences of a failed activation.
 
@@ -673,6 +680,13 @@ A proposal that describes itself as temporary but requires active intervention t
 
 The framework's general standards treat Category 4 (Hard Forks) as a single category requiring the highest scrutiny. In practice, hard forks fall into two extremes with opposite governance properties, and a single set of standards cannot accommodate both. The framework therefore distinguishes them: subtype 4a, the scheduled hard fork, and subtype 4b, the emergency hard fork. Each carries its own standards. The Category 4 text gestures at the emergency case by example (``a critical security vulnerability discovered in the deployed protocol'') but, applied uniformly, would impose a thirty-six-month review period on a vulnerability that cannot wait three years. The subtype distinction resolves that tension.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{fig-3-2-forktypes.pdf}
+\caption{Soft fork versus hard fork, as a relationship between sets of valid blocks. A soft fork \textit{tightens} the rules, so every block valid under the new rules is still valid under the old (a strict subset); un-upgraded nodes keep accepting the upgraded chain, and a split occurs only if too little hashrate enforces the change (\sect{3.4}). A hard fork \textit{expands} the set of valid blocks, so the new rules accept blocks the old rules reject; un-upgraded nodes reject those blocks, producing a split unless every node upgrades\,---\,which is why replay protection matters. The minimum review-period floors scale with that risk.}
+\label{fig:forktypes}
+\end{figure}
+
 \subsection*{4a --- Scheduled Hard Fork}
 
 A scheduled hard fork has a deployment horizon measured in years from initial proposal to activation. The defining property is that time is the principal asset: organic node-upgrade cycles can do most of the coordination work if the deployment window is long enough. Empirical analysis of historical node-upgrade rates (see \sect{1.5}) shows 95\% node-operator adoption taking roughly two years, possibly three for the most recent releases; a five-year window is set deliberately above even that upper estimate, to leave margin for the slower upgrade dynamics a hard fork's higher stakes invite and to absorb the change without active coordination. A scheduled hard fork that takes advantage of this property can be deployed with much less coordination burden than an accelerated hard fork attempt, because the upgrade arrives organically through routine maintenance cycles.
@@ -757,6 +771,13 @@ The legal implications of Bitcoin consensus changes are largely unexplored. This
 This section analyzes the legal-risk landscape that already exists, whether developers acknowledge it or not. It is not an invitation to litigation. It is a map of the terrain\,---\,drawn so participants, developers included, can navigate it with informed caution rather than unknowing exposure.
 
 A developer who follows the Section~3 standards has a strong defense against every theory analyzed below. The legal analysis is best read in that light: as a description of what good-faith developers can demonstrate they have met, not as a catalog of theories under which they might be pursued. Section~3 is the safety standard; Section~4 is the case for why following the standard is itself the best protection against the liability theories that already exist in tort and contract law. The relationship runs in both directions. The scorecard of Section~5 turns those standards into a dated, public record; where a change is activated against a documented finding that it was unready, that record supplies the notice and foreseeability the theories below depend on. Compliance is the defense; the score is the exposure.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{fig-4-1-deterrence.pdf}
+\caption{How a readiness score becomes legal consequence. The framework's force is deterrence, not enforcement (\sect{4.0}, \sect{5.2}, \sect{6.5}): a documented Red score is a dated, public record of a proposal's deficiencies, and that record supplies the notice and foreseeability the negligence and negligent-misrepresentation theories of \sect{4.1} depend on, should the change be activated anyway and cause loss. Following the standard produces the opposite record\,---\,documented diligence that is itself the defense. The figure traces the paper's conditional argument; it asserts no liability outcome.}
+\label{fig:deterrence}
+\end{figure}
 
 This section serves the network as a whole by making the legal landscape readable to every stakeholder\,---\,operators, exchanges, custodians, and developers\,---\,who must reckon with it without specialized training. Litigation against developers acting in good faith would harm the protocol and the community; the framework's purpose is to make such litigation less likely by setting a documented standard of care that conduct can be measured against in advance.
 
@@ -1033,6 +1054,13 @@ To make that commitment more than a promise, the archive opens here, with the st
 
 \clearpage
 \section{Worked Examples: Taproot, BIP-110, SegWit2x, and a Neutrality Test}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{fig-5-1-scorecard.pdf}
+\caption{The worked examples at a glance. Each proposal is placed by the share of applicable criteria it meets, against the band thresholds of \sect{5.2}; the grid below breaks the two table-scored proposals into the four criteria groups. Taproot meets every applicable criterion (criterion 12 is structural and criteria 19--20 postdate its activation, so the three fall from the denominator); BIP-110's three met criteria sit entirely within Proposal Quality; SegWit2x is a hard fork scored in prose at roughly five of seventeen. The criterion-by-criterion detail follows in the table.}
+\label{fig:scorecard}
+\end{figure}
 
 The twenty criteria yield concrete classifications when applied to specific proposals. This section walks the criteria through three proposals: Taproot, which activated in November 2021 after years of review; BIP-110, whose late-2025 activation-client release attracted voluntary block-signaling of well under one percent; and SegWit2x, the 2017 block-size hard fork a coalition of miners and exchanges pushed and then withdrew. The first two are scored criterion by criterion in the table below; the third, and a fourth hypothetical example that follows it, are examined in prose, because together they test whether the framework measures process or just the author's preference. The resulting scores\,---\,Taproot 17/17 on applicable criteria, BIP-110 3/20, SegWit2x roughly five of seventeen applicable\,---\,reflect categorically different framework readiness.
 
