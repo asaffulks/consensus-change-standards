@@ -46,8 +46,11 @@ ax.annotate(pts[2][2], xy=(pts[2][0], pts[2][1]), xytext=(0.88, 3.5e-7),
 ax.annotate(pts[3][2], xy=(pts[3][0], pts[3][1]), xytext=(0.935, 5.5e-9),
             fontsize=8, ha="right", va="center", arrowprops=lead)
 
-for xc, lab in [(0.55, "reckless"), (0.70, "presumptively\ndangerous"), (0.945, "safe")]:
-    ax.text(xc, 2.0, lab, ha="center", fontsize=7.5, color="#444444")
+# band labels as a single-line header row just above the plot box
+htrans = ax.get_xaxis_transform()  # x in data coords, y in axes-fraction
+for xc, lab in [(0.55, "reckless"), (0.70, "presumptively dangerous"), (0.945, "safe")]:
+    ax.text(xc, 1.03, lab, transform=htrans, ha="center", va="bottom",
+            fontsize=7.5, color="#444444", clip_on=False)
 
 ax.set_xlim(0.50, 1.0)
 ax.set_ylim(1e-9, 4)
@@ -57,7 +60,7 @@ ax.grid(axis="y", which="major", color="#cccccc", lw=0.4)
 for s in ["top", "right"]:
     ax.spines[s].set_visible(False)
 
-fig.tight_layout()
+fig.tight_layout(rect=[0, 0, 1, 0.92])  # reserve a top strip for the band header
 fig.savefig("fig-3-1-cliff.pdf")
 fig.savefig("fig-3-1-cliff.png", dpi=200)
 print("fig 3.1 done")

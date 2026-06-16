@@ -34,8 +34,11 @@ axg = fig.add_subplot(gs[1])
 for x0, x1, c in [(0, 50, RED), (50, 75, ORANGE), (75, 100, YELLOW)]:
     ax.axvspan(x0, x1, color=c, alpha=BAND_ALPHA, lw=0)
 ax.axvspan(99.4, 100, color=GREEN, alpha=0.45, lw=0)          # Green is the 100% line
+# band labels as a header row just above the box (sits in the existing title-to-box gap)
+htrans = ax.get_xaxis_transform()  # x in data coords, y in axes-fraction
 for xc, lab in [(25, "RED"), (62.5, "ORANGE"), (87, "YELLOW"), (100, "GREEN")]:
-    ax.text(xc, 3.66, lab, ha="center", va="bottom", fontsize=7.2, color="#666666")
+    ax.text(xc, 1.015, lab, transform=htrans, ha="center", va="bottom",
+            fontsize=7.2, color="#666666", clip_on=False)
 
 # name, percent, fraction label, band color
 rows = [
