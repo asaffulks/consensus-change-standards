@@ -25,7 +25,7 @@ ROUTES = [
     ("Fiduciary\nduty", "§4.3",
      "Unsettled, but Tulip Trading (UK Court of Appeal, 2023) confirmed the question is\njusticiable (claim discontinued 2024); the developer's process determines the answer."),
     ("Pool\noperators", "§4.4",
-     "Signaling on behalf of connected miners is a decision pools owe care over,\nreachable on contract or implied-covenant theories."),
+     "Pools owe care over signaling, but broad-discretion pool terms blunt the\ncontract/covenant route; exposure runs through what the pool tells its miners."),
     ("Regulatory &\nexchange", "§4.5",
      "Splits trigger income recognition on forked coins (Rev. Rul. 2019-24), custodial\nconflicts, and exchange listing calls — not hypothetical; this happened in 2017."),
 ]
