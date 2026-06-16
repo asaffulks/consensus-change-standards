@@ -44,11 +44,12 @@ ax.add_patch(Circle((7.05, 3.05), 1.12, facecolor=GRAY, alpha=0.30, edgecolor=ED
 ax.add_patch(Circle((8.15, 3.05), 1.12, facecolor=RED, alpha=0.40, edgecolor=EDGE, lw=1.1))
 ax.text(6.62, 3.05, "OLD\nrules", ha="center", va="center", fontsize=7.4, color="#555555")
 ax.text(8.58, 3.05, "NEW\nrules", ha="center", va="center", fontsize=7.4, color=INK)
-# callout lifted clear ABOVE the circle (top at y=4.17) so the red text never
-# touches the red arc; the leader then reaches down into the right red crescent
-# (the blocks valid under NEW that OLD rejects -> the split-off set).
-ax.text(8.95, 4.78, "blocks old nodes\nreject — they split off", ha="center", va="center", fontsize=6.9, color=RED)
-ax.annotate("", xy=(8.85, 3.68), xytext=(8.93, 4.46),
+# callout sits in the open band BETWEEN the "HARD FORK" header (baseline y=5.0)
+# and the NEW-rules circle (top y=4.17): low enough not to ride the header, high
+# enough not to touch the red arc; the leader reaches down into the right red
+# crescent (the blocks valid under NEW that OLD rejects -> the split-off set).
+ax.text(8.95, 4.58, "blocks old nodes\nreject — they split off", ha="center", va="center", fontsize=6.9, color=RED)
+ax.annotate("", xy=(8.85, 3.68), xytext=(8.92, 4.26),
             arrowprops=dict(arrowstyle="-", color=RED, lw=0.7))
 ax.text(7.55, 1.28, "New rules accept blocks old rules reject — old\nnodes reject them. A split unless all upgrade;\nneeds replay protection.",
         ha="center", va="top", fontsize=7.3, color=INK)
