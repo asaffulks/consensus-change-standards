@@ -14,6 +14,12 @@ version is available in this repository as `scorecard.pdf`.
 > construction, satisfy criteria 8, 15, or 16; it is evaluated directly
 > against the subtype 4b standards, not scored here.
 
+> **What this measures.** Readiness against a published standard — nothing
+> more. A completed scorecard records one evaluator's reading; it binds no one,
+> mandates nothing, and confers no authority to block a change. Each node
+> operator decides independently whether to run any consensus change (§6.7); a
+> score's only force is the strength of the reasons it documents (§5.3).
+
 Mark each criterion **Met** or **Not met**. Two narrow classes of criterion
 are excluded from both numerator and denominator (§5.2): **temporal**
 (criteria 19 and 20 cannot fairly be applied to a proposal that activated
