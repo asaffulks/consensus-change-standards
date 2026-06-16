@@ -28,8 +28,7 @@ This paper proposes a comprehensive framework — including a 20-point Consensus
 
 **Current — Fourth Edition (June 2026):**
 
-- [**Consensus Change Standards, Fourth Edition** (PDF)](consensus_change_standards_v4.pdf) — citation target
-- [**Executive Brief** (2-page PDF)](consensus_change_standards_brief_v4.pdf) — the thesis, the scorecard, and the legal and antitrust bottom lines in two pages, for policymakers and readers who want the gist first
+- [**Consensus Change Standards, Fourth Edition** (PDF)](consensus_change_standards_v4.pdf) — citation target; the front-matter *Summary for Policymakers* gives the two-page gist
 - [LaTeX source](LaTeX/consensus_change_standards.tex) — for redline contributions and direct editing
 - [Standalone scorecard](scorecard.md) ([fillable PDF](scorecard.pdf)) — the §5.1 readiness checklist, ready to apply
 - [Changelog](CHANGELOG.md) — per-revision change record

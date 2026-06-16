@@ -325,6 +325,37 @@ The author is a practicing litigator, solo Bitcoin miner, full node operator, an
 
 \cleardoublepage
 
+% =========================================================================
+% SUMMARY FOR POLICYMAKERS  (the former standalone executive brief, folded in)
+% =========================================================================
+\chapter*{Summary for Policymakers}
+\phantomsection
+\addcontentsline{toc}{chapter}{Summary for Policymakers}
+\markboth{Summary for Policymakers}{Summary for Policymakers}
+
+{\itshape A one-page summary for policymakers, operators, and time-pressed readers. It summarizes; the paper, its authorities, and its caveats govern.}
+
+\vspace{8pt}
+
+The catastrophic failure mode of a Bitcoin consensus change\,---\,a permanent chain split\,---\,has a \textbf{computable} probability: at 55\% hashrate enforcement the chance of a six-block reorganization during activation is roughly thirty percent; by 90\% or above it is effectively zero. Much of the governance argument is a fight over that one number, and this framework builds on quantifying it.
+
+\textbf{What this is.} A neutral, public \textbf{20-criterion readiness checklist} for judging whether a proposed change to Bitcoin's shared consensus rules has been adequately reviewed before it goes live. The criteria fall in four groups\,---\,Proposal Quality, Code Quality, Activation Safety, and Community Process\,---\,and a proposal is scored Green / Yellow / Orange / Red on the share it meets. It is \textbf{not} a proposed law and \textbf{not} a change to Bitcoin's code; it sets standards for the \emph{process} by which changes are evaluated, debated, and adopted or rejected. It is procedurally neutral\,---\,the same standards apply whether a change would liberalize Bitcoin's policy or restrict it.
+
+\textbf{What it found.}
+
+\begin{center}
+\includegraphics[width=0.82\linewidth]{fig-5-2-scorecard.pdf}
+\end{center}
+
+\vspace{-2pt}
+Applied to real proposals: \textbf{Taproot scores 17/17 (Green)}; \textbf{BIP-110 scores 3/20 (Red)}; and \textbf{SegWit2x scores roughly 5/17 (Red)}. To show the framework measures \emph{process, not preference}, it also scores a hypothetical change the author's own mining revenue would favor\,---\,and that change scores Red too.
+
+\textbf{Why a policymaker should care.} A rushed change that ignores documented red flags is not just a technical risk\,---\,it is a \textbf{legal} one. The framework's force is \textbf{deterrence, not enforcement}: a documented Red score is a dated, public record that supplies the \emph{notice} and \emph{foreseeability} the negligence and negligent-misrepresentation theories of the legal analysis (Section~4) depend on, should a change be activated anyway and cause loss. The flip side is the protection: \textbf{following the standard is itself the defense.} Compliance is the defense; the score is the exposure.
+
+\textbf{Is it a cartel?} No. The framework \textbf{binds no one and asks for no agreement}: it publishes criteria each operator applies \emph{unilaterally} to the listing, custody, and risk decisions it already makes. Independent parallel conduct on published criteria is not a Sherman Act violation; only an actual \emph{agreement} to refuse would raise the antitrust concern\,---\,the posture the framework is designed never to form, and the model adoption language (Appendix~B) is drafted accordingly.
+
+\cleardoublepage
+
 \mainmatter
 
 % =========================================================================
@@ -799,6 +830,10 @@ A developer who follows the Section~3 standards has a strong defense against eve
 
 This section serves the network as a whole by making the legal landscape readable to every stakeholder\,---\,operators, exchanges, custodians, and developers\,---\,who must reckon with it without specialized training. Litigation against developers acting in good faith would harm the protocol and the community; the framework's purpose is to make such litigation less likely by setting a documented standard of care that conduct can be measured against in advance.
 
+\section{Negligence}
+
+Tort liability for negligence requires a duty of care, a breach of that duty, causation, and damages. The first question is whether the developers of a consensus change activation client owe a duty of care to node operators and users who run their software.
+
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{fig-4-2-routes.pdf}
@@ -806,17 +841,13 @@ This section serves the network as a whole by making the legal landscape readabl
 \label{fig:routes}
 \end{figure}
 
-\section{Negligence}
+Under traditional tort principles, a person who creates a dangerous instrumentality and places it into the stream of commerce owes a duty of care to foreseeable users. An activation client for a Bitcoin consensus change is software that, if defective, can cause direct financial harm to its users. The analogy to products liability is imperfect\,---\,most activation clients are distributed as free, open-source software\,---\,but open-source licenses do not categorically eliminate tort liability, particularly where the developer actively encourages adoption and knows that defects could cause financial loss.
 
-Tort liability for negligence requires a duty of care, a breach of that duty, causation, and damages. The first question is whether the developers of a consensus change activation client owe a duty of care to node operators and users who run their software.
-
-\needspace{2.5in}
+\needspace{1.6in}
 \begin{plainenglish}
 \peheader{Worked example: how the law below reaches a real person}
-Picture a node operator\,---\,say, a small exchange's infrastructure lead\,---\,who upgrades Bitcoin Knots through the routine version menu (\sect{1.3}), takes the activation client's stated ``broad community support'' at face value, and begins enforcing the new rules. Enforcement turns out to run far below the share the rules needed: her node follows what becomes the minority chain, a six-block reorganization unwinds a deposit her exchange had already credited as final, and a customer's funds vanish with it. Nothing here is exotic\,---\,it is the \sect{3.4} cliff happening to a real person. The rest of this section walks the law that decides whether she has a claim against the people who shipped and promoted that client\,---\,the duty question, the economic-loss rule, and the negligent-misrepresentation route around it (Restatement \S~552)\,---\,and the same law's answer: a developer who met the Section~3 standards has the documented defense (\sect{4.0}).
+Picture a node operator\,---\,say, a small exchange's infrastructure lead\,---\,who upgrades Bitcoin Knots through the routine version menu (\sect{1.3}), takes the activation client's stated ``broad community support'' at face value, and begins enforcing the new rules. Enforcement turns out to run far below the share the rules needed: her node follows what becomes the minority chain, a six-block reorganization unwinds a deposit her exchange had already credited as final, and a customer's funds vanish with it. Nothing here is exotic\,---\,it is the \sect{3.4} cliff happening to a real person. The duty question is the one just above; what remains is the law that decides whether she actually has a claim against the people who shipped and promoted that client\,---\,the economic-loss rule and the negligent-misrepresentation route around it (Restatement \S~552)\,---\,and the same law's answer: a developer who met the Section~3 standards has the documented defense (\sect{4.0}).
 \end{plainenglish}
-
-Under traditional tort principles, a person who creates a dangerous instrumentality and places it into the stream of commerce owes a duty of care to foreseeable users. An activation client for a Bitcoin consensus change is software that, if defective, can cause direct financial harm to its users. The analogy to products liability is imperfect\,---\,most activation clients are distributed as free, open-source software\,---\,but open-source licenses do not categorically eliminate tort liability, particularly where the developer actively encourages adoption and knows that defects could cause financial loss.
 
 A second doctrinal obstacle is worth noting. California's economic loss rule generally bars recovery in tort for purely economic harm absent physical injury, property damage, or a special relationship giving rise to an independent duty. See \textit{Aas v.~Superior Court}, 24 Cal.4th 627 (2000); the rule's continued vitality\,---\,and the narrowness of its exceptions\,---\,was reaffirmed in \textit{Sheen v.~Wells Fargo Bank, N.A.}, 12 Cal.5th 905 (2022). The rule is a real obstacle to a negligence theory against open-source developers whose users hold no contract with them and whose harm is financial rather than physical.
 
