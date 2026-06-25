@@ -8,6 +8,10 @@
 
 [![DOI](https://zenodo.org/badge/1201730460.svg)](https://doi.org/10.5281/zenodo.20651832)
 
+### 🟢 [Try the interactive scorecard →](https://asaffulks.github.io/consensus-change-standards/scorecard/)
+
+Score any proposed Bitcoin consensus change against the 20-criterion §5.1 readiness standard, live in your browser — Red/Yellow/Green classification, Taproot and BIP-110 preloaded. *(Source: [`docs/scorecard/index.html`](docs/scorecard/index.html).)*
+
 ---
 
 Bitcoin has no formal process for evaluating proposed changes to its consensus rules. The BIP system provides a mechanism for proposing changes, but establishes no minimum standards that a proposal must meet before the community considers activation. There are no required review periods, no mandatory code audit standards, no agreed-upon activation thresholds, and no framework for evaluating the legal and economic consequences of a failed activation.
