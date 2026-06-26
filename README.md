@@ -10,7 +10,7 @@
 
 ### 🟢 [Try the interactive scorecard →](https://asaffulks.github.io/consensus-change-standards/scorecard/)
 
-Score any proposed Bitcoin consensus change against the 20-criterion §5.1 readiness standard, live in your browser — Red/Yellow/Green classification, Taproot and BIP-110 preloaded. *(Source: [`docs/scorecard/index.html`](docs/scorecard/index.html).)*
+Score any proposed Bitcoin consensus change against the 20-criterion §5.1 readiness standard, live in your browser — Green/Yellow/Orange/Red classification, Taproot and BIP-110 preloaded. *(Source: [`docs/scorecard/index.html`](docs/scorecard/index.html).)*
 
 ---
 
