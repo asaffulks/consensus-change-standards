@@ -53,9 +53,21 @@ fixes, and all BIP-110 status language re-anchored to its block schedule.
   opposition); the copyright-page disclaimer states the process/merits split.
 - Northwest Wholesale gloss, Robinson/Rattagan privity context, and the
   Rev. Rul. 2019-24 parenthetical tightened to their holdings.
-- Record-keeping: SegWit2x's prose scoring moved from ≈ 6/17 (v3.1) to
-  ≈ 5/17 applicable in the Fourth Edition; the rescore predates this edition
+- Record-keeping: SegWit2x's prose scoring moved from ≈6/17 (v3.1) to
+  ≈5/17 applicable in the Fourth Edition; the rescore predates this edition
   and is logged here because the v4 entry omitted it.
+- Final-gate pass: §1.2 "first data" corrected to "first inscription"
+  (arbitrary data predates Ordinals) and the restrictive wave's 2025 trigger
+  scoped to its culminating escalation; the Abstract and Summary state the
+  split risk, not the split, as the computable quantity, and frame 55%
+  against successful modern deployments (P2SH's 55% being the failure
+  precedent); §3.4's band boundaries re-anchored to the historical record
+  and the signal-to-enforcement gap rather than curve shape, BIP-91's 80%
+  compulsory-signaling overlay distinguished from a deployment threshold,
+  and the snapshot rationale extended to the margin a 90% signal leaves for
+  signaling-to-enforcement slippage; Figure 2.1's caption states BIP-110's
+  bar endpoint (activation-client release); the Conclusion's
+  evaluation-venues sentence corrected.
 
 ### BIP-110 status (re-anchored, not resolved)
 
@@ -182,7 +194,7 @@ forced-activation analysis, which remains pending its Aug/Sep 2026 window.
   criterion 20 generalized to any published readiness standard.
 - §5.2: classification bands restated as percentages of applicable criteria;
   narrow not-applicable rule added (temporal: 19–20; structural: 11–12).
-  Taproot now 17/17 applicable (Green); SegWit2x ≈ 6/17 (Red); BIP-110 3/20
+  Taproot now 17/17 applicable (Green); SegWit2x ≈6/17 (Red); BIP-110 3/20
   (Red). §5.1 scope note: emergency hard forks (§3.7 4b) evaluated directly
   under 4b standards, not scored.
 
