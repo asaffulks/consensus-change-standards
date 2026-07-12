@@ -1,5 +1,5 @@
-# fig_5_1_scorecard.py  ->  fig-5-2-scorecard.pdf / .png
-# Figure 5.1: the worked-example verdict at a glance.
+# fig_5_2_scorecard.py  ->  fig-5-2-scorecard.pdf / .png
+# Figure 5.2: the worked-example verdict at a glance.
 # Three proposals plotted on a "% of applicable criteria met" axis whose four
 # zones reuse Sec 5.2's band cut-points (Red <50, Orange 50-74, Yellow 75-99,
 # Green 100) -- the same banded visual language as Fig 3.1. A category grid
@@ -105,4 +105,4 @@ for s in axg.spines.values():
 fig.tight_layout()
 fig.savefig("fig-5-2-scorecard.pdf", bbox_inches="tight")
 fig.savefig("fig-5-2-scorecard.png", dpi=200, bbox_inches="tight")
-print("fig 5.1 scorecard done")
+print("fig 5.2 scorecard done")

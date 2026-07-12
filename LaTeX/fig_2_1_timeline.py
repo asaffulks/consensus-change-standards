@@ -27,7 +27,7 @@ LANES = [
     ("SegWit",   2015.92, 2017.65, "20 months", "activated (95%)",              "dot",  None,   GREEN),
     ("SegWit2x", 2017.38, 2017.87, "~6 months", "canceled",                     "x",    None,   RED),
     ("Taproot",  2018.04, 2021.87, "~4 years",  "activated (90%)",              "dot",  None,   GREEN),
-    ("BIP-110",  2025.82, 2025.94, "6 weeks",   "pending, <1% signaling",       "open", 2026.70, GRAY),
+    ("BIP-110",  2025.82, 2025.94, "6 weeks",   "voluntary <1%; forced activation ~Sep 2026", "open", 2026.70, GRAY),
 ]
 
 EDGE = "#555555"
@@ -62,7 +62,7 @@ key = [
     Patch(facecolor=GREEN, alpha=BAR_ALPHA, edgecolor=EDGE, lw=0.8, label="activated"),
     Patch(facecolor=AMBER, alpha=BAR_ALPHA, edgecolor=EDGE, lw=0.8, label="forked, then activated"),
     Patch(facecolor=RED,   alpha=BAR_ALPHA, edgecolor=EDGE, lw=0.8, label="canceled"),
-    Patch(facecolor=GRAY,  alpha=BAR_ALPHA, edgecolor=EDGE, lw=0.8, label="pending"),
+    Patch(facecolor=GRAY,  alpha=BAR_ALPHA, edgecolor=EDGE, lw=0.8, label="pending (July 2026)"),
 ]
 ax.legend(handles=key, loc="lower center", bbox_to_anchor=(0.5, 1.0), ncol=4,
           frameon=False, fontsize=7.3, handlelength=1.1, handleheight=1.0,
