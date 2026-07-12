@@ -53,6 +53,9 @@ fixes, and all BIP-110 status language re-anchored to its block schedule.
   opposition); the copyright-page disclaimer states the process/merits split.
 - Northwest Wholesale gloss, Robinson/Rattagan privity context, and the
   Rev. Rul. 2019-24 parenthetical tightened to their holdings.
+- Record-keeping: SegWit2x's prose scoring moved from ≈ 6/17 (v3.1) to
+  ≈ 5/17 applicable in the Fourth Edition; the rescore predates this edition
+  and is logged here because the v4 entry omitted it.
 
 ### BIP-110 status (re-anchored, not resolved)
 
