@@ -45,7 +45,7 @@ The prior **Fourth Edition** remains available at [consensus_change_standards_v4
 
 > Asaf Fulks, *Consensus Change Standards: A Legal and Technical Framework for Bitcoin Protocol Governance* (5th ed. 2026), asaffulkslaw.com.
 
-Every tagged release is archived on Zenodo. Concept DOI (always resolves to the latest version): [10.5281/zenodo.20651832](https://doi.org/10.5281/zenodo.20651832). This edition's version DOI is minted with the `v5` release tag; the Fourth Edition's is [10.5281/zenodo.20685221](https://doi.org/10.5281/zenodo.20685221).
+Every tagged release is archived on Zenodo. Concept DOI (always resolves to the latest version): [10.5281/zenodo.20651832](https://doi.org/10.5281/zenodo.20651832). This edition's version DOI: [10.5281/zenodo.21327195](https://doi.org/10.5281/zenodo.21327195); the Fourth Edition's is [10.5281/zenodo.20685221](https://doi.org/10.5281/zenodo.20685221).
 
 Machine-readable citation metadata lives in [`CITATION.cff`](CITATION.cff) (GitHub's "Cite this repository" button reads it). Scorings published against this framework should cite the edition and version evaluated against (see Appendix B.4 of the paper), so that results remain comparable as the framework is revised.
 

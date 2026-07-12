@@ -14,6 +14,9 @@ identifiers:
     value: "10.5281/zenodo.20651832"
     description: "Concept DOI (Zenodo) — resolves to the latest archived release"
   - type: doi
+    value: "10.5281/zenodo.21327195"
+    description: "Version DOI (Zenodo) — Fifth Edition"
+  - type: doi
     value: "10.5281/zenodo.20685221"
     description: "Version DOI (Zenodo) — Fourth Edition"
 license: CC-BY-4.0
