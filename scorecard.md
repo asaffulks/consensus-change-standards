@@ -1,13 +1,13 @@
 # Consensus Change Readiness Checklist — Scorecard
 
 From Asaf Fulks, *Consensus Change Standards: A Legal and Technical Framework
-for Bitcoin Protocol Governance* (4th ed. 2026), §5.1. A fillable PDF
+for Bitcoin Protocol Governance* (5th ed. 2026), §5.1. A fillable PDF
 version is available in this repository as `scorecard.pdf`.
 
 **Proposal evaluated:** ____________________
 **Evaluator:** ____________________
 **Date:** ____________________
-**Edition evaluated against:** 4th ed. (2026)
+**Edition evaluated against:** 5th ed. (2026)
 
 > **Scope note.** The checklist evaluates scheduled consensus-change
 > proposals. A genuine emergency hard fork (§3.7, subtype 4b) cannot, by

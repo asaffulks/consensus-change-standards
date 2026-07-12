@@ -1,6 +1,6 @@
 # make_scorecard_pdf.py -> ../scorecard.pdf
 # Standalone fillable (AcroForm) scorecard for the Consensus Change Readiness
-# Checklist, 4th ed. (2026), section 5.1. Real checkbox/text widgets.
+# Checklist, 5th ed. (2026), section 5.1. Real checkbox/text widgets.
 import fitz
 
 PAGE_W, PAGE_H = 612, 792  # US Letter
@@ -18,7 +18,7 @@ CRITERIA = [
     ("B. Code Quality", [
         (6, ">= 3 expert reviewers from distinct organizations; prior collaboration disclosed.", False),
         (7, "Comprehensive unit, integration, and regression tests.", False),
-        (8, "Testnet deployment >= 3 months; deactivation tested if sunset included.", False),
+        (8, "Signet/testnet deployment >= 3 months; deactivation tested if sunset included.", False),
         (9, "Fuzzing and adversarial testing performed.", False),
         (10, "Named human reviewer attests comprehension of consensus-critical code.", False),
     ]),
@@ -26,7 +26,7 @@ CRITERIA = [
         (11, "Miner-signaling threshold (where used) >= 90%.", True),
         (12, "UASF (if used) has completed full review and broad economic-node support.", True),
         (13, "Chain-split risk assessment completed and published.", False),
-        (14, "Replay protection, or documented rationale where split impossible absent defection.", False),
+        (14, "Replay protection, or documented rationale where soft fork cannot split absent defection.", False),
         (15, "Signaling only after the review floor elapses; enforcement >= 6 mo after final client.", False),
     ]),
     ("D. Community Process", [
@@ -34,7 +34,7 @@ CRITERIA = [
         (17, "Public discussion across diverse stakeholders.", False),
         (18, "Major exchanges and infrastructure providers consulted.", False),
         (19, "Chain-split contingency plan published by proposal author.", True),
-        (20, "Structured evaluation against a published readiness standard, published or answered.", True),
+        (20, "Structured evaluation against a published readiness standard, published or answered by proponents.", True),
     ]),
 ]
 
@@ -45,7 +45,7 @@ y = MT
 page.insert_text((ML, y), "Consensus Change Readiness Checklist", fontname=SERIF_B, fontsize=15)
 y += 16
 page.insert_text((ML, y),
-                 "Fulks, Consensus Change Standards (4th ed. 2026), Sec. 5.1  |  CC BY 4.0",
+                 "Fulks, Consensus Change Standards (5th ed. 2026), Sec. 5.1  |  CC BY 4.0",
                  fontname=SERIF_I, fontsize=8.5, color=(0.25, 0.25, 0.25))
 y += 18
 
@@ -122,7 +122,7 @@ page.insert_text((ML, y + 9),
                  "Publish the scoring with its evidentiary basis (Sec. 5.3); cite the edition evaluated against (App. B.4).",
                  fontname=SERIF_I, fontsize=8.5, color=(0.25, 0.25, 0.25))
 
-doc.set_metadata({"title": "Consensus Change Readiness Checklist (4th ed.)",
+doc.set_metadata({"title": "Consensus Change Readiness Checklist (5th ed.)",
                   "author": "Asaf Fulks"})
 doc.save("../scorecard.pdf")
 print("scorecard.pdf written, fields:", len(list(page.widgets())))

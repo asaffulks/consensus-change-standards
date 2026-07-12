@@ -4,8 +4,8 @@ title: "Consensus Change Standards: A Legal and Technical Framework for Bitcoin 
 authors:
   - family-names: Fulks
     given-names: Asaf
-version: "4.0"
-date-released: 2026-06-13
+version: "5.0"
+date-released: 2026-07-12
 url: "https://asaffulkslaw.com"
 repository-code: "https://github.com/asaffulks/consensus-change-standards"
 doi: 10.5281/zenodo.20651832
@@ -32,10 +32,10 @@ preferred-citation:
   authors:
     - family-names: Fulks
       given-names: Asaf
-  edition: "Fourth Edition"
+  edition: "Fifth Edition"
   year: 2026
-  month: 6
+  month: 7
   publisher:
     name: "The Forum Press"
   url: "https://asaffulkslaw.com"
-  notes: "Cite as: Asaf Fulks, Consensus Change Standards: A Legal and Technical Framework for Bitcoin Protocol Governance (4th ed. 2026), asaffulkslaw.com."
+  notes: "Cite as: Asaf Fulks, Consensus Change Standards: A Legal and Technical Framework for Bitcoin Protocol Governance (5th ed. 2026), asaffulkslaw.com."

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Consensus Change Readiness Scorecard — Bitcoin protocol governance</title>
-<meta name="description" content="Score a proposed Bitcoin consensus change against a 20-criterion readiness standard. From Consensus Change Standards (Asaf Fulks, 4th ed. 2026).">
+<meta name="description" content="Score a proposed Bitcoin consensus change against a 20-criterion readiness standard. From Consensus Change Standards (Asaf Fulks, 5th ed. 2026).">
 <style>
   :root{
     --bg:#f6f7f9; --card:#ffffff; --ink:#1a1d21; --mut:#5b6470; --line:#e2e6ea;
@@ -95,13 +95,13 @@
   <header class="top">
     <div class="kicker">Bitcoin Protocol Governance</div>
     <h1>Consensus Change Readiness Scorecard</h1>
-    <p class="lede">Score a proposed change to Bitcoin&rsquo;s consensus rules against a published 20-criterion readiness standard. From <a href="https://github.com/asaffulks/consensus-change-standards/raw/main/consensus_change_standards_v4.pdf" target="_blank" rel="noopener">Consensus Change Standards</a> by Asaf Fulks (4th ed. 2026), &sect;5.1. Mark each criterion, and the classification updates live.</p>
+    <p class="lede">Score a proposed change to Bitcoin&rsquo;s consensus rules against a published 20-criterion readiness standard. From <a href="https://github.com/asaffulks/consensus-change-standards/raw/main/consensus_change_standards_v5.pdf" target="_blank" rel="noopener">Consensus Change Standards</a> by Asaf Fulks (5th ed. 2026), &sect;5.1. Mark each criterion, and the classification updates live.</p>
   </header>
 
   <div class="meta">
     <div><label for="prop">Proposal evaluated</label><input id="prop" type="text" placeholder="e.g. BIP-XYZ"></div>
     <div><label for="evalr">Evaluator</label><input id="evalr" type="text" placeholder="Your name / handle"></div>
-    <div><label for="date">Date</label><input id="date" type="text" placeholder="2026-06-24"></div>
+    <div><label for="date">Date</label><input id="date" type="text" placeholder="YYYY-MM-DD"></div>
   </div>
 
   <div class="presets">
@@ -128,8 +128,8 @@
   </div>
 
   <footer>
-    <b>Consensus Change Standards: A Legal and Technical Framework for Bitcoin Protocol Governance</b>, Asaf Fulks (4th ed. 2026).
-    &nbsp;<a href="https://github.com/asaffulks/consensus-change-standards/raw/main/consensus_change_standards_v4.pdf" target="_blank" rel="noopener">Read the paper (free PDF)</a>
+    <b>Consensus Change Standards: A Legal and Technical Framework for Bitcoin Protocol Governance</b>, Asaf Fulks (5th ed. 2026).
+    &nbsp;<a href="https://github.com/asaffulks/consensus-change-standards/raw/main/consensus_change_standards_v5.pdf" target="_blank" rel="noopener">Read the paper (free PDF)</a>
     &middot; <a href="https://github.com/asaffulks/consensus-change-standards" target="_blank" rel="noopener">Repository</a>
     &middot; <a href="https://asaffulkslaw.com/bitcoin-law/consensus-change-standards-a-framework-for-bitcoin-protocol-governance/" target="_blank" rel="noopener">asaffulkslaw.com</a><br>
     This tool is licensed CC&nbsp;BY&nbsp;4.0. Reference scorings (&sect;5.4): Taproot 17/17 applicable (Green); BIP-110 3/20 (Red); SegWit2x &asymp;5/17 applicable (Red, prose-scored in the paper). Cite the edition and version evaluated against.
@@ -266,7 +266,7 @@ document.getElementById('copy').addEventListener('click',()=>{
  const lines=[
   'Consensus Change Readiness Scorecard'+(META.prop?' — '+META.prop:''),
   (META.evalr?'Evaluator: '+META.evalr+'.  ':'')+(META.date?'Date: '+META.date+'.':''),
-  'Scored against Consensus Change Standards (Asaf Fulks, 4th ed. 2026), §5.1.',
+  'Scored against Consensus Change Standards (Asaf Fulks, 5th ed. 2026), §5.1.',
   '',
   'Result: '+t.met+'/'+t.appl+' applicable criteria met ('+pct+'%).  Classification: '+c.label.toUpperCase()+'.',
   c.note,

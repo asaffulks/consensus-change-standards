@@ -1,6 +1,6 @@
 {
   "title": "Consensus Change Standards: A Legal and Technical Framework for Bitcoin Protocol Governance",
-  "description": "Fourth Edition, June 2026. Proposes minimum standards for evaluating Bitcoin consensus-change proposals: submission requirements, tiered minimum review periods, code-audit standards, activation-threshold floors backed by a quantified chain-split risk model grounded in the double-spend / gambler's-ruin literature (Nakamoto §11; Rosenfeld; Grunspan & Pérez-Marco), a 20-criterion readiness scorecard with four worked examples (Taproot, BIP-110, SegWit2x, and a hypothetical data-liberalizing change scored Red as a neutrality test), positioning against the open-standards governance tradition (IETF; PEP→BIP→EIP), a legal-liability analysis (negligence with the economic-loss-rule routes current through S. Cal. Gas Leak Cases (2019), tortious interference, fiduciary duty with both sides of the scholarship, antitrust treatment of the group-boycott line, pool-operator contract exposure, regulatory consequences), a documentary record for the BIP-110 case study, and model adoption policy language for exchanges, mining pools, and node-software platforms.",
+  "description": "Fifth Edition, July 2026. Proposes minimum standards for evaluating Bitcoin consensus-change proposals: submission requirements, tiered minimum review periods, code-audit standards, activation-threshold floors backed by a quantified chain-split risk model grounded in the double-spend / gambler's-ruin literature (Nakamoto §11; Rosenfeld; Grunspan & Pérez-Marco) with the design rationale for computing the floor on the pre-activation signaling snapshot, a split-harm gradient and evidence-anchoring (timestamp-proof) analysis of what a chain split costs non-monetary uses, a 20-criterion readiness scorecard with four worked examples (Taproot, BIP-110, SegWit2x, and a hypothetical data-liberalizing change scored Red as a neutrality test), positioning against the open-standards governance tradition (IETF; PEP→BIP→EIP), a legal-liability analysis (negligence with the economic-loss-rule routes current through S. Cal. Gas Leak Cases (2019), tortious interference, fiduciary duty with both sides of the scholarship, antitrust treatment of the group-boycott line, pool-operator contract exposure, regulatory consequences), a documentary record for the BIP-110 case study, and model adoption policy language for exchanges, mining pools, and node-software platforms.",
   "creators": [
     {
       "name": "Fulks, Asaf"
@@ -10,7 +10,7 @@
   "publication_type": "book",
   "imprint_publisher": "The Forum Press",
   "license": "CC-BY-4.0",
-  "version": "4.0",
+  "version": "5.0",
   "keywords": [
     "Bitcoin",
     "consensus change",

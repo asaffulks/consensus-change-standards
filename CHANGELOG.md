@@ -1,5 +1,70 @@
 # Changelog
 
+## v5 — July 2026 (Fifth Edition)
+
+Fifth Edition. Delivers the §3.4 rationale publicly promised in the paper's
+discussion threads, adds new split-harm analysis, and applies a six-lane
+pre-republication audit: two factual corrections, a set of technical-precision
+fixes, and all BIP-110 status language re-anchored to its block schedule.
+
+### New content
+
+- §3.4: the standard computes its activation floor on the pre-activation
+  signaling snapshot *by design* — the one input observable before the network
+  commits — with the Bitcoin Cash EDA oscillation (Aug–Nov 2017) and
+  minority-chain persistence (ETC since 2016, BCH since 2017) as evidence that
+  post-activation corrections are not guaranteed to run smooth or one way. The
+  §3.4 recap box carries a one-line echo.
+- §1.4: the split-harm gradient — non-monetary data survives a split but gets
+  harder to use; fungible value breaks outright; nothing comes through better
+  off — and a concrete evidence-anchoring case: after a split, a Bitcoin
+  timestamp proof invites a which-chain-counts dispute before the tribunal
+  reaches the proof, and both successor chains' histories get cheaper to
+  rewrite (Ethereum Classic was 51%-attacked three times in August 2020, the
+  deepest attack reorganizing more than 7,000 blocks). The author's
+  timestamping interest is disclosed alongside the §5.4 mining disclosure.
+- §2.2: Jameson Lopp's 2026 block-size retrospective quoted as participant
+  corroboration — his distillation of Bier's answer on who sets the rules, and
+  his private-channels admission; the Conclusion carries his expect-more-battles
+  close. (Acknowledgments note the quotation.)
+
+### Corrections (pre-republication audit)
+
+- The witness-data fee discount is SegWit's (BIP-141 weight accounting), not
+  Taproot's — corrected in §1.2 and the Glossary.
+- §1.4's "most recent significant chain split" superlative corrected to "most
+  damaging," with the July 2015 BIP-66 forks acknowledged.
+- §3.4 precision: most-work (not longest) chain selection; the upper-bound
+  claim scoped to the model's single-race idealization, with fork renewal
+  added to the stated simplifications (a correction that runs against low
+  thresholds); validity vs. chain selection fixed in "The 55% Problem"; k = 6
+  restated as the conventional finality depth.
+- Glossary: the soft-fork entry (valid-block subset; majority-enforcement
+  condition) and the reorganization entry (node behavior, not miner behavior)
+  aligned to the body's usage.
+- §3.2 Category 2 examples reworded to the tightening mechanics; §2.5's
+  SegWit2x threshold cell scoped to the SegWit leg (the 2x fork itself was
+  unconditional); BIP-9 lock-in vs. activation distinguished; the Abstract's
+  BIP-148 credit hedged to match the body; RFC 6410's consolidation noted in
+  §1.5; the "rough consensus and running code" credo credited to David Clark
+  (1992) as RFC 7282 records it.
+- §5.4 and §6.8 aligned to the framework's options-not-instructions posture;
+  §6.8's manufactured-Red guarantee restated (absent support or unaddressed
+  opposition); the copyright-page disclaimer states the process/merits split.
+- Northwest Wholesale gloss, Robinson/Rattagan privity context, and the
+  Rev. Rul. 2019-24 parenthetical tightened to their holdings.
+
+### BIP-110 status (re-anchored, not resolved)
+
+- Every "pending as of this writing" formulation replaced with the block
+  schedule: mandatory signaling at blocks 961,632–963,647 (August 2026),
+  lock-in at 963,648, forced activation at block 965,664 (early September
+  2026); voluntary signaling stayed under one percent through July 2026
+  (fresh tracker capture archived 12 July 2026, Appendix A.9). The outcome
+  itself will be recorded in the post-activation revision, not this one.
+- The Abstract no longer says the paper "is not a BIP": a process-track
+  adaptation of Section 3 is being prepared as a separate document.
+
 ## v4 — June 2026 (Fourth Edition)
 
 Fourth Edition. A scholarship-and-rigor pass closing the gaps a hostile expert
